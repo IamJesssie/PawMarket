@@ -1,0 +1,2070 @@
+{
+  "document_metadata": {
+    "document_type": "Low-Fidelity Wireframe",
+    "project_name": "PawMarket",
+    "date": "March 2026",
+    "version": "v1.0",
+    "description": "A low-fidelity wireframe document for the PawMarket pet shop e-commerce and service management platform",
+    "total_screens": 10,
+    "user_roles": 2,
+    "fidelity_level": "Low-Fi"
+  },
+  "wireframe_legend": {
+    "image_placeholder": "Visual content representation",
+    "primary_button": "Main call-to-action element",
+    "secondary_button": "Alternative action element",
+    "input_field": "User data entry point",
+    "text_lines": "Content section placeholder"
+  },
+  "screens": [
+    {
+      "screen_number": "01",
+      "screen_name": "Home Page",
+      "description": "Landing page with featured products and services",
+      "components": {
+        "navigation": {
+          "type": "sticky_navbar",
+          "elements": [
+            "PawMarket Logo",
+            "Home",
+            "Products",
+            "Grooming",
+            "About",
+            "Contact",
+            "Login",
+            "Cart Icon"
+          ]
+        },
+        "hero_section": {
+          "type": "full_width_banner",
+          "background": "Pet lifestyle photo",
+          "headline": "Headline Text (h1)",
+          "cta_buttons": [
+            {
+              "label": "Shop Now",
+              "type": "primary"
+            },
+            {
+              "label": "Book Grooming",
+              "type": "primary"
+            }
+          ]
+        },
+        "featured_products": {
+          "type": "product_grid",
+          "columns": 4,
+          "header": "Featured Products",
+          "cta_link": "View All →",
+          "products": [
+            {
+              "name": "Dog Food",
+              "price": "$XX.XX",
+              "action": "Add to Cart"
+            },
+            {
+              "name": "Cat Toy",
+              "price": "$XX.XX",
+              "action": "Add to Cart"
+            },
+            {
+              "name": "Pet Bed",
+              "price": "$XX.XX",
+              "action": "Add to Cart"
+            },
+            {
+              "name": "Grooming Kit",
+              "price": "$XX.XX",
+              "action": "Add to Cart"
+            }
+          ],
+          "interaction": "Click card to go to Product Detail"
+        },
+        "shop_by_category": {
+          "type": "category_chips",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish",
+            "Small Pets"
+          ],
+          "functionality": "Filter products by pet type"
+        },
+        "grooming_cta": {
+          "type": "content_section",
+          "title": "Book a Grooming Session",
+          "image": "Grooming Photo",
+          "buttons": [
+            {
+              "label": "Book Appointment",
+              "type": "primary"
+            },
+            {
+              "label": "Learn More",
+              "type": "secondary"
+            }
+          ],
+          "link": "Links to Grooming Booking page"
+        },
+        "customer_reviews": {
+          "type": "review_cards",
+          "content": "Star rating + quote lines + reviewer avatar",
+          "card_count": 3
+        },
+        "newsletter_signup": {
+          "type": "email_subscription",
+          "input": "Enter your email address",
+          "button": "Subscribe"
+        }
+      }
+    },
+    {
+      "screen_number": "02",
+      "screen_name": "User Registration / Login",
+      "description": "Authentication page with tab-based form switching",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "back_link": "Back to Home"
+        },
+        "welcome_section": {
+          "title": "Welcome to PawMarket",
+          "illustration": "Welcome Illustration",
+          "value_propositions": [
+            {
+              "icon": "shopping_bag",
+              "text": "Shop Products"
+            },
+            {
+              "icon": "scissors",
+              "text": "Book Grooming"
+            },
+            {
+              "icon": "package",
+              "text": "Track Orders"
+            },
+            {
+              "icon": "star",
+              "text": "Leave Reviews"
+            }
+          ]
+        },
+        "tabs": {
+          "tab_1": {
+            "name": "Login",
+            "is_default": true,
+            "form_fields": [
+              {
+                "label": "Email Address",
+                "type": "email",
+                "placeholder": "user@example.com"
+              },
+              {
+                "label": "Password",
+                "type": "password",
+                "placeholder": "•••••••••••"
+              }
+            ],
+            "options": [
+              {
+                "label": "Remember me",
+                "type": "checkbox"
+              },
+              {
+                "label": "Forgot password?",
+                "type": "link"
+              }
+            ],
+            "primary_button": "LOGIN",
+            "validation": "Validates email + password; shows error state if wrong",
+            "oauth_options": [
+              "Continue with Google",
+              "Continue with Facebook"
+            ],
+            "alternate_cta": {
+              "text": "Don't have an account? Register →",
+              "type": "link"
+            }
+          },
+          "tab_2": {
+            "name": "Register",
+            "form_fields": [
+              {
+                "label": "First Name",
+                "type": "text",
+                "placeholder": "First Name"
+              },
+              {
+                "label": "Last Name",
+                "type": "text",
+                "placeholder": "Last Name"
+              },
+              {
+                "label": "Email Address",
+                "type": "email",
+                "placeholder": "user@example.com"
+              },
+              {
+                "label": "Phone Number",
+                "type": "tel",
+                "placeholder": "+1 (555) 000-0000"
+              },
+              {
+                "label": "Password",
+                "type": "password",
+                "requirements": "Min 8 characters"
+              },
+              {
+                "label": "Confirm Password",
+                "type": "password",
+                "placeholder": "Re-enter password"
+              },
+              {
+                "label": "Password Strength",
+                "type": "indicator",
+                "example": "Medium strength"
+              }
+            ],
+            "agreement": "I agree to the Terms of Service and Privacy Policy",
+            "primary_button": "CREATE ACCOUNT",
+            "validation": "Validates all fields; sends verification email on success"
+          }
+        }
+      }
+    },
+    {
+      "screen_number": "03",
+      "screen_name": "User Dashboard",
+      "description": "User account overview with orders, appointments, and profile info",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Cart"
+          ],
+          "user_menu": "JD John D. ▾"
+        },
+        "page_title": "My Dashboard",
+        "sidebar_navigation": {
+          "items": [
+            "Overview",
+            "Order History",
+            "Appointments",
+            "Wishlist",
+            "Addresses",
+            "Settings",
+            "Logout"
+          ]
+        },
+        "user_avatar": "Profile picture placeholder",
+        "statistics_cards": [
+          {
+            "label": "Total Orders",
+            "value": 12
+          },
+          {
+            "label": "Pending Orders",
+            "value": 2
+          },
+          {
+            "label": "Appointments",
+            "value": 3
+          },
+          {
+            "label": "Loyalty Points",
+            "value": 480
+          }
+        ],
+        "user_info_summary": {
+          "fields": [
+            "Full Name",
+            "Email",
+            "Phone",
+            "Member Since"
+          ],
+          "action_button": "Edit Profile"
+        },
+        "order_history": {
+          "title": "Order History",
+          "description": "Last 5 orders shown; paginated",
+          "columns": [
+            "Order #",
+            "Date",
+            "Items",
+            "Total",
+            "Status",
+            "Action"
+          ],
+          "sample_data": [
+            {
+              "order_id": "#PM-1042",
+              "date": "Mar 08, 2026",
+              "items": "3 items",
+              "total": "$48.99",
+              "status": "Delivered",
+              "action": "View"
+            },
+            {
+              "order_id": "#PM-1039",
+              "date": "Feb 25, 2026",
+              "items": "1 item",
+              "total": "$22.00",
+              "status": "Delivered",
+              "action": "View"
+            },
+            {
+              "order_id": "#PM-1031",
+              "date": "Feb 10, 2026",
+              "items": "5 items",
+              "total": "$91.50",
+              "status": "Delivered",
+              "action": "View"
+            },
+            {
+              "order_id": "#PM-1028",
+              "date": "Jan 30, 2026",
+              "items": "2 items",
+              "total": "$35.75",
+              "status": "Cancelled",
+              "action": "View"
+            },
+            {
+              "order_id": "#PM-1020",
+              "date": "Jan 12, 2026",
+              "items": "1 item",
+              "total": "$15.00",
+              "status": "Delivered",
+              "action": "View"
+            }
+          ],
+          "view_all_link": "View All Orders"
+        },
+        "grooming_appointments": {
+          "title": "Upcoming Grooming Appointments",
+          "description": "Next scheduled sessions",
+          "action_button": "Book New Appointment",
+          "appointments": [
+            {
+              "date": "Mar 15, 2026",
+              "service": "Full Grooming",
+              "pet": "Buddy (Golden Retriever)",
+              "time": "10:00 AM",
+              "status": "Confirmed",
+              "action": "Reschedule"
+            },
+            {
+              "date": "Mar 28, 2026",
+              "service": "Bath & Dry",
+              "pet": "Luna (Persian Cat)",
+              "time": "2:30 PM",
+              "status": "Pending",
+              "action": "Reschedule"
+            }
+          ]
+        },
+        "recently_wishlisted": {
+          "title": "Recently Wishlisted",
+          "layout": "4 product cards",
+          "actions": [
+            "Add to Cart"
+          ]
+        }
+      }
+    },
+    {
+      "screen_number": "04",
+      "screen_name": "Settings",
+      "description": "Comprehensive account settings management",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "user_menu": "JD John D. ▾"
+        },
+        "page_title": "Account Settings",
+        "sidebar_menu": {
+          "items": [
+            "Profile",
+            "Addresses",
+            "Password & Security",
+            "Notifications",
+            "Payment Methods",
+            "My Pets",
+            "Delete Account"
+          ]
+        },
+        "profile_section": {
+          "title": "Profile Update Form",
+          "photo_upload": {
+            "placeholder": "Photo",
+            "button": "Upload Photo",
+            "specs": "JPG, PNG — Max 2MB"
+          },
+          "form_fields": [
+            {
+              "label": "First Name",
+              "type": "text",
+              "placeholder": "First Name"
+            },
+            {
+              "label": "Last Name",
+              "type": "text",
+              "placeholder": "Last Name"
+            },
+            {
+              "label": "Email Address",
+              "type": "email",
+              "placeholder": "Email"
+            },
+            {
+              "label": "Phone Number",
+              "type": "tel",
+              "placeholder": "Phone"
+            },
+            {
+              "label": "Date of Birth",
+              "type": "date",
+              "placeholder": "MM / DD / YYYY"
+            },
+            {
+              "label": "Gender",
+              "type": "dropdown",
+              "placeholder": "Select gender"
+            }
+          ],
+          "action_buttons": [
+            "Cancel",
+            "Save Changes"
+          ],
+          "note": "Saves to user profile; success toast shown on update"
+        },
+        "address_management": {
+          "title": "Address Management",
+          "description": "Saved delivery addresses",
+          "add_button": "+ Add New Address",
+          "saved_addresses": [
+            {
+              "name": "Home (Default)",
+              "actions": [
+                "Edit",
+                "Delete"
+              ]
+            },
+            {
+              "name": "Work",
+              "actions": [
+                "Edit",
+                "Delete"
+              ]
+            }
+          ],
+          "add_edit_form": {
+            "title": "Add / Edit Address Form",
+            "fields": [
+              {
+                "label": "Full Name",
+                "type": "text"
+              },
+              {
+                "label": "Phone",
+                "type": "tel"
+              },
+              {
+                "label": "Address Line 1",
+                "type": "text",
+                "placeholder": "Street address"
+              },
+              {
+                "label": "Address Line 2",
+                "type": "text",
+                "placeholder": "Apt, Suite, etc."
+              },
+              {
+                "label": "City",
+                "type": "text"
+              },
+              {
+                "label": "State / Province",
+                "type": "text"
+              },
+              {
+                "label": "Zip / Postal Code",
+                "type": "text"
+              },
+              {
+                "label": "Country",
+                "type": "dropdown"
+              }
+            ],
+            "action_buttons": [
+              "Cancel",
+              "Save Address"
+            ]
+          }
+        },
+        "password_security": {
+          "title": "Password & Security",
+          "password_update": {
+            "fields": [
+              {
+                "label": "Current Password",
+                "type": "password"
+              },
+              {
+                "label": "New Password",
+                "type": "password"
+              },
+              {
+                "label": "Confirm New Password",
+                "type": "password"
+              },
+              {
+                "label": "New Password Strength",
+                "type": "indicator"
+              }
+            ],
+            "button": "Update Password",
+            "note": "Requires current password to change"
+          },
+          "two_factor_auth": {
+            "title": "Two-Factor Authentication",
+            "options": [
+              {
+                "method": "Enable 2FA via SMS",
+                "description": "Get a code sent to your phone"
+              },
+              {
+                "method": "Enable 2FA via Email",
+                "description": "Get a code sent to your email"
+              }
+            ]
+          },
+          "active_sessions": {
+            "title": "Active Sessions",
+            "action": "Sign out all devices"
+          }
+        },
+        "notifications": {
+          "title": "Notification Preferences",
+          "email_notifications": {
+            "title": "Email Notifications",
+            "options": [
+              "Order updates",
+              "Appointment reminders",
+              "Promotions & offers",
+              "Newsletter"
+            ]
+          },
+          "push_notifications": {
+            "title": "Push Notifications",
+            "options": [
+              "Order status changes",
+              "Grooming reminders",
+              "New product arrivals",
+              "Price drop alerts"
+            ]
+          },
+          "save_button": "Save Preferences"
+        }
+      }
+    },
+    {
+      "screen_number": "05",
+      "screen_name": "Help / Support",
+      "description": "Customer support center with FAQs and contact options",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Help"
+          ]
+        },
+        "page_title": "How Can We Help You?",
+        "search_bar": {
+          "placeholder": "Search for help topics...",
+          "button": "Search",
+          "feature": "Search auto-suggests FAQ topics"
+        },
+        "category_shortcuts": {
+          "title": "Topic Category Shortcuts",
+          "categories": [
+            "Orders & Shipping",
+            "Grooming Services",
+            "Returns & Refunds",
+            "Payments",
+            "Account & Profile"
+          ]
+        },
+        "faq_section": {
+          "title": "Frequently Asked Questions",
+          "layout": "Accordion - click + to expand answer",
+          "categories": [
+            {
+              "category_name": "Orders & Shipping",
+              "faqs": [
+                {
+                  "question": "How long does standard shipping take?",
+                  "expanded": true
+                },
+                {
+                  "question": "Can I change my shipping address after ordering?",
+                  "expanded": false
+                },
+                {
+                  "question": "How do I track my order?",
+                  "expanded": false
+                },
+                {
+                  "question": "What happens if my order is lost in transit?",
+                  "expanded": false
+                }
+              ]
+            },
+            {
+              "category_name": "Grooming Services",
+              "faqs": [
+                {
+                  "question": "How do I book a grooming appointment?",
+                  "expanded": true
+                },
+                {
+                  "question": "What grooming services are available?",
+                  "expanded": false
+                },
+                {
+                  "question": "Can I reschedule my appointment?",
+                  "expanded": false
+                },
+                {
+                  "question": "What should I bring to the grooming session?",
+                  "expanded": false
+                }
+              ]
+            },
+            {
+              "category_name": "Returns & Refunds",
+              "faqs": [
+                {
+                  "question": "What is your return policy?",
+                  "expanded": false
+                },
+                {
+                  "question": "How do I initiate a return?",
+                  "expanded": false
+                },
+                {
+                  "question": "When will I receive my refund?",
+                  "expanded": false
+                }
+              ]
+            },
+            {
+              "category_name": "Payments & Billing",
+              "faqs": [
+                {
+                  "question": "What payment methods are accepted?",
+                  "expanded": false
+                },
+                {
+                  "question": "Is it safe to save my card information?",
+                  "expanded": false
+                },
+                {
+                  "question": "Why was my payment declined?",
+                  "expanded": false
+                }
+              ]
+            }
+          ]
+        },
+        "contact_support": {
+          "title": "Contact Support",
+          "channels": [
+            {
+              "name": "Live Chat",
+              "icon": "chat_bubble"
+            },
+            {
+              "name": "Email",
+              "icon": "envelope"
+            },
+            {
+              "name": "Phone",
+              "icon": "phone"
+            }
+          ],
+          "description": "Contact channel selector"
+        },
+        "contact_form": {
+          "title": "Send a Message",
+          "fields": [
+            {
+              "label": "Your Name",
+              "type": "text",
+              "placeholder": "Full Name"
+            },
+            {
+              "label": "Email Address",
+              "type": "email",
+              "placeholder": "Email"
+            },
+            {
+              "label": "Topic",
+              "type": "dropdown",
+              "placeholder": "Select a topic"
+            },
+            {
+              "label": "Order Number (Optional)",
+              "type": "text",
+              "placeholder": "#PM-XXXX"
+            },
+            {
+              "label": "Message",
+              "type": "textarea"
+            },
+            {
+              "label": "Attachments (Optional)",
+              "type": "file_upload",
+              "placeholder": "Drag & drop or Browse"
+            }
+          ],
+          "button": "Submit Message",
+          "note": "Success confirmation shown on submit"
+        },
+        "support_hours": {
+          "title": "Support Hours",
+          "schedule": [
+            "Mon – Fri",
+            "Saturday",
+            "Sunday"
+          ]
+        }
+      }
+    },
+    {
+      "screen_number": "06",
+      "screen_name": "Product Listing",
+      "description": "Product browsing with filters and search capabilities",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Cart",
+            "Login",
+            "Cart Icon"
+          ]
+        },
+        "breadcrumb": "Home › Products › All Products",
+        "page_title": "All Products",
+        "result_counter": "Showing 1–12 of 48 results",
+        "search_bar": {
+          "placeholder": "Search products...",
+          "button": "Search",
+          "feature": "Live search with instant result filtering"
+        },
+        "filters_section": {
+          "title": "Filters",
+          "clear_all_button": "Clear All",
+          "active_filters": [
+            {
+              "filter": "Category: Dogs",
+              "removable": true
+            },
+            {
+              "filter": "Category: Cats",
+              "removable": true
+            },
+            {
+              "filter": "Price: $0–$200",
+              "removable": true
+            }
+          ],
+          "filter_groups": [
+            {
+              "name": "Sort By",
+              "type": "radio",
+              "options": [
+                "Relevance",
+                "Price: Low–High",
+                "Price: High–Low",
+                "Newest",
+                "Best Rated"
+              ]
+            },
+            {
+              "name": "Category",
+              "type": "checkbox",
+              "options": [
+                {
+                  "label": "All",
+                  "checked": true
+                },
+                {
+                  "label": "Dogs",
+                  "checked": true
+                },
+                "Cats",
+                "Birds",
+                "Fish",
+                "Small Pets"
+              ]
+            },
+            {
+              "name": "Price Range",
+              "type": "slider",
+              "min": 0,
+              "max": 200,
+              "feature": "Drag slider to set price range"
+            },
+            {
+              "name": "Rating",
+              "type": "checkbox",
+              "options": [
+                "★ ★ ★ ★ ★ & up",
+                "★ ★ ★ ★ ☆ & up",
+                "★ ★ ★ ☆ ☆ & up",
+                "★ ★ ☆ ☆ ☆ & up"
+              ]
+            },
+            {
+              "name": "Brand",
+              "type": "checkbox",
+              "options": [
+                "Royal Canin",
+                "Purina",
+                "Hill's Science",
+                "Pedigree",
+                "Blue Buffalo"
+              ]
+            },
+            {
+              "name": "Availability",
+              "type": "checkbox",
+              "options": [
+                {
+                  "label": "In Stock",
+                  "checked": true
+                },
+                "Pre-order Available"
+              ]
+            }
+          ],
+          "apply_button": "Apply Filters"
+        },
+        "product_grid": {
+          "layout": "3-column grid",
+          "interaction": "Click card → Product Detail page",
+          "products": [
+            {
+              "image": "Product image",
+              "badge": "Sale",
+              "name": "Dog Food Premium",
+              "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            },
+            {
+              "image": "Product image",
+              "name": "Cat Toy Set",
+              "rating": "★ ★ ★ ★ ★ (5.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            },
+            {
+              "image": "Product image",
+              "name": "Pet Bed Large",
+              "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            },
+            {
+              "image": "Product image",
+              "name": "Grooming Kit",
+              "rating": "★ ★ ★ ★ ★ (5.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            },
+            {
+              "image": "Product image",
+              "name": "Bird Cage",
+              "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            },
+            {
+              "image": "Product image",
+              "name": "Fish Tank",
+              "rating": "★ ★ ★ ★ ★ (5.0 / 5)",
+              "price_original": "$XX.XX",
+              "price_current": "$XX.XX",
+              "actions": [
+                "Add to Cart",
+                "♡ Wishlist"
+              ]
+            }
+          ]
+        },
+        "pagination": {
+          "layout": "[ ← Prev ] 1 2 3 ... 6 [ Next → ]"
+        }
+      }
+    },
+    {
+      "screen_number": "07",
+      "screen_name": "Product Detail",
+      "description": "Detailed product information with purchase options",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Cart",
+            "Login",
+            "Cart Icon"
+          ]
+        },
+        "breadcrumb": "Home › Products › Dog Food › Royal Canin Adult Premium",
+        "layout": "2-column (image + info)",
+        "image_section": {
+          "main_image": {
+            "label": "Product Main Image",
+            "interaction": "Zoom on hover; lightbox on click"
+          },
+          "thumbnail_strip": {
+            "description": "Thumbnail strip — click to swap main image",
+            "images": [
+              "IMG 1",
+              "IMG 2",
+              "IMG 3",
+              "IMG 4"
+            ]
+          }
+        },
+        "product_info": {
+          "product_name": "Product Name / Title (H1)",
+          "sku": "SKU: PM-10421",
+          "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+          "review_count": "42 Reviews",
+          "stock_status": "✓ In Stock",
+          "pricing": {
+            "original_price": "$XX.XX",
+            "current_price": "$XX.XX",
+            "discount_label": "SAVE 20%",
+            "note": "Dynamic price from backend; sale badge conditional"
+          },
+          "short_description": "Short product description text",
+          "specifications": {
+            "title": "Key Specifications",
+            "fields": [
+              "Brand",
+              "Target Pet",
+              "Weight Options",
+              "Ingredients",
+              "Country of Origin",
+              "Shelf Life"
+            ]
+          },
+          "variants": {
+            "title": "Variants / Options",
+            "weight_size": {
+              "label": "Weight / Size",
+              "options": [
+                "1 kg",
+                "2 kg",
+                "5 kg",
+                "10 kg",
+                "15 kg"
+              ]
+            },
+            "flavor_variety": {
+              "label": "Flavor / Variety",
+              "options": [
+                "Chicken",
+                "Beef",
+                "Salmon",
+                "Lamb"
+              ]
+            }
+          },
+          "purchase_actions": {
+            "quantity": {
+              "label": "Quantity",
+              "controls": [
+                "−",
+                "1",
+                "+"
+              ]
+            },
+            "buttons": [
+              {
+                "label": "Add to Cart",
+                "type": "primary",
+                "note": "Cart update triggers cart count in nav"
+              },
+              {
+                "label": "Buy Now →",
+                "type": "primary",
+                "note": "Direct checkout"
+              }
+            ]
+          },
+          "trust_badges": [
+            "Free shipping over $50",
+            "30-day returns",
+            "Secure checkout"
+          ]
+        },
+        "tabs": [
+          {
+            "tab_name": "Description",
+            "content": "Full Description"
+          },
+          {
+            "tab_name": "Specifications",
+            "content": "Detailed specifications"
+          },
+          {
+            "tab_name": "Reviews (42)",
+            "content": "Customer reviews section"
+          },
+          {
+            "tab_name": "Related Products",
+            "content": "Similar product recommendations"
+          }
+        ],
+        "reviews_section": {
+          "title": "Customer Reviews",
+          "average_rating": "4.2 ★ ★ ★ ★ ★ (4.0 / 5)",
+          "review_breakdown": [
+            "5★",
+            "4★",
+            "3★",
+            "2★",
+            "1★"
+          ],
+          "review_count": "Based on 42 reviews",
+          "sample_reviews": [
+            {
+              "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+              "actions": [
+                "Helpful ↑",
+                "Report"
+              ]
+            },
+            {
+              "rating": "★ ★ ★ ★ ★ (5.0 / 5)",
+              "actions": [
+                "Helpful ↑",
+                "Report"
+              ]
+            },
+            {
+              "rating": "★ ★ ★ ★ ★ (4.0 / 5)",
+              "actions": [
+                "Helpful ↑",
+                "Report"
+              ]
+            },
+            {
+              "rating": "★ ★ ★ ★ ★ (5.0 / 5)",
+              "actions": [
+                "Helpful ↑",
+                "Report"
+              ]
+            }
+          ],
+          "write_review_button": "Write a Review"
+        },
+        "action_buttons": [
+          {
+            "icon": "♡",
+            "label": "Add to Wishlist"
+          },
+          {
+            "icon": "⤴",
+            "label": "Share"
+          },
+          {
+            "icon": "⚖",
+            "label": "Compare"
+          }
+        ]
+      }
+    },
+    {
+      "screen_number": "08",
+      "screen_name": "Shopping Cart",
+      "description": "Cart review and checkout initiation",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Cart",
+            "Login",
+            "Cart Icon"
+          ]
+        },
+        "breadcrumb": "Home › Shopping Cart",
+        "item_count": "3 items in cart",
+        "checkout_stepper": {
+          "title": "Checkout progress stepper — 4 steps",
+          "steps": [
+            {
+              "number": 1,
+              "label": "Cart",
+              "status": "active"
+            },
+            {
+              "number": 2,
+              "label": "Shipping",
+              "status": "inactive"
+            },
+            {
+              "number": 3,
+              "label": "Payment",
+              "status": "inactive"
+            },
+            {
+              "number": 4,
+              "label": "Confirmation",
+              "status": "inactive"
+            }
+          ]
+        },
+        "cart_items": {
+          "title": "Cart Items (3)",
+          "action_buttons": [
+            {
+              "label": "Clear Cart",
+              "position": "top_right"
+            }
+          ],
+          "selection": {
+            "label": "Select All Items",
+            "checkbox": true,
+            "bulk_action": "Delete Selected"
+          },
+          "items_layout": "Items with qty +/- controls; remove/save-for-later links",
+          "items": [
+            {
+              "image": "IMG",
+              "variant": "5 kg | Chicken",
+              "stock_status": "✓ In Stock",
+              "price": "$45.99",
+              "original_price": "$XX.XX",
+              "discount_badge": "SAVE",
+              "quantity_controls": {
+                "decrease": "−",
+                "amount": 2,
+                "increase": "+"
+              },
+              "actions": [
+                "Save for later",
+                "Remove"
+              ]
+            },
+            {
+              "image": "IMG",
+              "variant": "Beige | Large",
+              "stock_status": "✓ In Stock",
+              "price": "$79.00",
+              "original_price": "$XX.XX",
+              "discount_badge": "SAVE",
+              "quantity_controls": {
+                "decrease": "−",
+                "amount": 1,
+                "increase": "+"
+              },
+              "actions": [
+                "Save for later",
+                "Remove"
+              ]
+            },
+            {
+              "image": "IMG",
+              "variant": "500ml | Lavender",
+              "stock_status": "✓ In Stock",
+              "price": "$12.49",
+              "original_price": "$XX.XX",
+              "discount_badge": "SAVE",
+              "quantity_controls": {
+                "decrease": "−",
+                "amount": 3,
+                "increase": "+"
+              },
+              "actions": [
+                "Save for later",
+                "Remove"
+              ]
+            }
+          ]
+        },
+        "order_summary": {
+          "title": "Order Summary",
+          "sections": [
+            {
+              "label": "Subtotal (3 items)",
+              "value": "$218.94"
+            },
+            {
+              "label": "Discount (SAVE15)",
+              "value": "−$32.84"
+            },
+            {
+              "label": "Shipping",
+              "value": "FREE"
+            },
+            {
+              "label": "Estimated Tax",
+              "value": "$15.32"
+            },
+            {
+              "label": "Order Total",
+              "value": "$201.42",
+              "emphasis": true
+            }
+          ]
+        },
+        "promo_code": {
+          "title": "Promo / Coupon Code",
+          "input": "Enter coupon code",
+          "button": "Apply",
+          "note": "Validates against DB; shows discount on success"
+        },
+        "delivery_options": {
+          "title": "Delivery Estimate",
+          "options": [
+            {
+              "label": "Standard (5–7 days)",
+              "price": "FREE"
+            },
+            {
+              "label": "Express (2–3 days)",
+              "price": "—$9.99"
+            },
+            {
+              "label": "Next Day",
+              "price": "—$19.99"
+            }
+          ]
+        },
+        "trust_badges": [
+          {
+            "icon": "🔒",
+            "label": "Secure"
+          },
+          {
+            "icon": "📋",
+            "label": "30-Day Returns"
+          },
+          {
+            "icon": "📦",
+            "label": "Free Ship"
+          }
+        ],
+        "action_buttons": [
+          {
+            "label": "Proceed to Checkout →",
+            "type": "primary"
+          },
+          {
+            "label": "← Continue Shopping",
+            "type": "secondary"
+          }
+        ],
+        "saved_for_later": {
+          "title": "Saved for Later (2 items)",
+          "items": [
+            {
+              "image": "IMG",
+              "action": "Move to Cart"
+            },
+            {
+              "image": "IMG",
+              "action": "Move to Cart"
+            }
+          ]
+        },
+        "recommendations": {
+          "title": "You May Also Like",
+          "products": [
+            "Dental Treats",
+            "Dog Collar",
+            "Cat Brush",
+            "Bird Seeds"
+          ],
+          "actions": "Add"
+        }
+      }
+    },
+    {
+      "screen_number": "09",
+      "screen_name": "Grooming Appointment Booking",
+      "description": "Multi-step booking flow for grooming services",
+      "components": {
+        "header": {
+          "logo": "PawMarket Logo",
+          "navigation": [
+            "Home",
+            "Products",
+            "Grooming",
+            "Cart",
+            "Login",
+            "Cart Icon"
+          ]
+        },
+        "breadcrumb": "Home › Grooming › Book Appointment",
+        "page_title": "Book a Grooming Appointment",
+        "booking_stepper": {
+          "title": "Multi-step booking flow — 4 steps",
+          "steps": [
+            {
+              "number": 1,
+              "label": "Select Service",
+              "status": "active"
+            },
+            {
+              "number": 2,
+              "label": "Choose Date & Time",
+              "status": "inactive"
+            },
+            {
+              "number": 3,
+              "label": "Pet Details",
+              "status": "inactive"
+            },
+            {
+              "number": 4,
+              "label": "Confirm & Pay",
+              "status": "inactive"
+            }
+          ]
+        },
+        "step_1": {
+          "title": "Step 1 — Select Grooming Service",
+          "layout": "2-column (services + salon info)",
+          "services": [
+            {
+              "name": "Full Grooming",
+              "price": "$65",
+              "duration": "2–3 hrs",
+              "type": "single-select"
+            },
+            {
+              "name": "Bath & Dry",
+              "price": "$35",
+              "duration": "1–1.5 hrs",
+              "type": "single-select"
+            },
+            {
+              "name": "Hair Trim & Styling",
+              "price": "$40",
+              "duration": "1–2 hrs",
+              "type": "single-select"
+            },
+            {
+              "name": "Nail Clipping",
+              "price": "$15",
+              "duration": "15 min",
+              "type": "single-select"
+            },
+            {
+              "name": "Ear Cleaning",
+              "price": "$12",
+              "duration": "10 min",
+              "type": "single-select"
+            },
+            {
+              "name": "Teeth Brushing",
+              "price": "$18",
+              "duration": "15 min",
+              "type": "single-select"
+            }
+          ],
+          "note": "Single-select service card; shows price + duration",
+          "add_ons": {
+            "title": "Optional Add-Ons",
+            "items": [
+              {
+                "name": "Flea Treatment",
+                "price": "+$20"
+              },
+              {
+                "name": "Perfume Spritz",
+                "price": "+$5"
+              },
+              {
+                "name": "Paw Wax",
+                "price": "+$10"
+              },
+              {
+                "name": "Blueberry Facial",
+                "price": "+$15"
+              },
+              {
+                "name": "Tooth Brushing",
+                "price": "+$12"
+              },
+              {
+                "name": "De-shedding",
+                "price": "+$25"
+              }
+            ],
+            "type": "checkbox"
+          },
+          "sidebar_info": {
+            "salon_photo": "Salon Photo",
+            "location_hours": {
+              "title": "Location & Hours",
+              "schedule": [
+                "Mon–Fri",
+                "Saturday",
+                "Sunday"
+              ]
+            },
+            "groomers": {
+              "title": "Meet Our Groomers",
+              "items": [
+                "Groomer profile 1",
+                "Groomer profile 2"
+              ]
+            }
+          }
+        },
+        "step_2": {
+          "title": "Step 2 — Choose Date & Time",
+          "calendar": {
+            "title": "← March 2026 →",
+            "format": "Month calendar grid",
+            "feature": "Calendar — past dates + unavailable dates greyed out; selected date highlighted",
+            "sample_dates": "1–31"
+          },
+          "available_times": {
+            "title": "Available Times",
+            "time_slots": [
+              "9:00 AM",
+              "9:30 AM",
+              "10:00 AM",
+              "10:30 AM",
+              "11:00 AM",
+              "11:30 AM",
+              "1:00 PM",
+              "1:30 PM",
+              "2:00 PM",
+              "2:30 PM",
+              "3:00 PM",
+              "3:30 PM",
+              "4:00 PM",
+              "4:30 PM"
+            ],
+            "note": "Booked slots crossed; selected highlighted"
+          }
+        },
+        "step_3": {
+          "title": "Step 3 — Pet Details",
+          "fields": [
+            {
+              "label": "Select Pet",
+              "type": "dropdown",
+              "placeholder": "Choose a saved pet",
+              "placeholder_new": "Or fill in new pet details below"
+            },
+            {
+              "label": "Pet Name",
+              "type": "text",
+              "placeholder": "e.g. Buddy"
+            },
+            {
+              "label": "Pet Type",
+              "type": "radio",
+              "options": [
+                "Dog",
+                "Cat",
+                "Other"
+              ]
+            },
+            {
+              "label": "Breed",
+              "type": "dropdown",
+              "placeholder": "Select breed"
+            },
+            {
+              "label": "Pet Age",
+              "type": "text",
+              "placeholder": "e.g. 3 years"
+            },
+            {
+              "label": "Special Instructions",
+              "type": "textarea",
+              "placeholder": "Allergies, behavior notes..."
+            }
+          ]
+        },
+        "step_4": {
+          "title": "Step 4 — Confirm & Pay (Preview)",
+          "booking_summary": {
+            "title": "Booking Summary",
+            "fields": [
+              "Service",
+              "Add-ons",
+              "Date",
+              "Time",
+              "Pet",
+              "Groomer"
+            ],
+            "total": "$85.00"
+          },
+          "primary_button": {
+            "label": "Confirm Appointment & Pay",
+            "note": "Payment via saved card or new card; confirmation email sent"
+          },
+          "help_section": {
+            "title": "Need Help?",
+            "options": [
+              {
+                "icon": "☎",
+                "label": "Call Us"
+              },
+              {
+                "icon": "💬",
+                "label": "Live Chat"
+              }
+            ]
+          },
+          "cancellation_policy": "Cancellation Policy info"
+        }
+      }
+    },
+    {
+      "screen_number": "10",
+      "screen_name": "Admin Dashboard",
+      "description": "Administrative control panel for business management",
+      "components": {
+        "header": {
+          "logo": "Pawmarket Admin",
+          "version": "v2.1.0",
+          "user_menu": "AD Admin ▾",
+          "notification_icon": "5"
+        },
+        "sidebar_menu": {
+          "main_menu": {
+            "title": "Main Menu",
+            "items": [
+              {
+                "label": "Dashboard",
+                "icon": "📊"
+              },
+              {
+                "label": "Orders",
+                "icon": "📦",
+                "badge": "12"
+              },
+              {
+                "label": "Products",
+                "icon": "🛍️"
+              },
+              {
+                "label": "Inventory",
+                "icon": "📋",
+                "badge": "3!"
+              },
+              {
+                "label": "Appointments",
+                "icon": "📅",
+                "badge": "8"
+              },
+              {
+                "label": "Customers",
+                "icon": "👥"
+              },
+              {
+                "label": "Revenue & Sales",
+                "icon": "📈"
+              },
+              {
+                "label": "Coupons & Promo",
+                "icon": "🎟️"
+              }
+            ]
+          },
+          "configuration": {
+            "title": "Configuration",
+            "items": [
+              "Site Settings",
+              "Notifications",
+              "Admin Users",
+              "Activity Log",
+              "Logout"
+            ]
+          }
+        },
+        "main_content": {
+          "header": {
+            "title": "Admin Dashboard Overview",
+            "last_updated": "Last updated: March 11, 2026 — 10:42 AM",
+            "filters": {
+              "date_range": "Date Range: Last 30 days ▾"
+            },
+            "actions": [
+              {
+                "label": "Export Report"
+              },
+              {
+                "label": "+ Add Product"
+              }
+            ]
+          },
+          "system_alerts": {
+            "title": "System Alerts",
+            "alerts": [
+              {
+                "type": "error",
+                "icon": "✕",
+                "message": "3 products are out of stock — Immediate restock required"
+              },
+              {
+                "type": "warning",
+                "icon": "⚠",
+                "message": "12 orders are pending shipment for more than 48 hours"
+              },
+              {
+                "type": "info",
+                "icon": "ℹ",
+                "message": "8 grooming appointments scheduled for today"
+              }
+            ]
+          },
+          "kpis": {
+            "title": "Key Performance Indicators",
+            "cards": [
+              {
+                "label": "Total Revenue",
+                "value": "$24.8K"
+              },
+              {
+                "label": "Total Orders",
+                "value": "342"
+              },
+              {
+                "label": "Appointments",
+                "value": "87"
+              },
+              {
+                "label": "Active Users",
+                "value": "1,205"
+              },
+              {
+                "label": "Avg Order Value",
+                "value": "$72.5"
+              },
+              {
+                "label": "Revenue vs Last Month",
+                "value": "+18.3%"
+              },
+              {
+                "label": "New Customers",
+                "value": "+42"
+              },
+              {
+                "label": "Product Returns",
+                "value": "−3.1%"
+              },
+              {
+                "label": "Grooming Utilization",
+                "value": "84%"
+              }
+            ]
+          },
+          "order_management": {
+            "title": "Order Management Table",
+            "description": "Pending & recent orders",
+            "tabs": [
+              "All",
+              "Pending",
+              "Shipped",
+              "Delivered",
+              "Cancelled"
+            ],
+            "columns": [
+              "Order #",
+              "Customer",
+              "Items",
+              "Total",
+              "Status",
+              "Action"
+            ],
+            "sample_data": [
+              {
+                "order_id": "#PM-1055",
+                "customer": "Jane Cooper",
+                "items": "3",
+                "total": "$67.00",
+                "status": "Pending",
+                "action": "Process"
+              },
+              {
+                "order_id": "#PM-1054",
+                "customer": "Tom Hanks",
+                "items": "1",
+                "total": "$22.50",
+                "status": "Shipped",
+                "action": "Track"
+              },
+              {
+                "order_id": "#PM-1053",
+                "customer": "Mary Jane",
+                "items": "5",
+                "total": "$134.00",
+                "status": "Processing",
+                "action": "View"
+              },
+              {
+                "order_id": "#PM-1052",
+                "customer": "Alex Brown",
+                "items": "2",
+                "total": "$48.99",
+                "status": "Delivered",
+                "action": "View"
+              },
+              {
+                "order_id": "#PM-1051",
+                "customer": "Lisa Park",
+                "items": "1",
+                "total": "$19.99",
+                "status": "Cancelled",
+                "action": "Refund"
+              }
+            ],
+            "pagination": "[ ← Prev ] [ Next → ]",
+            "view_all": "View All Orders"
+          },
+          "appointments_table": {
+            "title": "Appointments Table",
+            "description": "Today's + upcoming grooming",
+            "tabs": [
+              "Today",
+              "This Week",
+              "Pending"
+            ],
+            "columns": [
+              "ID",
+              "Customer",
+              "Service",
+              "Time",
+              "Status",
+              "Action"
+            ],
+            "sample_data": [
+              {
+                "id": "#GR-201",
+                "customer": "John Doe",
+                "service": "Full Grooming",
+                "time": "10:00 AM",
+                "status": "Confirmed",
+                "action": "Edit"
+              },
+              {
+                "id": "#GR-202",
+                "customer": "Sarah Kim",
+                "service": "Bath & Dry",
+                "time": "11:30 AM",
+                "status": "In Progress",
+                "action": "View"
+              },
+              {
+                "id": "#GR-203",
+                "customer": "Mike Lee",
+                "service": "Nail Clip",
+                "time": "1:00 PM",
+                "status": "Pending",
+                "action": "Confirm"
+              },
+              {
+                "id": "#GR-204",
+                "customer": "Anna Ford",
+                "service": "Hair Trim",
+                "time": "2:30 PM",
+                "status": "Confirmed",
+                "action": "Edit"
+              },
+              {
+                "id": "#GR-205",
+                "customer": "Chris Ray",
+                "service": "Full Grooming",
+                "time": "4:00 PM",
+                "status": "Pending",
+                "action": "Confirm"
+              }
+            ],
+            "view_all": "View All"
+          },
+          "inventory_management": {
+            "title": "Inventory Management — Quick Access",
+            "search": "Search inventory by name, SKU, category...",
+            "filters": [
+              {
+                "name": "Category",
+                "type": "dropdown"
+              },
+              {
+                "name": "Stock Status",
+                "type": "dropdown"
+              }
+            ],
+            "actions": [
+              "Add Product",
+              "Import CSV",
+              "Export"
+            ],
+            "columns": [
+              "SKU",
+              "Product Name",
+              "Category",
+              "Price",
+              "Stock",
+              "Sold",
+              "Status",
+              "Actions"
+            ],
+            "sample_data": [
+              {
+                "sku": "PM-001",
+                "name": "Royal Canin Adult 5kg",
+                "category": "Dog Food",
+                "price": "$45.99",
+                "stock": "142",
+                "sold": "38",
+                "status": "● In Stock",
+                "actions": "Edit, Delete"
+              },
+              {
+                "sku": "PM-002",
+                "name": "Cat Tree Tower Deluxe",
+                "category": "Cat Furniture",
+                "price": "$79.00",
+                "stock": "23",
+                "sold": "12",
+                "status": "● In Stock",
+                "actions": "Edit, Delete"
+              },
+              {
+                "sku": "PM-003",
+                "name": "Pet Grooming Shampoo",
+                "category": "Grooming",
+                "price": "$12.49",
+                "stock": "5",
+                "sold": "67",
+                "status": "⚠ Low Stock",
+                "actions": "Restock"
+              },
+              {
+                "sku": "PM-004",
+                "name": "Bird Cage Premium",
+                "category": "Bird Supplies",
+                "price": "$89.99",
+                "stock": "0",
+                "sold": "28",
+                "status": "✕ Out of Stock",
+                "actions": "Restock"
+              },
+              {
+                "sku": "PM-005",
+                "name": "Aquarium Filter Pro",
+                "category": "Fish Supplies",
+                "price": "$34.99",
+                "stock": "88",
+                "sold": "15",
+                "status": "● In Stock",
+                "actions": "Edit, Delete"
+              },
+              {
+                "sku": "PM-006",
+                "name": "Dog Harness Padded",
+                "category": "Dog Accessories",
+                "price": "$28.00",
+                "stock": "3",
+                "sold": "92",
+                "status": "⚠ Low Stock",
+                "actions": "Restock"
+              }
+            ],
+            "note": "Low stock items flagged in red column; inline edit; status badge changes color on stock level; restock triggers purchase order"
+          },
+          "revenue_chart": {
+            "title": "Revenue Chart (Last 12 Months)",
+            "type": "bar_chart",
+            "description": "Hover to see exact revenue value",
+            "months": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec"
+            ]
+          },
+          "top_products": {
+            "title": "Top Selling Products",
+            "items": [
+              {
+                "product": "Royal Canin 5kg",
+                "sold": "142 sold"
+              },
+              {
+                "product": "Cat Tree Tower",
+                "sold": "98 sold"
+              },
+              {
+                "product": "Pet Shampoo",
+                "sold": "87 sold"
+              },
+              {
+                "product": "Dog Harness",
+                "sold": "73 sold"
+              },
+              {
+                "product": "Bird Cage Pro",
+                "sold": "61 sold"
+              }
+            ]
+          },
+          "recent_registrations": {
+            "title": "New Registrations Today",
+            "columns": [
+              "Name",
+              "Email",
+              "Joined",
+              "Action"
+            ],
+            "sample_data": [
+              {
+                "name": "Jane Cooper",
+                "email": "jane@email.com",
+                "joined": "10:32 AM",
+                "action": "View"
+              },
+              {
+                "name": "Tom Lee",
+                "email": "tom@email.com",
+                "joined": "9:14 AM",
+                "action": "View"
+              },
+              {
+                "name": "Sara Kim",
+                "email": "sara@email.com",
+                "joined": "8:55 AM",
+                "action": "View"
+              }
+            ]
+          },
+          "support_tickets": {
+            "title": "Recent Support Tickets",
+            "columns": [
+              "Ticket #",
+              "Subject",
+              "Priority",
+              "Action"
+            ],
+            "sample_data": [
+              {
+                "ticket": "#T-0091",
+                "subject": "Order not delivered",
+                "priority": "High",
+                "action": "Open"
+              },
+              {
+                "ticket": "#T-0090",
+                "subject": "Refund request",
+                "priority": "Medium",
+                "action": "Open"
+              },
+              {
+                "ticket": "#T-0089",
+                "subject": "Login issue",
+                "priority": "Low",
+                "action": "Open"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "user_roles": [
+    {
+      "role_name": "Customer",
+      "description": "Standard user with shopping and service booking capabilities",
+      "access_screens": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09"
+      ]
+    },
+    {
+      "role_name": "Admin",
+      "description": "Administrator with full business management access",
+      "access_screens": [
+        "10"
+      ]
+    }
+  ],
+  "key_features": [
+    "E-commerce product catalog with filtering",
+    "Grooming services booking system",
+    "User account management",
+    "Shopping cart and checkout",
+    "Admin dashboard with KPIs",
+    "Inventory management",
+    "Order tracking",
+    "Customer support system",
+    "Newsletter subscription",
+    "Product reviews and ratings",
+    "Wishlist functionality",
+    "Multiple payment options"
+  ]
+}
