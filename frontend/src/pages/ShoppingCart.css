@@ -1,0 +1,489 @@
+/* Shopping Cart Page Styles - High Fidelity PawMarket Design */
+
+.shopping-cart-page {
+  padding: 40px 20px;
+  background-color: #fcfcf9;
+  min-height: 100vh;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* Stepper Component */
+.checkout-stepper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 48px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
+  height: 2px;
+  background-color: #e4e3db;
+  z-index: 1;
+}
+
+.step.active:not(:last-child)::after {
+  background-color: #fa782d;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #e4e3db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #585894;
+  margin-bottom: 8px;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+  background-color: #fa782d;
+  border-color: #fa782d;
+  color: #ffffff;
+}
+
+.step.completed .step-number {
+  background-color: #585894;
+  border-color: #585894;
+  color: #ffffff;
+}
+
+.step-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1b1c1780;
+}
+
+.step.active .step-label {
+  color: #1b1c17;
+  font-weight: 700;
+}
+
+/* Main Content */
+.cart-items-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-header h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0;
+}
+
+.clear-cart-btn {
+  background: none;
+  border: 1px solid #e4e3db;
+  color: #1b1c1780;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-cart-btn:hover {
+  border-color: #fa782d;
+  color: #fa782d;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+/* Cart Item High-Fi Styling */
+.cart-item {
+  display: flex;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: 0px 10px 40px -10px #1b1c170f;
+  column-gap: 20px;
+  position: relative;
+}
+
+.cart-item-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  background: #f6f4ec;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cart-item-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.cart-item-name {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0 0 4px 0;
+}
+
+.cart-item-category {
+  font-size: 12px;
+  font-weight: 700;
+  color: #006a63;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 12px 0;
+}
+
+.cart-item-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.price-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b1c17;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  background: #f6f4ec;
+  border-radius: 9999px;
+  padding: 4px;
+}
+
+.quantity-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #1b1c17;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+  background: #fa782d;
+  color: #ffffff;
+}
+
+.quantity-input {
+  width: 40px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-weight: 700;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+}
+
+.remove-item-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #1b1c1740;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.remove-item-btn:hover {
+  color: #e74c3c;
+}
+
+/* Order Summary High-Fi */
+.summary-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0px 10px 40px -10px #1b1c170f;
+  position: sticky;
+  top: 100px;
+}
+
+.summary-header h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0 0 24px 0;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #1b1c17b3;
+}
+
+.summary-row.total {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #e4e3db;
+  color: #1b1c17;
+}
+
+.total-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fa782d;
+}
+
+.promo-section {
+  margin-top: 8px;
+}
+
+.promo-section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #585894;
+  margin-bottom: 12px;
+}
+
+.promo-input-group {
+  display: flex;
+  column-gap: 8px;
+}
+
+.promo-input {
+  flex-grow: 1;
+  border: 1px solid #e4e3db;
+  border-radius: 9999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background: #fcfcf9;
+  outline: none;
+}
+
+.promo-input:focus {
+  border-color: #fa782d;
+}
+
+.apply-promo-btn {
+  background: #585894;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.apply-promo-btn:hover:not(:disabled) {
+  background: #4a4a7d;
+}
+
+.checkout-btn {
+  width: 100%;
+  background: #fa782d;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0px 10px 40px -10px #fa782d40;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background: #e66a25;
+  transform: translateY(-2px);
+}
+
+.checkout-btn:disabled {
+  background: #e4e3db;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.continue-shopping {
+  margin-top: 24px;
+}
+
+.continue-btn {
+  background: none;
+  border: none;
+  color: #585894;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.continue-btn:hover {
+  color: #fa782d;
+}
+
+/* Empty Cart State */
+.empty-cart {
+  text-align: center;
+  padding: 80px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.empty-cart-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.empty-cart h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 28px;
+  color: #585894;
+  margin-bottom: 12px;
+}
+
+.empty-cart p {
+  color: #1b1c1780;
+  margin-bottom: 32px;
+}
+
+.continue-shopping-btn {
+  background: #fa782d;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 16px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Recommended Products Grid */
+.recommended-section {
+  margin-top: 80px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recommended-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.recommended-header h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 28px;
+  color: #585894;
+  margin: 0 0 8px 0;
+}
+
+.recommended-header p {
+  color: #1b1c1780;
+  margin: 0;
+}
+
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .cart-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-stepper {
+    flex-wrap: wrap;
+    row-gap: 20px;
+  }
+  
+  .step:not(:last-child)::after {
+    display: none;
+  }
+}
