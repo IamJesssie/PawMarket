@@ -1,0 +1,198 @@
+* {
+  box-sizing: border-box;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 24px;
+  box-shadow: 0px 10px 40px -10px #1b1c170f;
+  background: #ffffff;
+  padding: 24px;
+  width: 256px;
+  height: auto;
+  min-height: 388px;
+  row-gap: 32px;
+}
+
+.products .container2 {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  align-self: stretch;
+  row-gap: 16px;
+}
+
+.products .container2 .heading3 {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  height: 24px;
+}
+
+.products .container2 .heading3 .categoryLabel {
+  flex-shrink: 0;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  color: #585894;
+  font-family: "Plus Jakarta Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.products .container2 .container {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  align-self: stretch;
+  row-gap: 12px;
+}
+
+.products .container2 .container .label {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  padding: 4px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.products .container2 .container .label:hover {
+  background: #f6f4ec;
+}
+
+.products .container2 .container .label.active {
+  background: #f6f4ec;
+}
+
+.products .container2 .container .label.active .aAllProducts {
+  color: #a04100;
+  font-weight: 700;
+}
+
+.products .container2 .container .aAllProducts {
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #1b1c17b3;
+  font-family: "Be Vietnam Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.products .container4 {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  align-self: stretch;
+  row-gap: 16px;
+}
+
+.products .container4 .heading32 {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  padding-bottom: 1px;
+  height: 24px;
+}
+
+.products .container4 .heading32 .priceRangeLabel {
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  color: #585894;
+  font-family: "Plus Jakarta Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.products .container4 .container3 {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  column-gap: 8px;
+}
+
+.products .container4 .container3 .textInput {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 8px;
+  background: #f6f4ec;
+  width: 91px;
+  height: 36px;
+  overflow: hidden;
+}
+
+.products .container4 .container3 .textInput .priceInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  line-height: 18px;
+  letter-spacing: 0;
+  color: #1b1c17;
+  font-family: "Be Vietnam Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.products .container4 .container3 .textInput .priceInput::placeholder {
+  color: #1b1c1780;
+}
+
+.products .container4 .container3 .text {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  padding-bottom: 1px;
+  width: 10px;
+  height: 24px;
+}
+
+.products .container4 .container3 .text .priceSeparator {
+  margin: -1px 0px 0px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #1b1c17;
+  font-family: "Be Vietnam Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.products .button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  border-radius: 9999px;
+  box-shadow: 0px 10px 40px -10px #1b1c170f;
+  background: #fa782d;
+  padding: 12px;
+  transition: background 0.2s ease;
+}
+
+.products .button:hover {
+  background: #e66a25;
+}
+
+.products .button .applyFiltersButton {
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: #ffffff;
+  font-family: "Plus Jakarta Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}

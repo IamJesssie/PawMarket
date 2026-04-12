@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+.header2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ffffff33;
+  border-radius: 9999px;
+  box-shadow: 0px 10px 40px -10px #1b1c170f;
+  background: #ffffffcc;
+  padding-right: 23px;
+  padding-left: 23px;
+  width: 100%;
+  max-width: 1152px;
+  height: 70px;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.header2 .link {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding-bottom: 1px;
+  width: 127px;
+  text-decoration: none;
+}
+
+.header2 .link .logo3 {
+  line-height: 32px;
+  letter-spacing: -0.6px;
+  color: #000000;
+  font-family: "Plus Jakarta Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header2 .link .logo3 .logo {
+  line-height: 32px;
+  letter-spacing: -0.6px;
+  color: #585894;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header2 .link .logo3 .logo2 {
+  line-height: 32px;
+  letter-spacing: -0.6px;
+  color: #a04100;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header2 .navigation {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  column-gap: 32px;
+}
+
+.header2 .navigation .homeLink {
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #1b1c17;
+  font-family: "Be Vietnam Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.header2 .navigation .link2, 
+.header2 .navigation .link3, 
+.header2 .navigation .link4, 
+.header2 .navigation .link5 {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding-bottom: 1px;
+  text-decoration: none;
+}
+
+.header2 .navigation .link2 { width: 40px; }
+.header2 .navigation .link3 { width: 63px; }
+.header2 .navigation .link4 { width: 68px; }
+.header2 .navigation .link5 { width: 31px; }
+
+.header2 .container {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding-left: 28px;
+}
+
+.header2 .container .link6 {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.header2 .container .link6 .icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+
+.header2 .container .link7 {
+  position: relative;
+  margin-left: 21px;
+  border-radius: 9999px;
+  background: #e4e3db;
+  width: 36px;
+  height: 36px;
+  text-decoration: none;
+}
+
+.header2 .container .link7 .icon2 {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.header2 .container .link7 .header {
+  display: flex;
+  position: absolute;
+  top: -4px;
+  left: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #fa782d;
+  width: 20px;
+  height: 20px;
+}
+
+.header2 .container .link7 .header .cartItemCount {
+  flex-shrink: 0;
+  line-height: 15px;
+  letter-spacing: 0;
+  color: #ffffff;
+  font-family: "Be Vietnam Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  margin: 0;
+}
