@@ -1,0 +1,361 @@
+.shoppingCartPage {
+  padding: 40px 20px;
+  background-color: #fbf9f1;
+  min-height: 100vh;
+}
+
+.cartHeader {
+  max-width: 1152px;
+  margin: 0 auto 40px auto;
+  padding: 0 24px;
+}
+
+.pageTitle {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.96px;
+}
+
+/* Stepper */
+.checkoutStepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepNumber {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e4e3db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(0, 106, 99, 0.5);
+}
+
+.step.active .stepNumber {
+  background-color: #fa782d;
+  color: #ffffff;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+}
+
+.stepLabel {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(0, 106, 99, 0.5);
+}
+
+.step.active .stepLabel {
+  color: #fa782d;
+}
+
+.stepConnector {
+  width: 64px;
+  height: 2px;
+  background-color: #e4e3db;
+}
+
+/* Container */
+.cartContainer {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 48px;
+  padding: 0 24px;
+  align-items: flex-start;
+}
+
+.cartItemsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionHeader h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0;
+  letter-spacing: -0.36px;
+}
+
+.clearCartBtn {
+  background: none;
+  border: none;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #006a63;
+  cursor: pointer;
+  padding: 0;
+}
+
+.itemsListContainer {
+  background: #ffffff;
+  border-radius: 48px;
+  padding: 24px;
+  border: 1px solid #f6f4ec;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Order Summary */
+.summaryCard {
+  background: #ffffff;
+  border-radius: 48px;
+  padding: 32px;
+  border: 1px solid #f6f4ec;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+}
+
+.summaryHeader h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.4px;
+}
+
+.promoSection {
+  margin-bottom: 24px;
+}
+
+.promoSection h3 {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #585894;
+  margin: 0 0 12px 0;
+}
+
+.promoInputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.promoInput {
+  width: 100%;
+  background-color: #e4e3db;
+  border: none;
+  border-radius: 9999px;
+  padding: 16px 24px;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.applyPromoBtn {
+  position: absolute;
+  right: 8px;
+  background-color: #006a63;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 24px;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.summaryContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  color: #006a63;
+  font-weight: 500;
+}
+
+.discountValue {
+  color: #00a63e;
+  font-weight: 700;
+}
+
+.summaryRow.total {
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e4e3db;
+  font-size: 18px;
+  color: #585894;
+  font-weight: 700;
+}
+
+.totalAmount {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 24px;
+  color: #fa782d;
+}
+
+.checkoutBtn {
+  width: 100%;
+  background-color: #fa782d;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 16px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.35px;
+  cursor: pointer;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+  margin-top: 8px;
+  transition: background-color 0.2s;
+}
+
+.checkoutBtn:hover {
+  background-color: #e66a25;
+}
+
+.continueLink {
+  text-align: center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #585894;
+  text-decoration: none;
+  margin-top: 16px;
+  display: block;
+}
+
+.trustBadgesContainer {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e4e3db;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.trustBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.trustBadge img {
+  width: 20px;
+  height: 20px;
+}
+
+.trustBadge span {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #006a63;
+  line-height: 1.2;
+}
+
+/* Recommended Section */
+.recommendedSection {
+  max-width: 1152px;
+  margin: 80px auto 0 auto;
+  padding: 0 24px;
+}
+
+.recommendedHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.recommendedHeader h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 28px;
+  color: #585894;
+  margin: 0 0 12px 0;
+}
+
+.recommendedHeader p {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 16px;
+  color: rgba(27, 28, 23, 0.5);
+  margin: 0;
+}
+
+.recommendedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));
+  gap: 24px;
+}
+
+/* Empty State */
+.emptyCart {
+  text-align: center;
+  padding: 120px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emptyCartIcon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.emptyCart h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 32px;
+  color: #585894;
+  margin-bottom: 16px;
+}
+
+.emptyCart p {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 18px;
+  color: rgba(27, 28, 23, 0.5);
+  margin-bottom: 40px;
+}
+
+.continueShoppingBtn {
+  display: inline-block;
+  background-color: #fa782d;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 16px 48px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+}
+
+@media (max-width: 1024px) {
+  .cartContainer {
+    grid-template-columns: 1fr;
+  }
+}
