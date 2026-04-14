@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products';
 import AccountOverview from './pages/AccountOverview';
+import AddressManagement from './pages/AddressManagement';
 import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
@@ -36,7 +37,9 @@ function App() {
                   </div>
                 } />
                 <Route path="/products" element={<Products />} />
+                <Route path="/profile" element={<AccountOverview />} />
                 <Route path="/dashboard" element={<AccountOverview />} />
+                <Route path="/dashboard/addresses" element={<AddressManagement />} />
                 <Route path="/grooming" element={<Grooming />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/login" element={<AuthPage />} />
