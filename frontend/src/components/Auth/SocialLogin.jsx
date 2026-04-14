@@ -1,29 +1,37 @@
 import React from 'react';
 
 const SocialLogin = () => {
-  const buttonStyle = {
-    backgroundColor: 'white',
-    color: 'black',
-    padding: '10px',
-    border: '2px solid black',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
+  const containerStyle = {
+    display: 'flex',
+    gap: '1rem',
     width: '100%',
-    marginBottom: '10px',
+    marginTop: '1.5rem'
+  };
+
+  const socialButtonStyle = {
+    flex: 1,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '10px'
+    gap: '0.75rem',
+    padding: '0.75rem 1rem',
+    borderRadius: '12px',
+    border: '1px solid #e4e3db',
+    background: 'white',
+    cursor: 'pointer',
+    fontFamily: 'Be Vietnam Pro, sans-serif',
+    fontWeight: '600',
+    fontSize: '0.875rem',
+    color: '#006a63'
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <button style={buttonStyle}>
-        <span>G</span> Continue with Google
+    <div style={containerStyle}>
+      <button style={socialButtonStyle}>
+        <span>G</span> Google
       </button>
-      <button style={buttonStyle}>
-        <span>f</span> Continue with Facebook
+      <button style={socialButtonStyle}>
+        <span>f</span> Facebook
       </button>
     </div>
   );

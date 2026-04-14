@@ -1,0 +1,359 @@
+.homeContainer {
+  width: 100%;
+  background-color: #fbf9f1;
+}
+
+/* Hero Section */
+.heroSection {
+  display: flex;
+  align-items: center;
+  padding: 5rem 6%;
+  gap: 2rem;
+  min-height: 600px;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  max-width: 1300px;
+  margin: 2rem auto;
+  border-radius: 40px;
+  background-color: #faf9f4; /* Figma light beige bg */
+}
+
+.heroContent {
+  flex: 1;
+  z-index: 10;
+  max-width: 600px;
+}
+
+.heroTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 4.5rem;
+  color: #585894;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1.44px;
+}
+
+.heroTitleHighlight {
+  color: #a04100;
+  font-style: italic;
+}
+
+.heroSubtitle {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.25rem;
+  color: #006a63;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.primaryButton {
+  background-color: #fa782d;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: transform 0.2s;
+}
+
+.secondaryButton {
+  background-color: #006a63;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: transform 0.2s;
+}
+
+.heroImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 35%, black 65%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 35%, black 65%);
+}
+
+/* Featured Section */
+.featuredSection {
+  padding: 5rem 10%;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.25rem;
+  color: #585894;
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  color: #006a63;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.viewAllLink {
+  color: #a04100;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.productCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+}
+
+.productImageWrapper {
+  height: 200px;
+  background-color: #f6f4ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.productImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.productInfo {
+  padding: 1.5rem;
+}
+
+.productCategory {
+  font-size: 0.75rem;
+  color: #006a63;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.productName {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  color: #585894;
+  margin: 0.5rem 0 1rem;
+}
+
+.productFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productPrice {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.addToCartButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e4e3db;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addToCartButton:hover {
+  background: #d4d3cb;
+}
+
+/* Spa Section */
+.spaSection {
+  padding: 5rem 5%;
+}
+
+.spaContainer {
+  background: #585894;
+  border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.spaContent {
+  flex: 1;
+  padding: 4rem;
+  color: white;
+}
+
+.spaLabel {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #e4e3db;
+  letter-spacing: 1.4px;
+}
+
+.spaTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 3.75rem;
+  margin: 1rem 0 1.5rem;
+  line-height: 1.2;
+}
+
+.spaDescription {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: #efedd8;
+  font-weight: 300;
+}
+
+.spaButtons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.spaPrimaryButton {
+  background: #fa782d;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.spaSecondaryButton {
+  background: transparent;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-weight: 700;
+}
+
+.spaImageWrapper {
+  flex: 1;
+}
+
+.spaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Newsletter Section */
+.newsletterSection {
+  padding: 5rem 10%;
+  background: #fbf9f1;
+}
+
+.newsletterCard {
+  background: #f6f4ec;
+  border-radius: 40px;
+  padding: 4rem;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.newsletterTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 3rem;
+  color: #585894;
+  margin-bottom: 1rem;
+}
+
+.newsletterSubtitle {
+  color: #006a63;
+  font-size: 1.125rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emailInput {
+  flex: 1;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  font-size: 1rem;
+}
+
+.subscribeButton {
+  background: #585894;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .heroSection {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 8rem;
+  }
+  
+  .heroContent {
+    max-width: 100%;
+  }
+  
+  .heroTitle {
+    font-size: 3rem;
+  }
+  
+  .heroButtons {
+    justify-content: center;
+  }
+  
+  .spaContainer {
+    flex-direction: column;
+  }
+}

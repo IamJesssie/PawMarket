@@ -1,39 +1,74 @@
 import React from 'react';
 
-const InputField = ({ label, type = 'text', placeholder, value, onChange, required = false }) => {
+const InputField = ({ label, type = 'text', placeholder, value, onChange, required = false, icon }) => {
   const containerStyle = {
-    marginBottom: '15px',
+    marginBottom: '20px',
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    width: '100%'
   };
 
   const labelStyle = {
-    marginBottom: '5px',
-    fontWeight: 'bold',
+    marginBottom: '8px',
+    fontWeight: '700',
+    fontSize: '9px',
+    color: '#006a63',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    fontFamily: 'Be Vietnam Pro, sans-serif'
+  };
+
+  const inputWrapperStyle = {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#ebe9e0',
+    borderRadius: '9999px',
+    overflow: 'hidden'
+  };
+
+  const iconStyle = {
+    position: 'absolute',
+    left: '16px',
+    color: '#006a63',
     fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none'
   };
 
   const inputStyle = {
-    padding: '10px',
-    border: '2px solid black',
-    borderRadius: '0px',
-    fontSize: '16px',
+    padding: '14px 16px',
+    paddingLeft: icon ? '42px' : '16px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    fontSize: '13px',
     outline: 'none',
+    width: '100%',
+    fontFamily: 'Be Vietnam Pro, sans-serif',
+    color: '#59413a',
+    fontWeight: '500'
   };
 
   return (
     <div style={containerStyle}>
       {label && <label style={labelStyle}>{label}</label>}
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required={required}
-        style={inputStyle}
-      />
+      <div style={inputWrapperStyle}>
+        {icon && <div style={iconStyle}>{icon}</div>}
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          required={required}
+          style={inputStyle}
+        />
+      </div>
     </div>
   );
 };
+
 
 export default InputField;
