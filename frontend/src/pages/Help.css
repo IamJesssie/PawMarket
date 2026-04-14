@@ -1,0 +1,442 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+.help-page {
+  min-height: 100vh;
+  background: #fbf9f1;
+  padding: 22px 20px 56px;
+  color: #1b1c17;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+}
+
+.help-inner {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.help-hero {
+  text-align: center;
+  margin: 18px auto 28px;
+}
+
+.help-hero h1 {
+  margin: 0;
+  color: #585894;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.help-search-wrap {
+  margin: 24px auto 12px;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 10px 40px rgba(27, 28, 23, 0.06);
+  height: 72px;
+  max-width: 672px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+.help-search-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 14px;
+  flex-shrink: 0;
+}
+
+.help-search-wrap input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1b1c17;
+  font-size: 15px;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+}
+
+.help-search-wrap input::placeholder {
+  color: #c4c7c5;
+}
+
+.help-search-wrap button {
+  border: 0;
+  border-radius: 9999px;
+  background: #fa782d;
+  color: #ffffff;
+  width: 116px;
+  height: 54px;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.help-search-tip {
+  margin: 0;
+  color: #006a63;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.help-categories {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.help-category-card {
+  border: 1px solid #e4e3db;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 10px 40px rgba(27, 28, 23, 0.06);
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.help-category-card:hover {
+  transform: translateY(-2px);
+}
+
+.help-category-card.active {
+  border-color: #fa782d;
+}
+
+.help-category-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #f6f4ec;
+  display: grid;
+  place-items: center;
+  color: #585894;
+}
+
+.help-category-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.help-category-label {
+  color: #006a63;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.help-content-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 364px;
+  gap: 30px;
+  align-items: start;
+}
+
+.help-faq-column h2,
+.help-support-column h2 {
+  margin: 0 0 18px;
+  color: #585894;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+
+.help-faq-section {
+  margin-bottom: 26px;
+}
+
+.help-faq-section h3 {
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #c4c7c5;
+  color: #006a63;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.help-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.help-faq-item {
+  background: #ffffff;
+  border: 1px solid #e4e3db;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.help-faq-question {
+  width: 100%;
+  height: 56px;
+  border: 0;
+  background: #ffffff;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #585894;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.help-faq-question > span:first-child {
+  line-height: 20px;
+}
+
+.help-faq-toggle {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #e4e3db;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: #006a63;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.help-faq-toggle img {
+  width: 14px;
+  height: 14px;
+}
+
+.help-faq-answer {
+  margin: 0;
+  border-top: 1px solid #f6f4ec;
+  padding: 14px 20px;
+  color: #006a63;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.help-empty-state {
+  background: #ffffff;
+  border: 1px solid #e4e3db;
+  border-radius: 16px;
+  padding: 22px;
+  color: #585894;
+}
+
+.help-support-column {
+  background: #f6f4ec;
+  border: 1px solid #e4e3db;
+  border-radius: 30px;
+  padding: 22px 16px 18px;
+}
+
+.support-channel-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.support-channel-tab {
+  min-height: 62px;
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #006a63;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.support-channel-tab.active {
+  border-color: #585894;
+  color: #585894;
+}
+
+.support-channel-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.help-support-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-caption {
+  margin: 0 0 6px;
+  color: #8e8e8e;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.help-support-form label {
+  color: #006a63;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.help-support-form input,
+.help-support-form textarea {
+  border: 0;
+  border-radius: 9999px;
+  background: #ebe8df;
+  padding: 0 14px;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 12px;
+  color: #1b1c17;
+  outline: none;
+}
+
+.help-support-form input {
+  height: 32px;
+}
+
+.help-support-form textarea {
+  min-height: 68px;
+  border-radius: 18px;
+  padding-top: 10px;
+  resize: vertical;
+}
+
+.help-attachment-btn {
+  margin-top: 2px;
+  height: 42px;
+  border: 1px dashed #b8b7b0;
+  border-radius: 9999px;
+  background: #ebe8df;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #006a63;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.help-attachment-btn img {
+  width: 14px;
+  height: 14px;
+}
+
+.help-hidden-file-input {
+  display: none;
+}
+
+.help-submit-btn {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 9999px;
+  background: #fa782d;
+  color: #ffffff;
+  height: 34px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  cursor: pointer;
+}
+
+.help-hours {
+  margin-top: 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.help-hours p {
+  margin: 0;
+  color: #8e8e8e;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.help-hours div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.help-hours span {
+  color: #006a63;
+  font-size: 12px;
+}
+
+.help-hours strong {
+  color: #1b1c17;
+  font-size: 12px;
+}
+
+@media (max-width: 1100px) {
+  .help-categories {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .help-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .help-support-column {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 720px) {
+  .help-page {
+    padding: 12px 12px 36px;
+  }
+
+  .help-search-wrap {
+    height: auto;
+    flex-wrap: wrap;
+    border-radius: 28px;
+    padding: 12px;
+  }
+
+  .help-search-icon {
+    margin: 0;
+  }
+
+  .help-search-wrap button {
+    width: 100%;
+  }
+
+  .help-categories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .help-faq-column h2,
+  .help-support-column h2 {
+    font-size: 24px;
+  }
+}
