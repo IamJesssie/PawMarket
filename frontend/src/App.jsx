@@ -9,6 +9,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
 import Help from './pages/Help';
+import Home from './pages/Home';
 import './App.css';
 
 function App() {
@@ -21,22 +22,7 @@ function App() {
 
             <main className="main-content">
               <Routes>
-                <Route path="/" element={
-                  <div className="home-page">
-                    <div className="hero-section">
-                      <h1>Welcome to PawMarket</h1>
-                      <p>Your one-stop shop for all pet needs</p>
-                      <div className="hero-buttons">
-                        <Link to="/products" className="cta-button">
-                          Browse Products
-                        </Link>
-                        <Link to="/cart" className="cta-button secondary">
-                          View Cart
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                } />
+                <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/profile" element={<AccountOverview />} />
                 <Route path="/dashboard" element={<AccountOverview />} />

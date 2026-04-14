@@ -1,0 +1,148 @@
+.authPageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  width: 100%;
+}
+
+.authContainer {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  background-color: #ffffff;
+  border-radius: 40px;
+  overflow: hidden;
+  min-height: 700px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+.imageSection {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3.5rem;
+  color: white;
+  text-align: left;
+}
+
+/* Register Specific Overlay */
+.registerOverlay {
+  background: linear-gradient(180deg, rgba(30, 48, 45, 0.2) 0%, rgba(30, 48, 45, 0.85) 100%);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Login Specific Overlay */
+.loginOverlay {
+  background: linear-gradient(180deg, rgba(30, 30, 51, 0.2) 0%, rgba(30, 30, 51, 0.85) 100%);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.imageContent {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+}
+
+.quote {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.author {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.formSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  background-color: #faf9f6;
+}
+
+.loginBg {
+  background-color: #ffffff;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.formTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.2rem;
+  color: #3b5b54;
+  margin-bottom: 0.5rem;
+}
+
+.loginBg .formTitle {
+  color: #585894;
+}
+
+.formSubtitle {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #6a8c88;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.loginBg .formSubtitle {
+  color: #006a63;
+}
+
+.toggleText {
+  margin-top: 2rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.875rem;
+  color: #006a63;
+  text-align: center;
+}
+
+.toggleLink {
+  color: #fa782d;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .authContainer {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+  .imageSection {
+    min-height: 300px;
+  }
+}
