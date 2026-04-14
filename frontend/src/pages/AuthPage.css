@@ -1,0 +1,67 @@
+.authPageContainer {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  display: flex;
+  border: 2px solid black;
+  min-height: 600px;
+}
+
+.leftPanel {
+  flex: 1;
+  padding: 40px;
+  border-right: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rightPanel {
+  flex: 1;
+  padding: 40px;
+}
+
+.illustrationPlaceholder {
+  border: 2px solid black;
+  height: 200px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomeTitle {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.valueList {
+  list-style: none;
+  padding: 0;
+}
+
+.valueListItem {
+  margin-bottom: 10px;
+}
+
+.tabContainer {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 2px solid black;
+}
+
+.tab {
+  padding: 10px 30px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.tabActive {
+  background-color: black;
+  color: white;
+}

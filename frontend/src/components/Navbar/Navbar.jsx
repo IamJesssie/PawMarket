@@ -30,7 +30,7 @@ const Navbar = () => {
       </div>
       <div className={styles.container}>
         <div className={styles.link6}>
-          <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Search" />
+          <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Profile" />
         </div>
         <Link to="/cart" className={styles.link7}>
           <img src="/images/mnvy88z1-8gog06l.svg" className={styles.icon2} alt="Cart" />

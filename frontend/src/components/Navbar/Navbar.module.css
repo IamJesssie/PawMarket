@@ -76,7 +76,8 @@
 .header2 .navigation .link2, 
 .header2 .navigation .link3, 
 .header2 .navigation .link4, 
-.header2 .navigation .link5 {
+.header2 .navigation .link5,
+.header2 .navigation .linkLogin {
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -88,6 +89,30 @@
 .header2 .navigation .link3 { width: 63px; }
 .header2 .navigation .link4 { width: 68px; }
 .header2 .navigation .link5 { width: 31px; }
+.header2 .navigation .linkLogin { width: 40px; }
+
+.header2 .navigation .userSection {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.header2 .navigation .userSection .logoutBtn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.header2 .navigation .userSection .logoutBtn:hover {
+  opacity: 0.8;
+}
 
 .header2 .container {
   display: flex;
