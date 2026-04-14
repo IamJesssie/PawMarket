@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const authReducer = (state, action) => {
   switch (action.type) {

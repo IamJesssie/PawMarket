@@ -8,6 +8,7 @@ import AddressManagement from './pages/AddressManagement';
 import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
+import Help from './pages/Help';
 import './App.css';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/dashboard" element={<AccountOverview />} />
                 <Route path="/dashboard/addresses" element={<AddressManagement />} />
                 <Route path="/grooming" element={<Grooming />} />
+                <Route path="/help" element={<Help />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/login" element={<AuthPage />} />
               </Routes>

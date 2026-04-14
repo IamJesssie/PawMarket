@@ -27,9 +27,9 @@ const Navbar = () => {
         <Link to="/grooming" className={styles.link5}>
           <p className={styles.homeLink}>Grooming</p>
         </Link>
-        <div className={styles.linkLogin}>
+        <Link to="/help" className={styles.linkLogin}>
           <p className={styles.homeLink}>Help</p>
-        </div>
+        </Link>
       </div>
       <div className={styles.container}>
         <Link to="/profile" className={styles.link6}>
