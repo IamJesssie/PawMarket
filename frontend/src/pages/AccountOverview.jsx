@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './AccountOverview.module.css';
 
 const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
@@ -16,6 +17,11 @@ const sidebarItems = [
   'My Pets',
   'Logout',
 ];
+
+const sidebarRoutes = {
+  Overview: '/dashboard',
+  Addresses: '/dashboard/addresses',
+};
 
 const metrics = [
   { label: 'Total Orders', value: '12' },
@@ -42,6 +48,9 @@ const upcomingAppointments = [
 ];
 
 const AccountOverview = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.accountShell}>
@@ -53,15 +62,19 @@ const AccountOverview = () => {
           </div>
 
           <nav className={styles.sidebarNav}>
-            {sidebarItems.map((item) => (
-              <button
-                key={item}
-                className={`${styles.sidebarNavItem} ${item === 'Overview' ? styles.activeNavItem : ''}`}
-                type="button"
-              >
-                {item}
-              </button>
-            ))}
+            {sidebarItems.map((item) => {
+              const isActive = sidebarRoutes[item] ? location.pathname === sidebarRoutes[item] : false;
+              return (
+                <button
+                  key={item}
+                  className={`${styles.sidebarNavItem} ${isActive ? styles.activeNavItem : ''}`}
+                  type="button"
+                  onClick={() => sidebarRoutes[item] && navigate(sidebarRoutes[item])}
+                >
+                  {item}
+                </button>
+              );
+            })}
           </nav>
         </aside>
 
