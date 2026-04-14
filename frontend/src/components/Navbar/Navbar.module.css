@@ -10,11 +10,10 @@
   border-radius: 9999px;
   box-shadow: 0px 10px 40px -10px #1b1c170f;
   background: #ffffffcc;
-  padding-right: 23px;
-  padding-left: 23px;
+  padding: 18px 23px;
   width: 100%;
-  max-width: 1152px;
-  height: 70px;
+  max-width: 100%;
+  height: auto;
   margin: 0 auto;
   text-decoration: none;
 }
@@ -86,10 +85,10 @@
 }
 
 .header2 .navigation .link2 { width: 40px; }
-.header2 .navigation .link3 { width: 63px; }
-.header2 .navigation .link4 { width: 68px; }
-.header2 .navigation .link5 { width: 31px; }
-.header2 .navigation .linkLogin { width: 40px; }
+.header2 .navigation .link3 { width: auto; }
+.header2 .navigation .link4 { width: auto; }
+.header2 .navigation .link5 { width: auto; }
+.header2 .navigation .linkLogin { width: auto; }
 
 .header2 .navigation .userSection {
   display: flex;
@@ -127,6 +126,38 @@
   column-gap: 8px;
   height: 26px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header2 {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 18px;
+  }
+
+  .header2 .navigation {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .header2 .container {
+    width: 100%;
+    justify-content: flex-end;
+    padding-left: 0;
+    margin-top: 12px;
+  }
+
+  .header2 .navigation .link,
+  .header2 .navigation .link2,
+  .header2 .navigation .link3,
+  .header2 .navigation .link4,
+  .header2 .navigation .link5,
+  .header2 .navigation .linkLogin {
+    width: auto;
+  }
 }
 
 .header2 .container .link6 .icon {

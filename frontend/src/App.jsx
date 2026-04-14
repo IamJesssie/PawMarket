@@ -3,8 +3,10 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products';
+import AccountOverview from './pages/AccountOverview';
 import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
+import Grooming from './pages/Grooming';
 import './App.css';
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
                   </div>
                 } />
                 <Route path="/products" element={<Products />} />
+                <Route path="/dashboard" element={<AccountOverview />} />
+                <Route path="/grooming" element={<Grooming />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/login" element={<AuthPage />} />
               </Routes>
