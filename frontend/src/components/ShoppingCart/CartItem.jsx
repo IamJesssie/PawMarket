@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CartItem.module.css';
 
 const CartItem = ({ item, onUpdateQuantity, onRemove, onSaveForLater }) => {
-  const originalPrice = item.originalPrice || item.price * 1.2; // Mock original price if not present
+  const originalPrice = item.originalPrice || item.price * 1.2; 
   const savings = originalPrice - item.price;
 
   return (

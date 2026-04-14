@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const { getCartItemsCount } = useCart();
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <nav className={styles.header2}>
@@ -27,6 +29,16 @@ const Navbar = () => {
         <div className={styles.link5}>
           <p className={styles.homeLink}>Help</p>
         </div>
+        {isAuthenticated ? (
+          <div className={styles.userSection}>
+            <span className={styles.homeLink}>Hi, {user.name}</span>
+            <button onClick={logout} className={styles.logoutBtn}>Logout</button>
+          </div>
+        ) : (
+          <Link to="/login" className={styles.linkLogin}>
+            <p className={styles.homeLink}>Login</p>
+          </Link>
+        )}
       </div>
       <div className={styles.container}>
         <div className={styles.link6}>

@@ -15,7 +15,7 @@ const ProductGrid = ({ products, onAddToCart }) => {
         ))}
       </div>
       
-      {/* Pagination component from design */}
+  
       <div className={styles.container16}>
         <div className={`${styles.button2} ${styles.active}`}>
           <p className={styles.page1}>1</p>
