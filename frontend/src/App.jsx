@@ -10,6 +10,7 @@ import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
 import Help from './pages/Help';
 import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/profile" element={<AccountOverview />} />
                 <Route path="/dashboard" element={<AccountOverview />} />
                 <Route path="/dashboard/addresses" element={<AddressManagement />} />
