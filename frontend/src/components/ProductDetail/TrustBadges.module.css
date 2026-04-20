@@ -1,0 +1,31 @@
+.trustBadges {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f6f4ec;
+  border: 1px solid #e4e3db;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #006a63;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.trustIcon {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 600px) {
+  .trustBadges {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
