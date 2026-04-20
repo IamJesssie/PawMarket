@@ -71,12 +71,9 @@ const ShoppingCart = () => {
           </div>
           
           <div className={styles.recommendedGrid}>
-            {/* Mock recommended items */}
-            {[1, 2, 3].map(i => (
-              <div key={i} className={styles.recommendedItem}>
-                {/* Simplified for now as there's no specific recommended item component */}
-              </div>
-            ))}
+            <div className={styles.recommendedItem}></div>
+            <div className={styles.recommendedItem}></div>
+            <div className={styles.recommendedItem}></div>
           </div>
         </section>
       </div>
@@ -224,7 +221,6 @@ const ShoppingCart = () => {
         </div>
         
         <div className={styles.recommendedGrid}>
-          {/* Mock recommended items placeholders */}
           <div className={styles.recommendedItem}></div>
           <div className={styles.recommendedItem}></div>
           <div className={styles.recommendedItem}></div>
