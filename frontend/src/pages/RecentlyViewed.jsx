@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './RecentlyViewed.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
-import { useCart } from '../context/CartContext';
+import { products } from '../data/products';
 
 const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
 
@@ -38,6 +38,7 @@ const sidebarIcons = {
 
 const sidebarRoutes = {
   'Overview': '/dashboard',
+  'Wishlist & Saved': '/wishlist',
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
 };
@@ -54,8 +55,15 @@ const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
 
   useEffect(() => {
-    const viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    setRecentProducts(viewed);
+    // Get IDs from localStorage
+    const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    
+    // Map the IDs/Stale items to the fresh data in products.js
+    const freshRecentProducts = viewedData.map(staleItem => {
+      return products.find(p => p.id === staleItem.id) || staleItem;
+    }).filter(p => p !== undefined);
+
+    setRecentProducts(freshRecentProducts);
   }, []);
 
   return (
@@ -77,9 +85,18 @@ const RecentlyViewed = () => {
             <div className={styles.productGrid}>
               {recentProducts.map(product => (
                 <div key={product.id} className={styles.productCard}>
-                  <div className={styles.imageWrapper}>
-                    <img src={product.image} alt={product.name} className={styles.productImage} />
-                  </div>
+                  <Link to={`/products/${product.id}`} className={styles.imageLink}>
+                    <div 
+                      className={styles.imageWrapper}
+                      style={{ 
+                        backgroundImage: `url(${product.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      {/* Using background image to match the high-fi design pattern */}
+                    </div>
+                  </Link>
                   <div className={styles.productInfo}>
                     <h3 className={styles.productName}>{product.name}</h3>
                     <p className={styles.productPrice}>₱{product.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
