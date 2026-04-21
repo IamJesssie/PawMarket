@@ -59,7 +59,9 @@
 }
 
 .sidebarNavItem {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
   text-align: left;
   background: transparent;
@@ -71,6 +73,23 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebarIcon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.sidebarNavItem:hover .sidebarIcon,
+.sidebarNavItem:focus .sidebarIcon {
+  opacity: 0.8;
+}
+
+.activeNavItem .sidebarIcon {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(56%) sepia(87%) saturate(2256%) hue-rotate(345deg) brightness(97%) contrast(96%); /* Approximating #fa782d */
 }
 
 .sidebarNavItem:hover,

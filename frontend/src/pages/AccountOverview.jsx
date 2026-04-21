@@ -12,7 +12,8 @@ const sidebarItems = [
   'Overview',
   'Order History',
   'Appointments',
-  'Wishlist',
+  'Wishlist & Saved',
+  'Recently Viewed',
   'Profile',
   'Addresses',
   'Password & Security',
@@ -22,9 +23,25 @@ const sidebarItems = [
   'Logout',
 ];
 
+const sidebarIcons = {
+  'Overview': '/images/account/overview.svg',
+  'Order History': '/images/account/orders.svg',
+  'Appointments': '/images/account/appointments.svg',
+  'Wishlist & Saved': '/images/account/wishlist.svg',
+  'Recently Viewed': '/images/account/recent.svg',
+  'Profile': '/images/account/profile.svg',
+  'Addresses': '/images/account/addresses.svg',
+  'Password & Security': '/images/account/security.svg',
+  'Notifications': '/images/account/notifications.svg',
+  'Payment Methods': '/images/account/payments.svg',
+  'My Pets': '/images/account/pets.svg',
+  'Logout': '/images/account/logout.svg',
+};
+
 const sidebarRoutes = {
-  Overview: '/dashboard',
-  Addresses: '/dashboard/addresses',
+  'Overview': '/dashboard',
+  'Recently Viewed': '/recently-viewed',
+  'Addresses': '/dashboard/addresses',
 };
 
 const user = {
@@ -66,6 +83,7 @@ const AccountOverview = () => {
         <AccountSidebar 
           user={user} 
           sidebarItems={sidebarItems} 
+          sidebarIcons={sidebarIcons}
           sidebarRoutes={sidebarRoutes} 
         />
 

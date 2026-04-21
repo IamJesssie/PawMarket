@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../pages/AccountOverview.module.css';
 
-const AccountSidebar = ({ user, sidebarItems, sidebarRoutes }) => {
+const AccountSidebar = ({ user, sidebarItems, sidebarIcons, sidebarRoutes }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,6 +24,9 @@ const AccountSidebar = ({ user, sidebarItems, sidebarRoutes }) => {
               type="button"
               onClick={() => sidebarRoutes[item] && navigate(sidebarRoutes[item])}
             >
+              {sidebarIcons && sidebarIcons[item] && (
+                <img src={sidebarIcons[item]} alt="" className={styles.sidebarIcon} />
+              )}
               {item}
             </button>
           );
