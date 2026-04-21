@@ -57,3 +57,14 @@
     max-width: 256px;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+[data-theme="dark"] .products-page {
+  background-color: #0f0f14;
+}
+
+[data-theme="dark"] .loading-spinner {
+  border-color: #2a2a38;
+  border-top-color: #fa782d;
+}
+

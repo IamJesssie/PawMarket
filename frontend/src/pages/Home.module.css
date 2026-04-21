@@ -357,3 +357,176 @@
     flex-direction: column;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .homeContainer {
+  background-color: #0f0f14;
+}
+
+:global([data-theme="dark"]) .heroSection {
+  background-color: #16161e;
+}
+
+:global([data-theme="dark"]) .heroTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .heroSubtitle {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .sectionTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .sectionSubtitle {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .productCard {
+  background: #1e1e28;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="dark"]) .productImageWrapper {
+  background-color: #2a2a38;
+}
+
+:global([data-theme="dark"]) .productName {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .productCategory {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .addToCartButton {
+  background: #2e2e3a;
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .addToCartButton:hover {
+  background: #fa782d;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .newsletterSection {
+  background: #0f0f14;
+}
+
+:global([data-theme="dark"]) .newsletterCard {
+  background: #1e1e28;
+}
+
+:global([data-theme="dark"]) .newsletterTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .newsletterSubtitle {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .emailInput {
+  background: #2a2a38;
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .subscribeButton {
+  background: #8886c0;
+}
+
+:global([data-theme="dark"]) .viewAllLink {
+  color: #fa782d;
+}
+
+.makeoverSection {
+  padding: 5rem 10%;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  background-color: #faf9f4;
+  margin: 4rem 5%;
+  border-radius: 40px;
+}
+
+.makeoverContent {
+  flex: 1;
+}
+
+.makeoverPreview {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.teaserCard {
+  background: white;
+  padding: 1rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 350px;
+}
+
+.teaserImage {
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.teaserLabel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #fa782d;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.teaserInfo h3 {
+  margin: 0;
+  color: #585894;
+  font-size: 1.25rem;
+}
+
+.teaserInfo p {
+  margin: 0.25rem 0 0;
+  color: #006a63;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .makeoverSection {
+  background-color: #16161e;
+}
+
+:global([data-theme="dark"]) .teaserCard {
+  background: #1e1e28;
+}
+
+:global([data-theme="dark"]) .teaserInfo h3 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .teaserInfo p {
+  color: #00c4b0;
+}
+
+@media (max-width: 900px) {
+  .makeoverSection {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+

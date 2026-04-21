@@ -67,8 +67,8 @@ const LoginForm = () => {
       <button type="submit" style={buttonStyle}>Log In →</button>
       
       <div style={{ marginTop: '40px', textAlign: 'center', position: 'relative' }}>
-        <div style={{ borderBottom: '1px solid #e4e3db', position: 'absolute', width: '100%', top: '50%' }}></div>
-        <span style={{ backgroundColor: '#ffffff', padding: '0 15px', position: 'relative', fontSize: '9px', color: '#006a63', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
+        <div style={{ borderBottom: '1px solid var(--auth-input-bg)', position: 'absolute', width: '100%', top: '50%' }}></div>
+        <span style={{ backgroundColor: 'var(--auth-bg)', padding: '0 15px', position: 'relative', fontSize: '9px', color: 'var(--auth-label)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
           OR CONTINUE WITH
         </span>
       </div>

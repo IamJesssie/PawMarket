@@ -208,3 +208,72 @@
   font-weight: 700;
   margin: 0;
 }
+
+.clickableArea {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.clickableArea:hover .productName {
+  color: #fa782d;
+}
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .link {
+  background: #1e1e28;
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .link .products {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .link .products2 {
+  background: #1e1e28;
+}
+
+:global([data-theme="dark"]) .link .products2 .container2 .text .productCategory {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .link .products2 .container2 .heading3 .productName {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .link .products2 .container3 .text2 .productPrice {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .link .products2 .container3 .button {
+  background: #2e2e3a;
+}
+
+:global([data-theme="dark"]) .link .products .imageContainer .container {
+  background: rgba(30, 30, 40, 0.9);
+}
+
+:global([data-theme="dark"]) .link .products .imageContainer .container .productRating {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .container16 .button2 {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .container16 .button2.active {
+  background: #8886c0;
+  border-color: #8886c0;
+}
+
+:global([data-theme="dark"]) .container16 .button2:hover:not(.active) {
+  border-color: #8886c0;
+}
+
+:global([data-theme="dark"]) .container16 .button2 .page1,
+:global([data-theme="dark"]) .container16 .button2 .page2 {
+  color: #a8a5b8;
+}
+

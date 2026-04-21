@@ -1,38 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MOCK_PRODUCTS } from '../data/mockData';
+import ProductCard from '../components/ProductGrid/ProductCard';
+import { useCart } from '../context/CartContext';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: 'Premium Adult Dog Food',
-      category: 'Dog Food',
-      price: 2500,
-      image: '/images/mnvybq1v-v6t6rlx.png',
-    },
-    {
-      id: 2,
-      name: 'Interactive Feather Cat Toy',
-      category: 'Cat Toy',
-      price: 800,
-      image: '/images/mnvybq1v-mjzc7js.png',
-    },
-    {
-      id: 3,
-      name: 'Orthopedic Fluffy Pet Bed',
-      category: 'Pet Bed',
-      price: 4800,
-      image: '/images/mnvybq1v-dce60t4.png',
-    },
-    {
-      id: 4,
-      name: 'Professional Grooming Kit',
-      category: 'Grooming Kit',
-      price: 1850,
-      image: '/images/mnvybq1v-eugcbf9.png',
-    }
-  ];
+  const { addToCart } = useCart();
+  const featuredProducts = MOCK_PRODUCTS.slice(0, 4);
+
 
   return (
     <div className={styles.homeContainer}>
@@ -67,20 +43,34 @@ const Home = () => {
         
         <div className={styles.productGrid}>
           {featuredProducts.map((product) => (
-            <div key={product.id} className={styles.productCard}>
-              <div className={styles.productImageWrapper}>
-                <img src={product.image} alt={product.name} className={styles.productImage} />
-              </div>
-              <div className={styles.productInfo}>
-                <span className={styles.productCategory}>{product.category}</span>
-                <h3 className={styles.productName}>{product.name}</h3>
-                <div className={styles.productFooter}>
-                  <span className={styles.productPrice}>₱{product.price.toLocaleString()}.00</span>
-                  <button className={styles.addToCartButton}>+</button>
-                </div>
-              </div>
-            </div>
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onAddToCart={addToCart} 
+            />
           ))}
+        </div>
+
+      </section>
+
+      {/* Pet Makeovers Teaser */}
+      <section className={styles.makeoverSection}>
+        <div className={styles.makeoverContent}>
+          <h2 className={styles.sectionTitle}>Pet Makeovers</h2>
+          <p className={styles.sectionSubtitle}>Witness the magic of our professional grooming. From scruffy to fluffy in one session!</p>
+          <Link to="/grooming" className={styles.viewAllLink}>View All Transformations →</Link>
+        </div>
+        <div className={styles.makeoverPreview}>
+          {/* We'll show one transformation here as a teaser */}
+          <div className={styles.teaserCard}>
+            <div className={styles.teaserImage} style={{ backgroundImage: 'url(/images/mnvybq1w-a4pxonk.png)' }}>
+              <div className={styles.teaserLabel}>After</div>
+            </div>
+            <div className={styles.teaserInfo}>
+              <h3>Charlie's Fresh Look</h3>
+              <p>Poodle Mix • Full Styling</p>
+            </div>
+          </div>
         </div>
       </section>
 

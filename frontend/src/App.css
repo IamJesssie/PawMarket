@@ -180,3 +180,16 @@ code {
 .p-2 { padding: 1rem; }
 .p-3 { padding: 1.5rem; }
 .p-4 { padding: 2rem; }
+
+/* ── Dark Mode Global ──────────────────────────────────────── */
+[data-theme="dark"] body {
+  background-color: #0f0f14;
+}
+
+[data-theme="dark"] .app {
+  background-color: #0f0f14;
+}
+
+[data-theme="dark"] .footer {
+  background: #1a1a24;
+}

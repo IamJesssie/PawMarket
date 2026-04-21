@@ -407,3 +407,117 @@
     align-items: flex-start;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .pageContainer {
+  background: #0f0f14;
+}
+
+:global([data-theme="dark"]) .sidebar {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .avatar {
+  border-color: #2a2a38;
+}
+
+:global([data-theme="dark"]) .profileName {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .sidebarNavItem {
+  color: #c5c3d4;
+}
+
+:global([data-theme="dark"]) .sidebarNavItem:hover {
+  background: #2a2a38;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .activeNavItem {
+  background: rgba(250, 120, 45, 0.15);
+  color: #fa782d;
+}
+
+:global([data-theme="dark"]) .pageTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .userInfoCard,
+:global([data-theme="dark"]) .panelCard {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .sectionLabel {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .userInfoLabel {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .userInfoValue {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .metricCard {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .metricValue {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .panelHeader h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .table th {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .table td {
+  color: #e8e6f0;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+:global([data-theme="dark"]) .appointmentRow {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .appointmentBadge {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .appointmentDate {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .appointmentTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .appointmentMeta {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .outlineButton,
+:global([data-theme="dark"]) .linkButton,
+:global([data-theme="dark"]) .viewAction {
+  border-color: #00c4b0;
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .outlineButton:hover,
+:global([data-theme="dark"]) .viewAction:hover {
+  background: #00c4b0;
+  color: #ffffff;
+}
+

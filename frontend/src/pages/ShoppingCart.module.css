@@ -359,3 +359,86 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .shoppingCartPage {
+  background-color: #0f0f14;
+}
+
+:global([data-theme="dark"]) .pageTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .stepNumber {
+  background-color: #2a2a38;
+  color: rgba(0, 196, 176, 0.5);
+}
+
+:global([data-theme="dark"]) .stepLabel {
+  color: rgba(0, 196, 176, 0.5);
+}
+
+:global([data-theme="dark"]) .stepConnector {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .itemsListContainer {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .sectionHeader h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .clearCartBtn {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .summaryCard {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .summaryHeader h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .promoSection h3 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .promoInput {
+  background-color: #2a2a38;
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .summaryRow {
+  color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .summaryRow.total {
+  color: #e8e6f0;
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .continueLink {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .trustBadgesContainer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .trustBadge span {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .recommendedHeader h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .emptyCart h2 {
+  color: #8886c0;
+}
+
