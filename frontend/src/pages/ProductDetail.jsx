@@ -55,7 +55,7 @@ const ProductDetail = () => {
 
         {/* Product Section */}
         <div className={styles.productMain}>
-          <ProductGallery images={product.images} productName={product.name} />
+          <ProductGallery product={product} />
           
           <div className={styles.infoWrapper}>
             <ProductInfo product={product} />

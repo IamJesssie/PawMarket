@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
+import { WishlistProvider } from './context/WishlistContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products';
 import AccountOverview from './pages/AccountOverview';
@@ -12,23 +13,26 @@ import Help from './pages/Help';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import RecentlyViewed from './pages/RecentlyViewed';
+import Wishlist from './pages/Wishlist';
 import './App.css';
 
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <Router>
-          <div className="app">
-            <Navbar />
+        <WishlistProvider>
+          <Router>
+            <div className="app">
+              <Navbar />
 
-            <main className="main-content">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/recently-viewed" element={<RecentlyViewed />} />
-                <Route path="/profile" element={<AccountOverview />} />
+              <main className="main-content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/products/:id" element={<ProductDetail />} />
+                  <Route path="/recently-viewed" element={<RecentlyViewed />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/profile" element={<AccountOverview />} />
                 <Route path="/dashboard" element={<AccountOverview />} />
                 <Route path="/dashboard/addresses" element={<AddressManagement />} />
                 <Route path="/grooming" element={<Grooming />} />
@@ -43,6 +47,7 @@ function App() {
             </footer>
           </div>
         </Router>
+        </WishlistProvider>
       </CartProvider>
     </AuthProvider>
   );
