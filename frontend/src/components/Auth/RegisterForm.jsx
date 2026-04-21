@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import InputField from './InputField';
 
 const UserIcon = () => (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>);
@@ -14,6 +16,9 @@ const RegisterForm = () => {
   });
 
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const { signup, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,13 +29,22 @@ const RegisterForm = () => {
     if (error) setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    console.log('Register attempt:', formData);
+    
+    setError('');
+    const result = await signup(formData.email, formData.password, formData.fullName);
+    
+    if (result.success) {
+      setSuccess('Account created! Please check your email for verification.');
+      setTimeout(() => navigate('/login'), 3000);
+    } else {
+      setError(result.error);
+    }
   };
 
   const buttonStyle = {
@@ -46,6 +60,25 @@ const RegisterForm = () => {
     borderRadius: '9999px',
     fontFamily: 'Plus Jakarta Sans, sans-serif'
   };
+
+  if (success) {
+    return (
+      <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+        <div style={{ fontSize: '48px', marginBottom: '20px' }}>📧</div>
+        <h2 style={{ color: '#585894', fontFamily: 'Plus Jakarta Sans', marginBottom: '10px' }}>Verify your email</h2>
+        <p style={{ color: '#006a63', fontFamily: 'Be Vietnam Pro', lineHeight: '1.6' }}>
+          We've sent a verification link to <br/><strong>{formData.email}</strong>.<br/>
+          Please check your inbox to complete registration.
+        </p>
+        <button 
+          onClick={() => navigate('/login')}
+          style={{ ...buttonStyle, marginTop: '30px' }}
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px', margin: '0 auto' }}>
@@ -92,9 +125,12 @@ const RegisterForm = () => {
         required
       />
 
-      {error && <p style={{ color: '#e74c3c', fontSize: '14px', marginBottom: '10px' }}>{error}</p>}
+      {error && <p style={{ color: '#e74c3c', fontSize: '12px', marginBottom: '10px', textAlign: 'center' }}>{error}</p>}
+      {success && <p style={{ color: '#2ecc71', fontSize: '12px', marginBottom: '10px', textAlign: 'center' }}>{success}</p>}
 
-      <button type="submit" style={buttonStyle}>Create Account</button>
+      <button type="submit" style={buttonStyle} disabled={loading}>
+        {loading ? 'Creating Account...' : 'Create Account'}
+      </button>
       
       <div style={{ marginTop: '40px', textAlign: 'center', position: 'relative' }}>
         <div style={{ borderBottom: '1px solid #e4e3db', position: 'absolute', width: '100%', top: '50%' }}></div>

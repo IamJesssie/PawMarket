@@ -1,6 +1,16 @@
 import React from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 const SocialLogin = () => {
+  const { loginWithGoogle } = useAuth();
+
+  const handleGoogleLogin = async () => {
+    const { success, error } = await loginWithGoogle();
+    if (!success) {
+      alert(error || 'Failed to login with Google');
+    }
+  };
+
   const containerStyle = {
     display: 'flex',
     gap: '1rem',
@@ -27,8 +37,9 @@ const SocialLogin = () => {
 
   return (
     <div style={containerStyle}>
-      <button style={socialButtonStyle}>
-        <span>G</span> Google
+      <button style={socialButtonStyle} onClick={handleGoogleLogin}>
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" height="18" alt="" />
+        Google
       </button>
       <button style={socialButtonStyle}>
         <span>f</span> Facebook
