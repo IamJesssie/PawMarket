@@ -78,18 +78,19 @@
 .sidebarIcon {
   width: 20px;
   height: 20px;
-  opacity: 0.6;
-  transition: opacity 0.2s ease, filter 0.2s ease;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  filter: grayscale(100%) brightness(0.5); /* Force grayscale */
 }
 
-.sidebarNavItem:hover .sidebarIcon,
-.sidebarNavItem:focus .sidebarIcon {
+.sidebarNavItem:hover .sidebarIcon {
   opacity: 0.8;
+  filter: grayscale(0%) brightness(1); /* Show color on hover */
 }
 
 .activeNavItem .sidebarIcon {
   opacity: 1;
-  filter: brightness(0) saturate(100%) invert(56%) sepia(87%) saturate(2256%) hue-rotate(345deg) brightness(97%) contrast(96%); /* Approximating #fa782d */
+  filter: none !important; /* Remove grayscale strictly on active */
 }
 
 .sidebarNavItem:hover,

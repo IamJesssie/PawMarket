@@ -40,6 +40,7 @@ const sidebarIcons = {
 
 const sidebarRoutes = {
   'Overview': '/dashboard',
+  'Wishlist & Saved': '/wishlist',
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
 };
