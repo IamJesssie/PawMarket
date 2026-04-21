@@ -1,38 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { products as allProducts } from '../data/products';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: 'Premium Adult Dog Food',
-      category: 'Dog Food',
-      price: 2500,
-      image: '/images/mnvybq1v-v6t6rlx.png',
-    },
-    {
-      id: 2,
-      name: 'Interactive Feather Cat Toy',
-      category: 'Cat Toy',
-      price: 800,
-      image: '/images/mnvybq1v-mjzc7js.png',
-    },
-    {
-      id: 3,
-      name: 'Orthopedic Fluffy Pet Bed',
-      category: 'Pet Bed',
-      price: 4800,
-      image: '/images/mnvybq1v-dce60t4.png',
-    },
-    {
-      id: 4,
-      name: 'Professional Grooming Kit',
-      category: 'Grooming Kit',
-      price: 1850,
-      image: '/images/mnvybq1v-eugcbf9.png',
-    }
-  ];
+  const featuredProducts = allProducts.slice(0, 4);
 
   return (
     <div className={styles.homeContainer}>
@@ -68,12 +40,16 @@ const Home = () => {
         <div className={styles.productGrid}>
           {featuredProducts.map((product) => (
             <div key={product.id} className={styles.productCard}>
-              <div className={styles.productImageWrapper}>
-                <img src={product.image} alt={product.name} className={styles.productImage} />
-              </div>
+              <Link to={`/products/${product.id}`} className={styles.imageLink}>
+                <div className={styles.productImageWrapper}>
+                  <img src={product.image} alt={product.name} className={styles.productImage} />
+                </div>
+              </Link>
               <div className={styles.productInfo}>
                 <span className={styles.productCategory}>{product.category}</span>
-                <h3 className={styles.productName}>{product.name}</h3>
+                <Link to={`/products/${product.id}`} className={styles.nameLink}>
+                  <h3 className={styles.productName}>{product.name}</h3>
+                </Link>
                 <div className={styles.productFooter}>
                   <span className={styles.productPrice}>₱{product.price.toLocaleString()}.00</span>
                   <button className={styles.addToCartButton}>+</button>

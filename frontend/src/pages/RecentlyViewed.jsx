@@ -1,10 +1,8 @@
-import React from 'react';
-import styles from './AccountOverview.module.css';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './RecentlyViewed.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
-import UserInfoSummary from '../components/Overview/UserInfoSummary';
-import MetricsRow from '../components/Overview/MetricsRow';
-import RecentOrders from '../components/Overview/RecentOrders';
-import UpcomingAppointments from '../components/Overview/UpcomingAppointments';
+import { useCart } from '../context/CartContext';
 
 const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
 
@@ -52,31 +50,14 @@ const user = {
   memberSince: '2024'
 };
 
-const metrics = [
-  { label: 'Total Orders', value: '12' },
-  { label: 'Pending Orders', value: '2' },
-  { label: 'Appointments', value: '3' },
-  { label: 'Loyalty Points', value: '480', highlight: true },
-];
+const RecentlyViewed = () => {
+  const [recentProducts, setRecentProducts] = useState([]);
 
-const recentOrders = [
-  { id: '#PM-1042', date: 'Mar 08, 2026', items: '3 item(s)', total: '₱2694.45', status: 'Delivered' },
-  { id: '#PM-1039', date: 'Feb 25, 2026', items: '1 item(s)', total: '₱1210.00', status: 'Delivered' },
-  { id: '#PM-1031', date: 'Feb 10, 2026', items: '5 item(s)', total: '₱5032.50', status: 'Delivered' },
-];
+  useEffect(() => {
+    const viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    setRecentProducts(viewed);
+  }, []);
 
-const upcomingAppointments = [
-  {
-    month: 'Mar',
-    date: '15',
-    service: 'Full Grooming',
-    pet: 'Buddy (Golden Retriever)',
-    time: '10:00 AM',
-    status: 'Confirmed',
-  },
-];
-
-const AccountOverview = () => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.accountShell}>
@@ -89,17 +70,36 @@ const AccountOverview = () => {
 
         <main className={styles.contentArea}>
           <div className={styles.pageHeadingRow}>
-            <h1 className={styles.pageTitle}>Overview</h1>
+            <h1 className={styles.pageTitle}>Recently Viewed Products</h1>
           </div>
 
-          <UserInfoSummary user={user} />
-          <MetricsRow metrics={metrics} />
-          <RecentOrders orders={recentOrders} />
-          <UpcomingAppointments appointments={upcomingAppointments} />
+          {recentProducts.length > 0 ? (
+            <div className={styles.productGrid}>
+              {recentProducts.map(product => (
+                <div key={product.id} className={styles.productCard}>
+                  <div className={styles.imageWrapper}>
+                    <img src={product.image} alt={product.name} className={styles.productImage} />
+                  </div>
+                  <div className={styles.productInfo}>
+                    <h3 className={styles.productName}>{product.name}</h3>
+                    <p className={styles.productPrice}>₱{product.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
+                    <Link to={`/products/${product.id}`} className={styles.viewDetailsBtn}>
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.emptyState}>
+              <p>You haven't viewed any products yet.</p>
+              <Link to="/products" className={styles.shopNowButton}>Start Shopping</Link>
+            </div>
+          )}
         </main>
       </div>
     </div>
   );
 };
 
-export default AccountOverview;
+export default RecentlyViewed;
