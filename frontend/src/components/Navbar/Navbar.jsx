@@ -1,45 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useOrder } from '../../context/OrderContext';
+import LoyaltyPointsBar from './LoyaltyPointsBar';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const { getCartItemsCount } = useCart();
+  const { loyaltyPoints, getVoucherDiscount } = useOrder();
 
   return (
-    <nav className={styles.header2}>
-      <Link to="/" className={styles.link}>
-        <p className={styles.logo3}>
-          <span className={styles.logo}>Paw</span>
-          <span className={styles.logo2}>Market</span>
-        </p>
-      </Link>
-      <div className={styles.navigation}>
-        <Link to="/" className={styles.link2}>
-          <p className={styles.homeLink}>Home</p>
+    <>
+      <LoyaltyPointsBar points={loyaltyPoints} discount={getVoucherDiscount()} />
+      <nav className={styles.header2}>
+        <Link to="/" className={styles.link}>
+          <p className={styles.logo3}>
+            <span className={styles.logo}>Paw</span>
+            <span className={styles.logo2}>Market</span>
+          </p>
         </Link>
-        <Link to="/products" className={styles.link3}>
-          <p className={styles.homeLink}>Products</p>
-        </Link>
-        <Link to="/grooming" className={styles.link5}>
-          <p className={styles.homeLink}>Grooming</p>
-        </Link>
-        <Link to="/help" className={styles.linkLogin}>
-          <p className={styles.homeLink}>Help</p>
-        </Link>
-      </div>
-      <div className={styles.container}>
-        <Link to="/profile" className={styles.link6}>
-          <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Profile" />
-        </Link>
-        <Link to="/cart" className={styles.link7}>
-          <img src="/images/mnvy88z1-8gog06l.svg" className={styles.icon2} alt="Cart" />
-          <div className={styles.header}>
-            <p className={styles.cartItemCount}>{getCartItemsCount()}</p>
-          </div>
-        </Link>
-      </div>
-    </nav>
+        <div className={styles.navigation}>
+          <Link to="/" className={styles.link2}>
+            <p className={styles.homeLink}>Home</p>
+          </Link>
+          <Link to="/products" className={styles.link3}>
+            <p className={styles.homeLink}>Products</p>
+          </Link>
+          <Link to="/grooming" className={styles.link5}>
+            <p className={styles.homeLink}>Grooming</p>
+          </Link>
+          <Link to="/help" className={styles.linkLogin}>
+            <p className={styles.homeLink}>Help</p>
+          </Link>
+        </div>
+        <div className={styles.container}>
+          <Link to="/profile" className={styles.link6}>
+            <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Profile" />
+          </Link>
+          <Link to="/cart" className={styles.link7}>
+            <img src="/images/mnvy88z1-8gog06l.svg" className={styles.icon2} alt="Cart" />
+            <div className={styles.header}>
+              <p className={styles.cartItemCount}>{getCartItemsCount()}</p>
+            </div>
+          </Link>
+        </div>
+      </nav>
+    </>
   );
 }
 

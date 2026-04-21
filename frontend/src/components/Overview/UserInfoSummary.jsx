@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../pages/AccountOverview.module.css';
 
 const UserInfoSummary = ({ user }) => {
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    navigate('/dashboard/profile');
+  };
+
   return (
     <section className={styles.userInfoCard}>
       <div>
@@ -15,7 +22,9 @@ const UserInfoSummary = ({ user }) => {
           <div className={styles.userInfoValue}>{user.phone}</div>
         </div>
       </div>
-      <button className={styles.outlineButton}>Edit Profile</button>
+      <button className={styles.outlineButton} onClick={handleEditProfile}>
+        Edit Profile
+      </button>
     </section>
   );
 };

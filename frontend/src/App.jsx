@@ -2,10 +2,12 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
+import { OrderProvider } from './context/OrderContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products';
 import AccountOverview from './pages/AccountOverview';
 import AddressManagement from './pages/AddressManagement';
+import ProfileEdit from './pages/ProfileEdit';
 import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
@@ -19,36 +21,39 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <WishlistProvider>
-          <Router>
-            <div className="app">
-              <Navbar />
+      <OrderProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <Router>
+              <div className="app">
+                <Navbar />
 
-              <main className="main-content">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/:id" element={<ProductDetail />} />
-                  <Route path="/recently-viewed" element={<RecentlyViewed />} />
-                  <Route path="/wishlist" element={<Wishlist />} />
-                  <Route path="/profile" element={<AccountOverview />} />
-                <Route path="/dashboard" element={<AccountOverview />} />
-                <Route path="/dashboard/addresses" element={<AddressManagement />} />
-                <Route path="/grooming" element={<Grooming />} />
-                <Route path="/help" element={<Help />} />
-                <Route path="/cart" element={<ShoppingCart />} />
-                <Route path="/login" element={<AuthPage />} />
-              </Routes>
-            </main>
+                <main className="main-content">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/products/:id" element={<ProductDetail />} />
+                    <Route path="/recently-viewed" element={<RecentlyViewed />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="/profile" element={<AccountOverview />} />
+                    <Route path="/dashboard" element={<AccountOverview />} />
+                    <Route path="/dashboard/profile" element={<ProfileEdit />} />
+                    <Route path="/dashboard/addresses" element={<AddressManagement />} />
+                    <Route path="/grooming" element={<Grooming />} />
+                    <Route path="/help" element={<Help />} />
+                    <Route path="/cart" element={<ShoppingCart />} />
+                    <Route path="/login" element={<AuthPage />} />
+                  </Routes>
+                </main>
 
-            <footer className="footer">
-              <p>&copy; 2024 PawMarket. All rights reserved.</p>
-            </footer>
-          </div>
-        </Router>
-        </WishlistProvider>
-      </CartProvider>
+                <footer className="footer">
+                  <p>&copy; 2024 PawMarket. All rights reserved.</p>
+                </footer>
+              </div>
+            </Router>
+          </WishlistProvider>
+        </CartProvider>
+      </OrderProvider>
     </AuthProvider>
   );
 }
