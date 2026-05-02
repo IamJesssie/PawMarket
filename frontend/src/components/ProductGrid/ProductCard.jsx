@@ -6,7 +6,7 @@ import styles from './ProductGrid.module.css';
 const ProductCard = ({ product, onAddToCart }) => {
   return (
     <div className={styles.link}>
-      <Link to={`/products/${product.id}`} className={styles.clickableArea}>
+      <Link to={`/products/${product.id}`} className={styles.productLink}>
         <div className={styles.products}>
           <div 
             className={styles.imageContainer}
@@ -18,36 +18,37 @@ const ProductCard = ({ product, onAddToCart }) => {
             </div>
           </div>
         </div>
-        <div className={styles.products2}>
-          <div className={styles.container2}>
-            <div className={styles.text}>
-              <p className={styles.productCategory}>{product.category}</p>
-            </div>
+      </Link>
+      <div className={styles.products2}>
+        <div className={styles.container2}>
+          <div className={styles.text}>
+            <p className={styles.productCategory}>{product.category}</p>
+          </div>
+          <Link to={`/products/${product.id}`} className={styles.nameLink}>
             <div className={styles.heading3}>
               <p className={styles.productName}>{product.name}</p>
             </div>
+          </Link>
+        </div>
+        <div className={styles.container3}>
+          <div className={styles.text2}>
+            <p className={styles.productPrice}>₱{product.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
           </div>
-          <div className={styles.container3}>
-            <div className={styles.text2}>
-              <p className={styles.productPrice}>₱{product.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-            </div>
+          <div 
+            className={styles.button} 
+            onClick={() => onAddToCart(product)}
+            style={{ cursor: 'pointer' }}
+          >
+            <img
+              src="/images/mnvybq13-lodat7e.svg"
+              className={styles.icon2}
+              alt="Add to cart"
+            />
           </div>
         </div>
-      </Link>
-      <div 
-        className={styles.button} 
-        onClick={() => onAddToCart(product)}
-        style={{ cursor: 'pointer' }}
-      >
-        <img
-          src="/images/mnvybq13-lodat7e.svg"
-          className={styles.icon2}
-          alt="Add to cart"
-        />
       </div>
     </div>
   );
 }
-
 
 export default ProductCard;

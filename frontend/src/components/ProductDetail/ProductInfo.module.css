@@ -1,0 +1,133 @@
+.infoContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.productTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.25;
+  color: #585894;
+  margin: 0;
+  letter-spacing: -0.96px;
+  max-width: 430px;
+}
+
+.skuText {
+  font-family: Consolas, monospace;
+  font-weight: 700;
+  font-size: 12px;
+  color: #006a63;
+  margin-top: 8px;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.ratingValue {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1b1c17;
+}
+
+.reviewsLink {
+  color: #006a63;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: #e4e3db;
+}
+
+.stockStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stockIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.stockText {
+  color: #00a63e;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.currentPrice {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #fa782d;
+}
+
+.oldPrice {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 18px;
+  color: #006a63;
+  text-decoration: line-through;
+}
+
+.discountBadge {
+  background-color: #006a63;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.shortDescription {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #006a63;
+  margin: 0 0 32px;
+}

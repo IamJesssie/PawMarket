@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MOCK_PRODUCTS } from '../data/mockData';
+import { products as allProducts } from '../data/products';
 import ProductCard from '../components/ProductGrid/ProductCard';
 import { useCart } from '../context/CartContext';
 import styles from './Home.module.css';
 
 const Home = () => {
   const { addToCart } = useCart();
-  const featuredProducts = MOCK_PRODUCTS.slice(0, 4);
-
+  const featuredProducts = allProducts.slice(0, 4);
 
   return (
     <div className={styles.homeContainer}>

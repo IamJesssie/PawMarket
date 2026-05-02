@@ -1,37 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
-import { MOCK_PRODUCTS } from '../data/mockData';
 import FilterSidebar from '../components/FilterSidebar/FilterSidebar';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
+import { products as allProducts } from '../data/products';
 import './Products.css';
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products] = useState(allProducts);
+  const [filteredProducts, setFilteredProducts] = useState(allProducts);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Products');
   const [priceRange, setPriceRange] = useState([0, 10000]);
 
   const { addToCart } = useCart();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        // Using central mock data
-        setProducts(MOCK_PRODUCTS);
-        setFilteredProducts(MOCK_PRODUCTS);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
 
   useEffect(() => {
     let filtered = products.filter(product => {
@@ -52,15 +33,6 @@ const Products = () => {
   const handleAddToCart = (product) => {
     addToCart(product);
   };
-
-  if (loading) {
-    return (
-      <div className="products-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading products...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="products-page">

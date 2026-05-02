@@ -2,6 +2,10 @@ import React from 'react';
 import styles from '../../pages/AccountOverview.module.css';
 
 const UserInfoSummary = ({ user }) => {
+  const handleEditProfile = () => {
+    alert('Edit profile functionality will be available soon!');
+  };
+
   return (
     <section className={styles.userInfoCard}>
       <div>
@@ -15,7 +19,7 @@ const UserInfoSummary = ({ user }) => {
           <div className={styles.userInfoValue}>{user.phone}</div>
         </div>
       </div>
-      <button className={styles.outlineButton}>Edit Profile</button>
+      <button className={styles.outlineButton} onClick={handleEditProfile}>Edit Profile</button>
     </section>
   );
 };

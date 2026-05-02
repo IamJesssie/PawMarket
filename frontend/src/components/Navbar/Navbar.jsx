@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const { getCartItemsCount } = useCart();
+  const { isAuthenticated } = useAuth();
   const { isDark, toggleTheme } = useTheme();
 
   return (
@@ -22,9 +24,6 @@ const Navbar = () => {
         </Link>
         <Link to="/products" className={styles.link3}>
           <p className={styles.homeLink}>Products</p>
-        </Link>
-        <Link to="/dashboard" className={styles.link4}>
-          <p className={styles.homeLink}>Overview</p>
         </Link>
         <Link to="/grooming" className={styles.link5}>
           <p className={styles.homeLink}>Grooming</p>
@@ -60,7 +59,7 @@ const Navbar = () => {
             </svg>
           )}
         </button>
-        <Link to="/profile" className={styles.link6}>
+        <Link to={isAuthenticated ? "/profile" : "/login"} className={styles.link6}>
           <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Profile" />
         </Link>
         <Link to="/cart" className={styles.link7}>
