@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import StarRating from '../common/StarRating';
 import styles from './ProductGrid.module.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
@@ -12,11 +13,7 @@ const ProductCard = ({ product, onAddToCart }) => {
             style={{ backgroundImage: `url(${product.image})` }}
           >
             <div className={styles.container}>
-              <img
-                src="/images/mnvybq12-866qgrd.svg"
-                className={styles.icon}
-                alt="Rating"
-              />
+              <StarRating rating={product.rating} size={12} />
               <p className={styles.productRating}>{product.rating}</p>
             </div>
           </div>

@@ -65,3 +65,36 @@
   background-color: black;
   color: white;
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+[data-theme="dark"] .authPageContainer,
+[data-theme="dark"] .illustrationPlaceholder {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .leftPanel {
+  border-right-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .tabContainer {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .tab {
+  background-color: #1e1e28;
+  color: #8886c0;
+}
+
+[data-theme="dark"] .tabActive {
+  background-color: #fa782d;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .welcomeTitle {
+  color: #8886c0;
+}
+
+[data-theme="dark"] .valueListItem {
+  color: #a8a5b8;
+}
+

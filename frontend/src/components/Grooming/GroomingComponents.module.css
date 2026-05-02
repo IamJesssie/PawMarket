@@ -660,3 +660,132 @@
     height: 180px;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .groomingPage {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .breadcrumb {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .pageTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .stepItem {
+  background: #2a2a38;
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .stepItem.active {
+  background: #fa782d;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .detailCard,
+:global([data-theme="dark"]) .card,
+:global([data-theme="dark"]) .sidebarCard,
+:global([data-theme="dark"]) .calendarPanel,
+:global([data-theme="dark"]) .timeSlotPanel,
+:global([data-theme="dark"]) .confirmCard {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="dark"]) .fieldLabel,
+:global([data-theme="dark"]) .sectionLabel,
+:global([data-theme="dark"]) .cardSubtitle,
+:global([data-theme="dark"]) .addonPrice,
+:global([data-theme="dark"]) .timeSlotLabel,
+:global([data-theme="dark"]) .confirmItemLabel,
+:global([data-theme="dark"]) .weekdayLabel {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .textInput,
+:global([data-theme="dark"]) .textArea,
+:global([data-theme="dark"]) .radioOption {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .textInput::placeholder,
+:global([data-theme="dark"]) .textArea::placeholder {
+  color: rgba(200, 198, 212, 0.4);
+}
+
+:global([data-theme="dark"]) .sectionTitle,
+:global([data-theme="dark"]) .cardTitle,
+:global([data-theme="dark"]) .sidebarTitle,
+:global([data-theme="dark"]) .calendarMonth,
+:global([data-theme="dark"]) .confirmHeading,
+:global([data-theme="dark"]) .confirmTotalLabel {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .radioLabel,
+:global([data-theme="dark"]) .addonLabel,
+:global([data-theme="dark"]) .detailLabel,
+:global([data-theme="dark"]) .totalLabel,
+:global([data-theme="dark"]) .calendarDay,
+:global([data-theme="dark"]) .timeSlot,
+:global([data-theme="dark"]) .confirmItemValue {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .card.active,
+:global([data-theme="dark"]) .addonCard.active {
+  background: rgba(250, 120, 45, 0.1);
+  border-color: #fa782d;
+}
+
+:global([data-theme="dark"]) .addonCard {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .sidebarText,
+:global([data-theme="dark"]) .totalNote,
+:global([data-theme="dark"]) .confirmSubtext {
+  color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .sidebarImage {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .pill {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .totalBlock,
+:global([data-theme="dark"]) .confirmTotalRow {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .calendarNavButton,
+:global([data-theme="dark"]) .secondaryButton {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .calendarDay {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .calendarDaySelected,
+:global([data-theme="dark"]) .timeSlotSelected {
+  background: #fa782d;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .timeSlot {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+

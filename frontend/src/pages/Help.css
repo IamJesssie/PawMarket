@@ -411,6 +411,132 @@
   }
 }
 
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .help-page {
+  background: #0f0f14;
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .help-hero h1 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .help-search-wrap {
+  background: #1e1e28;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="dark"]) .help-search-wrap input {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .help-search-wrap input::placeholder {
+  color: rgba(200, 198, 212, 0.4);
+}
+
+:global([data-theme="dark"]) .help-search-tip {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-category-card {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .help-category-label {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-category-icon {
+  background: #2a2a38;
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .help-faq-column h2,
+:global([data-theme="dark"]) .help-support-column h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .help-faq-section h3 {
+  color: #00c4b0;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .help-faq-item {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .help-faq-question {
+  background: #1e1e28;
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .help-faq-toggle {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-faq-answer {
+  color: #a8a5b8;
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .help-empty-state {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .help-support-column {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .support-channel-tab {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .support-channel-tab.active {
+  border-color: #8886c0;
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .form-caption {
+  color: rgba(200, 198, 212, 0.5);
+}
+
+:global([data-theme="dark"]) .help-support-form label {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-support-form input,
+:global([data-theme="dark"]) .help-support-form textarea {
+  background: #2a2a38;
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .help-attachment-btn {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-hours p {
+  color: rgba(200, 198, 212, 0.5);
+}
+
+:global([data-theme="dark"]) .help-hours span {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .help-hours strong {
+  color: #e8e6f0;
+}
+
+
 @media (max-width: 720px) {
   .help-page {
     padding: 12px 12px 36px;

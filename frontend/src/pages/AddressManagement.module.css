@@ -336,3 +336,108 @@
     gap: 1rem;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .pageContainer {
+  background: #0f0f14;
+}
+
+:global([data-theme="dark"]) .sidebar {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .avatar {
+  border-color: #2a2a38;
+}
+
+:global([data-theme="dark"]) .profileName {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .sidebarNavItem {
+  color: #c5c3d4;
+}
+
+:global([data-theme="dark"]) .sidebarNavItem:hover {
+  background: #2a2a38;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .activeNavItem {
+  background: rgba(250, 120, 45, 0.15);
+  color: #fa782d;
+}
+
+:global([data-theme="dark"]) .pageTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .addressCard,
+:global([data-theme="dark"]) .addressCardSecondary,
+:global([data-theme="dark"]) .formSection {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .addressCardSecondary {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .cardLabel,
+:global([data-theme="dark"]) .cardHeading {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .cardTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .cardText {
+  color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .formHeader h2 {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .inputLabel {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .inputField {
+  background: #2a2a38;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .inputField::placeholder {
+  color: rgba(200, 198, 212, 0.4);
+}
+
+:global([data-theme="dark"]) .checkboxLabel {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .checkboxBox {
+  background: #2a2a38;
+  border-color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .cancelButton {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .outlineAction {
+  border-color: #00c4b0;
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .outlineAction:hover {
+  background: #00c4b0;
+  color: #ffffff;
+}
+

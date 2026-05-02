@@ -7,6 +7,7 @@ import CalendarPicker from '../components/Grooming/CalendarPicker';
 import TimeSlotList from '../components/Grooming/TimeSlotList';
 import PetDetailsForm from '../components/Grooming/PetDetailsForm';
 import BookingSummary from '../components/Grooming/BookingSummary';
+import GroomingGallery from '../components/Grooming/GroomingGallery';
 import styles from '../components/Grooming/GroomingComponents.module.css';
 
 const serviceOptions = [
@@ -251,6 +252,9 @@ const Grooming = () => {
             : 'Confirm Appointment & Pay'}
         </button>
       </div>
+
+      {/* Before & After Gallery */}
+      <GroomingGallery />
     </div>
   );
 };
