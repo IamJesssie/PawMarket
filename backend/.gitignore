@@ -1,0 +1,8 @@
+.env
+target/
+.mvn/
+.settings/
+.project
+.classpath
+bin/
+*.class
