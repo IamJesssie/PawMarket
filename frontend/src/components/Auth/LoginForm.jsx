@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import InputField from './InputField';
 
 const MailIcon = () => (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>);
@@ -7,11 +9,25 @@ const LockIcon = () => (<svg width="14" height="14" viewBox="0 0 24 24" fill="no
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password, rememberMe });
+    if (isSubmitting) return;
+
+    setErrorMsg('');
+    setIsSubmitting(true);
+    
+    const result = await login(email, password);
+    if (result.success) {
+      navigate('/');
+    } else {
+      setErrorMsg(result.error || 'Failed to login. Please check your credentials.');
+      setIsSubmitting(false);
+    }
   };
 
   const buttonStyle = {
@@ -64,7 +80,11 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <button type="submit" style={buttonStyle}>Log In →</button>
+      {errorMsg && <p style={{ color: '#e74c3c', fontSize: '12px', marginBottom: '10px', textAlign: 'center', fontWeight: '600' }}>{errorMsg}</p>}
+
+      <button type="submit" style={buttonStyle} disabled={isSubmitting}>
+        {isSubmitting ? 'Logging In...' : 'Log In →'}
+      </button>
       
       <div style={{ marginTop: '40px', textAlign: 'center', position: 'relative' }}>
         <div style={{ borderBottom: '1px solid #e4e3db', position: 'absolute', width: '100%', top: '50%' }}></div>

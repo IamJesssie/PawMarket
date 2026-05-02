@@ -1,14 +1,14 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from './AddressManagement.module.css';
-
-const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
+import AccountSidebar from '../components/Overview/AccountSidebar';
 
 const sidebarItems = [
   'Overview',
   'Order History',
   'Appointments',
-  'Wishlist',
+  'Wishlist & Saved',
+  'Recently Viewed',
   'Profile',
   'Addresses',
   'Password & Security',
@@ -18,41 +18,43 @@ const sidebarItems = [
   'Logout',
 ];
 
-const navRoutes = {
-  Overview: '/dashboard',
-  Addresses: '/dashboard/addresses',
+const sidebarIcons = {
+  'Overview': '/images/account/overview.svg',
+  'Order History': '/images/account/orders.svg',
+  'Appointments': '/images/account/appointments.svg',
+  'Wishlist & Saved': '/images/account/wishlist.svg',
+  'Recently Viewed': '/images/account/recent.svg',
+  'Profile': '/images/account/profile.svg',
+  'Addresses': '/images/account/addresses.svg',
+  'Password & Security': '/images/account/security.svg',
+  'Notifications': '/images/account/notifications.svg',
+  'Payment Methods': '/images/account/payments.svg',
+  'My Pets': '/images/account/pets.svg',
+  'Logout': '/images/account/logout.svg',
+};
+
+const sidebarRoutes = {
+  'Overview': '/dashboard',
+  'Wishlist & Saved': '/wishlist',
+  'Recently Viewed': '/recently-viewed',
+  'Addresses': '/dashboard/addresses',
 };
 
 const AddressManagement = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { profile, loading: authLoading } = useAuth();
+
+  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
+  if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.accountShell}>
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarProfile}>
-            <img className={styles.avatar} src={avatarUrl} alt="Jane Doe" />
-            <div className={styles.profileName}>Jane Doe</div>
-            <div className={styles.profileSubtitle}>Pet owner since 2024</div>
-          </div>
-
-          <nav className={styles.sidebarNav}>
-            {sidebarItems.map((item) => {
-              const isActive = navRoutes[item] ? location.pathname === navRoutes[item] : false;
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  className={`${styles.sidebarNavItem} ${isActive ? styles.activeNavItem : ''}`}
-                  onClick={() => navRoutes[item] && navigate(navRoutes[item])}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
+        <AccountSidebar 
+          user={profile} 
+          sidebarItems={sidebarItems} 
+          sidebarIcons={sidebarIcons}
+          sidebarRoutes={sidebarRoutes} 
+        />
 
         <main className={styles.contentArea}>
           <div className={styles.pageHeader}>

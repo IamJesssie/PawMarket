@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const { getCartItemsCount } = useCart();
+  const { isAuthenticated } = useAuth();
 
   return (
     <nav className={styles.header2}>
@@ -29,7 +31,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.container}>
-        <Link to="/profile" className={styles.link6}>
+        <Link to={isAuthenticated ? "/profile" : "/login"} className={styles.link6}>
           <img src="/images/mnvy88z1-niextao.svg" className={styles.icon} alt="Profile" />
         </Link>
         <Link to="/cart" className={styles.link7}>

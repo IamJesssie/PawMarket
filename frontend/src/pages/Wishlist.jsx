@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from './RecentlyViewed.module.css'; // Reusing styles for consistency
 import AccountSidebar from '../components/Overview/AccountSidebar';
 import { useWishlist } from '../context/WishlistContext';
-
-const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
 
 const sidebarItems = [
   'Overview',
@@ -43,22 +42,18 @@ const sidebarRoutes = {
   'Addresses': '/dashboard/addresses',
 };
 
-const user = {
-  fullName: 'Jane Doe',
-  email: 'jane.doe@example.com',
-  phone: '+63 912 345 6789',
-  avatarUrl: avatarUrl,
-  memberSince: '2024'
-};
-
 const Wishlist = () => {
+  const { profile, loading: authLoading } = useAuth();
   const { wishlistItems, removeFromWishlist } = useWishlist();
+
+  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
+  if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.accountShell}>
         <AccountSidebar 
-          user={user} 
+          user={profile} 
           sidebarItems={sidebarItems} 
           sidebarIcons={sidebarIcons}
           sidebarRoutes={sidebarRoutes} 
