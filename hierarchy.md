@@ -1,3 +1,4 @@
+
 # PawMarket: Full Component Hierarchy & Data Flow
 
 This document maps the "Chain of Command" for the PawMarket React application, explaining how data and components interact through descriptive roles.
