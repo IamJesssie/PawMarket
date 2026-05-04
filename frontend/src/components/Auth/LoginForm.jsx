@@ -21,11 +21,19 @@ const LoginForm = () => {
     setErrorMsg('');
     setIsSubmitting(true);
     
-    const result = await login(email, password);
-    if (result.success) {
-      navigate('/');
-    } else {
-      setErrorMsg(result.error || 'Failed to login. Please check your credentials.');
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        navigate('/');
+        // Resetting just in case the page doesn't unmount immediately
+        setIsSubmitting(false); 
+      } else {
+        setErrorMsg(result.error || 'Failed to login. Please check your credentials.');
+        setIsSubmitting(false);
+      }
+    } catch (err) {
+      console.error("Login exception:", err);
+      setErrorMsg('An unexpected error occurred during login.');
       setIsSubmitting(false);
     }
   };

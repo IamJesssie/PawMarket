@@ -59,12 +59,12 @@ export const AuthProvider = ({ children }) => {
     }
     
     try {
-        // Fetch profile data from Supabase with a fallback to user metadata
-        const { data: profileData, error } = await supabase
+        // Just get the profile. maybeSingle() is safer.
+        const { data: profileData } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
-          .maybeSingle(); // maybeSingle avoids throwing error if missing
+          .maybeSingle();
 
         const profile = {
           fullName: profileData?.full_name || user.user_metadata?.full_name || user.email.split('@')[0],
@@ -76,20 +76,17 @@ export const AuthProvider = ({ children }) => {
 
         dispatch({ type: 'AUTH_SUCCESS', payload: { user, profile } });
     } catch (e) {
-        console.error("Profile sync error:", e);
-        // Fallback to basic user info so app doesn't stay "Logging In"
+        // Fallback so the app doesn't hang
         dispatch({ 
             type: 'AUTH_SUCCESS', 
-            payload: { 
-                user, 
-                profile: { fullName: user.email.split('@')[0], email: user.email } 
-            } 
+            payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email } } 
         });
     }
   };
 
   useEffect(() => {
-    const checkSession = async () => {
+    // Initial session check
+    const initAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
         await fetchProfileAndDispatch(session.user);
@@ -98,12 +95,13 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    checkSession();
+    initAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    // The Background Manager: This handles ALL state changes automatically
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         await fetchProfileAndDispatch(session.user);
-      } else {
+      } else if (event === 'SIGNED_OUT') {
         dispatch({ type: 'LOGOUT' });
       }
     });
@@ -112,34 +110,19 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (email, password, fullName) => {
-    dispatch({ type: 'SET_LOADING' });
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: fullName } },
     });
-
-    if (error) {
-      dispatch({ type: 'AUTH_FAIL', payload: error.message });
-      return { success: false, error: error.message };
-    }
+    if (error) return { success: false, error: error.message };
     return { success: true, data };
   };
 
   const login = async (email, password) => {
-    dispatch({ type: 'SET_LOADING' });
+    // We don't dispatch SET_LOADING here anymore to keep the UI snappy
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      dispatch({ type: 'AUTH_FAIL', payload: error.message });
-      return { success: false, error: error.message };
-    }
-    
-    // Explicitly fetch profile after successful login
-    if (data.user) {
-        await fetchProfileAndDispatch(data.user);
-    }
-    
+    if (error) return { success: false, error: error.message };
     return { success: true, data };
   };
 
@@ -151,7 +134,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     await supabase.auth.signOut();
-    dispatch({ type: 'LOGOUT' });
   };
 
   return (
