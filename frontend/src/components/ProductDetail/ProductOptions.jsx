@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import TrustBadges from './TrustBadges';
 import styles from './ProductOptions.module.css';
 
@@ -6,6 +8,25 @@ const ProductOptions = ({ product, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
   const [selectedFlavor, setSelectedFlavor] = useState(product.flavors[0]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    onAddToCart({ ...product, quantity, selectedSize, selectedFlavor });
+  };
+
+  const handleBuyNow = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    onAddToCart({ ...product, quantity, selectedSize, selectedFlavor });
+    navigate('/cart');
+  };
 
   return (
     <div className={styles.optionsContainer}>
@@ -53,11 +74,11 @@ const ProductOptions = ({ product, onAddToCart }) => {
           </div>
           <button 
             className={styles.addToCartBtn} 
-            onClick={() => onAddToCart({ ...product, quantity, selectedSize, selectedFlavor })}
+            onClick={handleAddToCart}
           >
             Add to Cart
           </button>
-          <button className={styles.buyNowBtn}>
+          <button className={styles.buyNowBtn} onClick={handleBuyNow}>
             <span>Buy Now</span>
             <img src="/images/buy-now-arrow.svg" alt="" className={styles.buyNowIcon} />
           </button>

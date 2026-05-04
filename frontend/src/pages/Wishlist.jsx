@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import styles from './RecentlyViewed.module.css'; // Reusing styles for consistency
+import styles from './RecentlyViewed.module.css'; //
 import AccountSidebar from '../components/Overview/AccountSidebar';
 import { useWishlist } from '../context/WishlistContext';
 
