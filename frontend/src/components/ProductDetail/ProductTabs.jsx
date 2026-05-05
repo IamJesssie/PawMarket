@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from './ProductTabs.module.css';
 
+import ReviewSection from './ReviewSection';
+
 const ProductTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState('description');
 
@@ -23,7 +25,7 @@ const ProductTabs = ({ product }) => {
           className={`${styles.tabBtn} ${activeTab === 'reviews' ? styles.tabActive : ''}`}
           onClick={() => setActiveTab('reviews')}
         >
-          Reviews ({product.reviewsCount})
+          Reviews
         </button>
         <button 
           className={`${styles.tabBtn} ${activeTab === 'related' ? styles.tabActive : ''}`}
@@ -43,7 +45,10 @@ const ProductTabs = ({ product }) => {
             </ul>
           </div>
         )}
-        {activeTab !== 'description' && (
+        {activeTab === 'reviews' && (
+          <ReviewSection productId={product.id} />
+        )}
+        {activeTab !== 'description' && activeTab !== 'reviews' && (
           <div className={styles.placeholderTab}>
             Content for {activeTab} will be available soon.
           </div>

@@ -1,0 +1,406 @@
+.adminPage {
+    padding: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+.header {
+    margin-bottom: 3rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: var(--text-color, #1b1c17);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text, #6b6375);
+    font-size: 1.1rem;
+}
+
+/* Stats */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    background: var(--bg, white);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid var(--border, #eee);
+}
+
+.statCard h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text, #888);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.statNumber {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-color, #ff6b35);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border, #ddd);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text, #666);
+    transition: all 0.2s;
+}
+
+.tab:hover {
+    border-color: var(--primary-color, #ff6b35);
+    color: var(--primary-color, #ff6b35);
+}
+
+.tabActive {
+    background: var(--primary-color, #ff6b35);
+    color: white !important;
+    border-color: var(--primary-color, #ff6b35);
+}
+
+/* Table Container */
+.tableContainer {
+    background: var(--bg, white);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+    border: 1px solid var(--border, #eee);
+}
+
+.tableHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border, #eee);
+}
+
+.tableHeader h2 {
+    font-size: 1.3rem;
+    color: var(--text-color, #1b1c17);
+}
+
+.userTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.userTable th {
+    background: var(--code-bg, #f8f9fa);
+    padding: 1rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text, #555);
+    border-bottom: 2px solid var(--border, #eee);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.userTable td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border, #eee);
+    color: var(--text-color, #1b1c17);
+    font-size: 0.95rem;
+}
+
+.userTable tr:hover {
+    background: rgba(255, 107, 53, 0.03);
+}
+
+.nameCell {
+    font-weight: 600;
+}
+
+.centerText {
+    text-align: center;
+    color: var(--text, #999);
+    padding: 2rem !important;
+}
+
+/* Tags */
+.roleTag {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 0.3rem 0.8rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.starInput {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+/* Action Buttons */
+.actionCell {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn, .addBtn {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.editBtn {
+    background: #e8f4fd;
+    color: #1a73e8;
+}
+
+.editBtn:hover {
+    background: #1a73e8;
+    color: white;
+}
+
+.deleteBtn {
+    background: #fff0f0;
+    color: #d32f2f;
+}
+
+.deleteBtn:hover {
+    background: #d32f2f;
+    color: white;
+}
+
+.saveBtn {
+    background: #e8fde8;
+    color: #2e7d32;
+}
+
+.saveBtn:hover {
+    background: #2e7d32;
+    color: white;
+}
+
+.cancelBtn {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.cancelBtn:hover {
+    background: #666;
+    color: white;
+}
+
+.addBtn {
+    background: var(--primary-color, #ff6b35);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+}
+
+.addBtn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Edit Input */
+.editInput {
+    padding: 0.4rem 0.6rem;
+    border: 2px solid var(--primary-color, #ff6b35);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 200px;
+    outline: none;
+    background: var(--bg, white);
+    color: var(--text-color, #1b1c17);
+}
+
+/* Add Form */
+.addForm {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--code-bg, #f8f9fa);
+    border-bottom: 1px solid var(--border, #eee);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.addForm input {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 150px;
+    outline: none;
+    background: var(--bg, white);
+    color: var(--text-color, #1b1c17);
+}
+
+.addForm input:focus {
+    border-color: var(--primary-color, #ff6b35);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE OVERRIDES
+═══════════════════════════════════════════════════════════════ */
+
+:global([data-theme="dark"]) .adminPage {
+    color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .header h1 {
+    color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .header p {
+    color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .statCard {
+    background: #1e1e28;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .statCard h3 {
+    color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .tableContainer {
+    background: #1e1e28;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .tableHeader {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .tableHeader h2 {
+    color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .userTable th {
+    background: #16161e;
+    color: #a8a5b8;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .userTable td {
+    color: #e8e6f0;
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .userTable tr:hover {
+    background: rgba(250, 120, 45, 0.05);
+}
+
+:global([data-theme="dark"]) .roleTag {
+    background: rgba(25, 118, 210, 0.15);
+    color: #64b5f6;
+}
+
+:global([data-theme="dark"]) .tab {
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .tab:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+:global([data-theme="dark"]) .editBtn {
+    background: rgba(26, 115, 232, 0.15);
+    color: #64b5f6;
+}
+
+:global([data-theme="dark"]) .editBtn:hover {
+    background: #1a73e8;
+    color: white;
+}
+
+:global([data-theme="dark"]) .deleteBtn {
+    background: rgba(211, 47, 47, 0.15);
+    color: #ef9a9a;
+}
+
+:global([data-theme="dark"]) .deleteBtn:hover {
+    background: #d32f2f;
+    color: white;
+}
+
+:global([data-theme="dark"]) .saveBtn {
+    background: rgba(46, 125, 50, 0.15);
+    color: #81c784;
+}
+
+:global([data-theme="dark"]) .saveBtn:hover {
+    background: #2e7d32;
+    color: white;
+}
+
+:global([data-theme="dark"]) .cancelBtn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .cancelBtn:hover {
+    background: #555;
+    color: white;
+}
+
+:global([data-theme="dark"]) .editInput {
+    background: #2a2a38;
+    color: #e8e6f0;
+    border-color: var(--primary-color);
+}
+
+:global([data-theme="dark"]) .addForm {
+    background: #16161e;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .addForm input {
+    background: #2a2a38;
+    color: #e8e6f0;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+:global([data-theme="dark"]) .addForm input:focus {
+    border-color: var(--primary-color);
+}
+
+:global([data-theme="dark"]) .centerText {
+    color: #a8a5b8;
+}

@@ -18,7 +18,7 @@ import Home from './pages/Home';
 import RecentlyViewed from './pages/RecentlyViewed';
 import Wishlist from './pages/Wishlist';
 import './App.css';
-
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
@@ -46,6 +46,7 @@ function App() {
                       <Route path="/help" element={<Help />} />
                       <Route path="/cart" element={<ShoppingCart />} />
                       <Route path="/login" element={<AuthPage />} />
+                      <Route path="/admin" element={<AdminDashboard />} />
                     </Routes>
                   </main>
 
