@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { products as allProducts } from '../data/products';
+import ProductCard from '../components/ProductGrid/ProductCard';
+import { useCart } from '../context/CartContext';
 import styles from './Home.module.css';
 
 const Home = () => {
+  const { addToCart } = useCart();
   const featuredProducts = allProducts.slice(0, 4);
 
   return (
@@ -39,24 +42,34 @@ const Home = () => {
         
         <div className={styles.productGrid}>
           {featuredProducts.map((product) => (
-            <div key={product.id} className={styles.productCard}>
-              <Link to={`/products/${product.id}`} className={styles.imageLink}>
-                <div className={styles.productImageWrapper}>
-                  <img src={product.image} alt={product.name} className={styles.productImage} />
-                </div>
-              </Link>
-              <div className={styles.productInfo}>
-                <span className={styles.productCategory}>{product.category}</span>
-                <Link to={`/products/${product.id}`} className={styles.nameLink}>
-                  <h3 className={styles.productName}>{product.name}</h3>
-                </Link>
-                <div className={styles.productFooter}>
-                  <span className={styles.productPrice}>₱{product.price.toLocaleString()}.00</span>
-                  <button className={styles.addToCartButton}>+</button>
-                </div>
-              </div>
-            </div>
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onAddToCart={addToCart} 
+            />
           ))}
+        </div>
+
+      </section>
+
+      {/* Pet Makeovers Teaser */}
+      <section className={styles.makeoverSection}>
+        <div className={styles.makeoverContent}>
+          <h2 className={styles.sectionTitle}>Pet Makeovers</h2>
+          <p className={styles.sectionSubtitle}>Witness the magic of our professional grooming. From scruffy to fluffy in one session!</p>
+          <Link to="/grooming" className={styles.viewAllLink}>View All Transformations →</Link>
+        </div>
+        <div className={styles.makeoverPreview}>
+          {/* We'll show one transformation here as a teaser */}
+          <div className={styles.teaserCard}>
+            <div className={styles.teaserImage} style={{ backgroundImage: 'url(/images/mnvybq1w-a4pxonk.png)' }}>
+              <div className={styles.teaserLabel}>After</div>
+            </div>
+            <div className={styles.teaserInfo}>
+              <h3>Charlie's Fresh Look</h3>
+              <p>Poodle Mix • Full Styling</p>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -6,9 +6,8 @@ import { products as allProducts } from '../data/products';
 import './Products.css';
 
 const Products = () => {
-  const [products, setProducts] = useState(allProducts);
+  const [products] = useState(allProducts);
   const [filteredProducts, setFilteredProducts] = useState(allProducts);
-  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Products');
   const [priceRange, setPriceRange] = useState([0, 10000]);
@@ -34,15 +33,6 @@ const Products = () => {
   const handleAddToCart = (product) => {
     addToCart(product);
   };
-
-  if (loading) {
-    return (
-      <div className="products-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading products...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="products-page">

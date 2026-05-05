@@ -146,3 +146,42 @@
     min-height: 300px;
   }
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .authContainer {
+  background-color: #1e1e28;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .formSection {
+  background-color: #1e1e28;
+}
+
+:global([data-theme="dark"]) .loginBg {
+  background-color: #16161e;
+}
+
+:global([data-theme="dark"]) .formTitle {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .loginBg .formTitle {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .formSubtitle {
+  color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .loginBg .formSubtitle {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .toggleText {
+  color: #a8a5b8;
+}
+
+:global([data-theme="dark"]) .toggleLink {
+  color: #fa782d;
+}
+

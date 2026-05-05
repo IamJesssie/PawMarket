@@ -196,3 +196,43 @@
   font-weight: 700;
   margin: 0;
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .products {
+  background: #1e1e28;
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .products .container2 .heading3 .categoryLabel {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .products .container2 .container .aAllProducts {
+  color: rgba(200, 198, 212, 0.7);
+}
+
+:global([data-theme="dark"]) .products .container2 .container .label:hover,
+:global([data-theme="dark"]) .products .container2 .container .label.active {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .products .container2 .container .label.active .aAllProducts {
+  color: #fa782d;
+}
+
+:global([data-theme="dark"]) .products .container4 .heading32 .priceRangeLabel {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .products .container4 .container3 .textInput {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .products .container4 .container3 .textInput .priceInput {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .products .container4 .container3 .text .priceSeparator {
+  color: #c5c3d4;
+}
+

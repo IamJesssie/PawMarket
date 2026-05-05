@@ -1,8 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import StarRating from '../common/StarRating';
+import { useAuth } from '../../context/AuthContext';
 import styles from './ProductGrid.module.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAddToCartClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    onAddToCart(product);
+  };
+
   return (
     <div className={styles.link}>
       <Link to={`/products/${product.id}`} className={styles.productLink}>
@@ -12,11 +27,7 @@ const ProductCard = ({ product, onAddToCart }) => {
             style={{ backgroundImage: `url(${product.image})` }}
           >
             <div className={styles.container}>
-              <img
-                src="/images/mnvybq12-866qgrd.svg"
-                className={styles.icon}
-                alt="Rating"
-              />
+              <StarRating rating={product.rating} size={12} />
               <p className={styles.productRating}>{product.rating}</p>
             </div>
           </div>
@@ -39,7 +50,7 @@ const ProductCard = ({ product, onAddToCart }) => {
           </div>
           <div 
             className={styles.button} 
-            onClick={() => onAddToCart(product)}
+            onClick={handleAddToCartClick}
             style={{ cursor: 'pointer' }}
           >
             <img

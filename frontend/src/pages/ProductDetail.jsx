@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import ProductGallery from '../components/ProductDetail/ProductGallery';
 import ProductInfo from '../components/ProductDetail/ProductInfo';
 import ProductOptions from '../components/ProductDetail/ProductOptions';
 import ProductTabs from '../components/ProductDetail/ProductTabs';
+import NotificationModal from '../components/common/NotificationModal';
 import { products } from '../data/products';
 import styles from './ProductDetail.module.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const [showCartModal, setShowCartModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   const product = products.find(p => p.id === parseInt(id));
 
@@ -38,7 +41,8 @@ const ProductDetail = () => {
 
   const handleAddToCart = (item) => {
     addToCart(item);
-    alert(`Added ${item.quantity} x ${item.name} to cart!`);
+    setModalMessage(`Added ${item.quantity} x ${item.name} to cart!`);
+    setShowCartModal(true);
   };
 
   return (
@@ -66,6 +70,12 @@ const ProductDetail = () => {
         {/* Tabs Section */}
         <ProductTabs product={product} />
       </div>
+
+      <NotificationModal 
+        isOpen={showCartModal} 
+        message={modalMessage}
+        onClose={() => setShowCartModal(false)}
+      />
     </div>
   );
 };

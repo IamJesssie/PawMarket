@@ -9,7 +9,9 @@ import TimeSlotList from '../components/Grooming/TimeSlotList';
 import PetDetailsForm from '../components/Grooming/PetDetailsForm';
 import BookingSummary from '../components/Grooming/BookingSummary';
 import OrderStatus from '../components/ShoppingCart/OrderStatus';
+import GroomingGallery from '../components/Grooming/GroomingGallery';
 import styles from '../components/Grooming/GroomingComponents.module.css';
+
 
 const serviceOptions = [
   { id: 1, name: 'Full Grooming', duration: '2 - 3 hrs', price: 3500 },
@@ -20,6 +22,7 @@ const serviceOptions = [
   { id: 6, name: 'Teeth Brushing', duration: '15 min', price: 950 }
 ];
 
+
 const addonOptions = [
   { id: 1, name: 'Flea Treatment', price: 1100 },
   { id: 2, name: 'Perfume Spritz', price: 250 },
@@ -29,6 +32,7 @@ const addonOptions = [
   { id: 6, name: 'De-shedding', price: 1350 }
 ];
 
+
 const progressSteps = [
   { label: 'Select Service' },
   { label: 'Choose Date & Time' },
@@ -37,7 +41,9 @@ const progressSteps = [
   { label: 'Confirm & Pay' }
 ];
 
+
 const imageSalon = 'https://www.figma.com/api/mcp/asset/22f058fe-c165-4690-9e07-df2d42f18c10';
+
 
 const timeSlots = [
   { label: '9:00 AM', value: '9:00 AM' },
@@ -56,7 +62,9 @@ const timeSlots = [
   { label: '4:30 PM', value: '4:30 PM' }
 ];
 
+
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
 const buildCalendarDays = (month, selectedDate) => {
   const year = month.getFullYear();
@@ -84,6 +92,7 @@ const buildCalendarDays = (month, selectedDate) => {
 
   return grid;
 };
+
 
 const Grooming = () => {
   const { createOrder, loyaltyPoints, useLoyaltyPoints } = useOrder();
@@ -140,12 +149,11 @@ const Grooming = () => {
       return;
     }
 
-    // Step 5: Confirm appointment and create order
     let finalTotal = estimatedTotal;
     let loyaltyDiscount = 0;
 
     if (paymentMethod === 'loyalty_points') {
-      const pointsNeeded = Math.ceil(estimatedTotal / 10) * 2; // 2 points = ₱10
+      const pointsNeeded = Math.ceil(estimatedTotal / 10) * 2;
       if (loyaltyPoints >= pointsNeeded) {
         useLoyaltyPoints(pointsNeeded);
         loyaltyDiscount = Math.floor(pointsNeeded / 2) * 10;
@@ -189,8 +197,8 @@ const Grooming = () => {
   if (showOrderStatus && orderId) {
     return (
       <div className={styles.groomingPage}>
-        <OrderStatus 
-          orderId={orderId} 
+        <OrderStatus
+          orderId={orderId}
           onClose={() => {
             setShowOrderStatus(false);
             setOrderId(null);
@@ -208,7 +216,6 @@ const Grooming = () => {
           <p className={styles.breadcrumb}>Home › Grooming › Book Appointment</p>
           <h1 className={styles.pageTitle}>Book a Grooming Appointment</h1>
         </div>
-
         <BookingStepper steps={progressSteps} currentStep={step} />
       </div>
 
@@ -230,7 +237,6 @@ const Grooming = () => {
                     />
                   ))}
                 </div>
-
                 <section className={styles.sectionBlock}>
                   <p className={styles.sectionLabel}>Optional Add-ons</p>
                   <div className={styles.addonGrid}>
@@ -255,7 +261,6 @@ const Grooming = () => {
                   onPrevMonth={() => setCalendarMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
                   onNextMonth={() => setCalendarMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
                 />
-
                 <TimeSlotList
                   slots={timeSlots}
                   selectedTime={selectedTime}
@@ -321,7 +326,7 @@ const Grooming = () => {
                   <div className={`${styles.totalRow} ${styles.finalTotal}`}>
                     <span>Total to Pay:</span>
                     <span>
-                      {paymentMethod === 'loyalty_points' 
+                      {paymentMethod === 'loyalty_points'
                         ? `₱${(estimatedTotal - Math.floor((Math.ceil(estimatedTotal / 10) * 2) / 2) * 10).toLocaleString()}`
                         : `₱${estimatedTotal.toLocaleString()}`
                       }
@@ -362,6 +367,8 @@ const Grooming = () => {
             : 'Confirm Appointment & Pay'}
         </button>
       </div>
+
+      <GroomingGallery />
     </div>
   );
 };

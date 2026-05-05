@@ -185,3 +185,48 @@
   font-weight: 700;
   color: #1b1c17;
 }
+
+/* ── Dark Mode Overrides ─────────────────────────────────── */
+:global([data-theme="dark"]) .cartItem {
+  background: #1e1e28;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .imageContainer {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .productName {
+  color: #8886c0;
+}
+
+:global([data-theme="dark"]) .variantInfo {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .currentPrice {
+  color: #e8e6f0;
+}
+
+:global([data-theme="dark"]) .actionBtn {
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .divider {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .quantityControls {
+  background: #2a2a38;
+}
+
+:global([data-theme="dark"]) .qtyBtn {
+  background: #1e1e28;
+  color: #00c4b0;
+}
+
+:global([data-theme="dark"]) .qtyValue {
+  color: #e8e6f0;
+}
+

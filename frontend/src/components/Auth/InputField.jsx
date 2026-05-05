@@ -13,7 +13,7 @@ const InputField = ({ label, type = 'text', placeholder, value, onChange, requir
     marginBottom: '8px',
     fontWeight: '700',
     fontSize: '9px',
-    color: '#006a63',
+    color: 'var(--auth-label)',
     textTransform: 'uppercase',
     letterSpacing: '1px',
     fontFamily: 'Be Vietnam Pro, sans-serif'
@@ -24,7 +24,7 @@ const InputField = ({ label, type = 'text', placeholder, value, onChange, requir
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: '#ebe9e0',
+    backgroundColor: 'var(--auth-input-bg)',
     borderRadius: '9999px',
     overflow: 'hidden'
   };
@@ -32,7 +32,7 @@ const InputField = ({ label, type = 'text', placeholder, value, onChange, requir
   const iconStyle = {
     position: 'absolute',
     left: '16px',
-    color: '#006a63',
+    color: 'var(--auth-label)',
     fontSize: '14px',
     display: 'flex',
     alignItems: 'center',
@@ -48,9 +48,10 @@ const InputField = ({ label, type = 'text', placeholder, value, onChange, requir
     outline: 'none',
     width: '100%',
     fontFamily: 'Be Vietnam Pro, sans-serif',
-    color: '#59413a',
+    color: 'var(--auth-text)',
     fontWeight: '500'
   };
+
 
   return (
     <div style={containerStyle}>
