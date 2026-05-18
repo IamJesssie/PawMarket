@@ -59,7 +59,6 @@ export const AuthProvider = ({ children }) => {
     }
     
     try {
-        // Just get the profile. maybeSingle() is safer.
         const { data: profileData } = await supabase
           .from('profiles')
           .select('*')
@@ -76,7 +75,6 @@ export const AuthProvider = ({ children }) => {
 
         dispatch({ type: 'AUTH_SUCCESS', payload: { user, profile } });
     } catch (e) {
-        // Fallback so the app doesn't hang
         dispatch({ 
             type: 'AUTH_SUCCESS', 
             payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email } } 
@@ -85,19 +83,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Initial session check
     const initAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        await fetchProfileAndDispatch(session.user);
-      } else {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          await fetchProfileAndDispatch(session.user);
+        } else {
+          dispatch({ type: 'LOGOUT' });
+        }
+      } catch (err) {
+        console.error("Init auth error", err);
         dispatch({ type: 'LOGOUT' });
       }
     };
 
     initAuth();
 
-    // The Background Manager: This handles ALL state changes automatically
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         await fetchProfileAndDispatch(session.user);
@@ -110,30 +111,63 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (email, password, fullName) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: fullName } },
-    });
-    if (error) return { success: false, error: error.message };
-    return { success: true, data };
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: fullName } },
+      });
+      if (error) return { success: false, error: error.message };
+      return { success: true, data };
+    } catch (err) {
+      return { success: false, error: 'Network error during signup' };
+    }
   };
 
   const login = async (email, password) => {
-    // We don't dispatch SET_LOADING here anymore to keep the UI snappy
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return { success: false, error: error.message };
-    return { success: true, data };
+    try {
+      // Use Promise.race to prevent infinite hanging if Supabase client is stuck
+      const result = await Promise.race([
+        supabase.auth.signInWithPassword({ email, password }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out. Please try again.')), 5000))
+      ]);
+      
+      if (result.error) return { success: false, error: result.error.message };
+      return { success: true, data: result.data };
+    } catch (error) {
+      return { success: false, error: error.message || 'Login failed' };
+    }
   };
 
   const loginWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-    if (error) return { success: false, error: error.message };
-    return { success: true };
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: 'OAuth failed' };
+    }
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    try {
+      await Promise.race([
+        supabase.auth.signOut(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Logout timeout')), 2000))
+      ]);
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Forcefully clear all Supabase tokens
+      for (let key in localStorage) {
+        if (key.startsWith('sb-')) {
+          localStorage.removeItem(key);
+        }
+      }
+      dispatch({ type: 'LOGOUT' });
+      // Reload the page to completely reset the hung Supabase client in memory
+      window.location.href = '/login'; 
+    }
   };
 
   return (
