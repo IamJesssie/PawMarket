@@ -1,12 +1,15 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import { supabase } from '../supabaseClient';
 
 const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
-  const [loyaltyPoints, setLoyaltyPoints] = useState(480);
-  const { user, isAuthenticated } = useAuth();
+  const { user, profile, isAuthenticated, updateLocalProfile } = useAuth();
+  
+  // Now loyalty points come directly from the authenticated user's profile
+  const loyaltyPoints = profile?.loyaltyPoints || 0;
 
   const fetchOrders = useCallback(async () => {
     if (isAuthenticated && user?.id) {
@@ -27,6 +30,23 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     fetchOrders();
   }, [fetchOrders]);
+
+  const updatePointsInSupabase = async (newPoints) => {
+    if (isAuthenticated && user?.id) {
+      try {
+        // Optimistically update local context so UI changes instantly
+        updateLocalProfile({ loyaltyPoints: newPoints });
+        
+        // Persist to database
+        await supabase
+          .from('profiles')
+          .update({ loyalty_points: newPoints })
+          .eq('id', user.id);
+      } catch (err) {
+        console.error("Error updating points in Supabase", err);
+      }
+    }
+  };
 
   const createOrder = useCallback(async (orderData) => {
     if (!isAuthenticated || !user?.id) {
@@ -78,13 +98,13 @@ export const OrderProvider = ({ children }) => {
     ));
     
     if (status === 'Order Received' || status === 'Service Completed') {
-      setLoyaltyPoints(prev => prev + 2);
+      updatePointsInSupabase(loyaltyPoints + 2);
     }
-  }, []);
+  }, [loyaltyPoints]);
 
   const useLoyaltyPoints = useCallback((points) => {
     if (loyaltyPoints >= points) {
-      setLoyaltyPoints(prev => prev - points);
+      updatePointsInSupabase(loyaltyPoints - points);
       return true;
     }
     return false;

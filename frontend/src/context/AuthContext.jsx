@@ -70,16 +70,27 @@ export const AuthProvider = ({ children }) => {
           email: user.email,
           phone: profileData?.phone || 'Not set',
           avatarUrl: profileData?.avatar_url || user.user_metadata?.avatar_url || 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0',
-          memberSince: profileData?.member_since || '2024'
+          memberSince: profileData?.member_since || '2024',
+          loyaltyPoints: profileData?.loyalty_points || 0
         };
 
         dispatch({ type: 'AUTH_SUCCESS', payload: { user, profile } });
     } catch (e) {
         dispatch({ 
             type: 'AUTH_SUCCESS', 
-            payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email } } 
+            payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email, loyaltyPoints: 0 } } 
         });
     }
+  };
+
+  const updateLocalProfile = (updates) => {
+    dispatch({
+      type: 'AUTH_SUCCESS',
+      payload: {
+        user: authState.user,
+        profile: { ...authState.profile, ...updates }
+      }
+    });
   };
 
   useEffect(() => {
@@ -171,7 +182,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ ...authState, login, signup, loginWithGoogle, logout }}>
+    <AuthContext.Provider value={{ ...authState, login, signup, loginWithGoogle, logout, updateLocalProfile }}>
       {children}
     </AuthContext.Provider>
   );
