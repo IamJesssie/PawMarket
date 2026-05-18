@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../pages/AccountOverview.module.css';
 
 const UserInfoSummary = ({ user }) => {
+  const navigate = useNavigate();
+
   const handleEditProfile = () => {
-    alert('Edit profile functionality will be available soon!');
+    navigate('/dashboard/profile');
   };
 
   return (
@@ -19,7 +22,9 @@ const UserInfoSummary = ({ user }) => {
           <div className={styles.userInfoValue}>{user.phone}</div>
         </div>
       </div>
-      <button className={styles.outlineButton} onClick={handleEditProfile}>Edit Profile</button>
+      <button className={styles.outlineButton} onClick={handleEditProfile}>
+        Edit Profile
+      </button>
     </section>
   );
 };

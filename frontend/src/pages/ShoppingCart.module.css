@@ -184,6 +184,35 @@
   cursor: pointer;
 }
 
+.loyaltySection {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe9da 100%);
+  border-radius: 12px;
+  border: 1px solid #fa782d;
+}
+
+.loyaltyCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loyaltyCheckbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #fa782d;
+}
+
+.loyaltyCheckbox label {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #585894;
+  cursor: pointer;
+}
+
 .summaryContent {
   display: flex;
   flex-direction: column;

@@ -40,8 +40,10 @@ const RegisterForm = () => {
     const result = await signup(formData.email, formData.password, formData.fullName);
     
     if (result.success) {
-      setSuccess('Account created! Please check your email for verification.');
-      setTimeout(() => navigate('/login'), 3000);
+      // If the parent passed a way to toggle to login, use it
+      if (window.location.reload) {
+        window.location.reload(); // Quickest way to reset the AuthPage state to Login
+      }
     } else {
       setError(result.error);
     }

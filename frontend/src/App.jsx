@@ -2,12 +2,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
+import { OrderProvider } from './context/OrderContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import AccountOverview from './pages/AccountOverview';
 import AddressManagement from './pages/AddressManagement';
+import ProfileEdit from './pages/ProfileEdit';
 import ShoppingCart from './pages/ShoppingCart';
 import AuthPage from './pages/AuthPage';
 import Grooming from './pages/Grooming';
@@ -16,41 +18,46 @@ import Home from './pages/Home';
 import RecentlyViewed from './pages/RecentlyViewed';
 import Wishlist from './pages/Wishlist';
 import './App.css';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <Router>
-              <div className="app">
-                <Navbar />
+        <OrderProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <Router>
+                <div className="app">
+                  <Navbar />
 
-                <main className="main-content">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/products/:id" element={<ProductDetail />} />
-                    <Route path="/recently-viewed" element={<RecentlyViewed />} />
-                    <Route path="/wishlist" element={<Wishlist />} />
-                    <Route path="/profile" element={<AccountOverview />} />
-                    <Route path="/dashboard" element={<AccountOverview />} />
-                    <Route path="/dashboard/addresses" element={<AddressManagement />} />
-                    <Route path="/grooming" element={<Grooming />} />
-                    <Route path="/help" element={<Help />} />
-                    <Route path="/cart" element={<ShoppingCart />} />
-                    <Route path="/login" element={<AuthPage />} />
-                  </Routes>
-                </main>
+                  <main className="main-content">
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/products/:id" element={<ProductDetail />} />
+                      <Route path="/recently-viewed" element={<RecentlyViewed />} />
+                      <Route path="/wishlist" element={<Wishlist />} />
+                      <Route path="/profile" element={<AccountOverview />} />
+                      <Route path="/dashboard" element={<AccountOverview />} />
+                      <Route path="/dashboard/profile" element={<ProfileEdit />} />
+                      <Route path="/dashboard/addresses" element={<AddressManagement />} />
+                      <Route path="/grooming" element={<Grooming />} />
+                      <Route path="/help" element={<Help />} />
+                      <Route path="/cart" element={<ShoppingCart />} />
+                      <Route path="/login" element={<AuthPage />} />
+                      <Route path="/admin" element={<AdminDashboard />} />
+                    </Routes>
+                  </main>
 
-                <footer className="footer">
-                  <p>&copy; 2024 PawMarket. All rights reserved.</p>
-                </footer>
-              </div>
-            </Router>
-          </WishlistProvider>
-        </CartProvider>
+                  <footer className="footer">
+                    <p>&copy; 2024 PawMarket. All rights reserved.</p>
+                  </footer>
+                </div>
+              </Router>
+            </WishlistProvider>
+          </CartProvider>
+        </OrderProvider>
       </AuthProvider>
     </ThemeProvider>
   );

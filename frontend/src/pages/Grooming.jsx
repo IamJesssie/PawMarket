@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useOrder } from '../context/OrderContext';
 import BookingStepper from '../components/Grooming/BookingStepper';
 import ServiceCard from '../components/Grooming/ServiceCard';
 import AddonCard from '../components/Grooming/AddonCard';
@@ -7,8 +8,10 @@ import CalendarPicker from '../components/Grooming/CalendarPicker';
 import TimeSlotList from '../components/Grooming/TimeSlotList';
 import PetDetailsForm from '../components/Grooming/PetDetailsForm';
 import BookingSummary from '../components/Grooming/BookingSummary';
+import OrderStatus from '../components/ShoppingCart/OrderStatus';
 import GroomingGallery from '../components/Grooming/GroomingGallery';
 import styles from '../components/Grooming/GroomingComponents.module.css';
+
 
 const serviceOptions = [
   { id: 1, name: 'Full Grooming', duration: '2 - 3 hrs', price: 3500 },
@@ -19,6 +22,7 @@ const serviceOptions = [
   { id: 6, name: 'Teeth Brushing', duration: '15 min', price: 950 }
 ];
 
+
 const addonOptions = [
   { id: 1, name: 'Flea Treatment', price: 1100 },
   { id: 2, name: 'Perfume Spritz', price: 250 },
@@ -28,14 +32,18 @@ const addonOptions = [
   { id: 6, name: 'De-shedding', price: 1350 }
 ];
 
+
 const progressSteps = [
   { label: 'Select Service' },
   { label: 'Choose Date & Time' },
   { label: 'Pet Details' },
+  { label: 'Payment Method' },
   { label: 'Confirm & Pay' }
 ];
 
+
 const imageSalon = 'https://www.figma.com/api/mcp/asset/22f058fe-c165-4690-9e07-df2d42f18c10';
+
 
 const timeSlots = [
   { label: '9:00 AM', value: '9:00 AM' },
@@ -54,7 +62,9 @@ const timeSlots = [
   { label: '4:30 PM', value: '4:30 PM' }
 ];
 
+
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
 const buildCalendarDays = (month, selectedDate) => {
   const year = month.getFullYear();
@@ -83,13 +93,18 @@ const buildCalendarDays = (month, selectedDate) => {
   return grid;
 };
 
+
 const Grooming = () => {
+  const { createOrder, loyaltyPoints, useLoyaltyPoints } = useOrder();
   const [selectedServiceId, setSelectedServiceId] = useState(1);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [step, setStep] = useState(1);
   const [calendarMonth, setCalendarMonth] = useState(new Date(2026, 2, 1));
   const [selectedDate, setSelectedDate] = useState(new Date(2026, 2, 15));
   const [selectedTime, setSelectedTime] = useState('9:00 AM');
+  const [paymentMethod, setPaymentMethod] = useState('pay_in_store');
+  const [orderId, setOrderId] = useState(null);
+  const [showOrderStatus, setShowOrderStatus] = useState(false);
   const [petDetails, setPetDetails] = useState({
     selectedPet: '',
     petName: '',
@@ -129,18 +144,38 @@ const Grooming = () => {
   };
 
   const goToNextStep = () => {
-    if (step < 4) {
+    if (step < 5) {
       setStep((current) => current + 1);
       return;
     }
 
-    console.log('Confirmed appointment:', {
+    let finalTotal = estimatedTotal;
+    let loyaltyDiscount = 0;
+
+    if (paymentMethod === 'loyalty_points') {
+      const pointsNeeded = Math.ceil(estimatedTotal / 10) * 2;
+      if (loyaltyPoints >= pointsNeeded) {
+        useLoyaltyPoints(pointsNeeded);
+        loyaltyDiscount = Math.floor(pointsNeeded / 2) * 10;
+        finalTotal = estimatedTotal - loyaltyDiscount;
+      }
+    }
+
+    const order = createOrder({
+      type: 'grooming',
       service: selectedService,
       date: selectedDate,
       time: selectedTime,
-      addons: selectedAddons,
-      petDetails
+      addons: selectedAddons.map((id) => addonOptions.find((option) => option.id === id)?.name).filter(Boolean),
+      petDetails,
+      paymentMethod,
+      originalTotal: estimatedTotal,
+      loyaltyDiscount,
+      total: finalTotal
     });
+
+    setOrderId(order);
+    setShowOrderStatus(true);
   };
 
   const goToPreviousStep = () => {
@@ -154,8 +189,25 @@ const Grooming = () => {
       ? 'Choose Date & Time'
       : step === 3
       ? 'Pet Details'
+      : step === 4
+      ? 'Payment Method'
       : 'Confirm & Pay';
   const stepLabel = `Step ${step}`;
+
+  if (showOrderStatus && orderId) {
+    return (
+      <div className={styles.groomingPage}>
+        <OrderStatus
+          orderId={orderId}
+          onClose={() => {
+            setShowOrderStatus(false);
+            setOrderId(null);
+            setStep(1);
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.groomingPage}>
@@ -164,7 +216,6 @@ const Grooming = () => {
           <p className={styles.breadcrumb}>Home › Grooming › Book Appointment</p>
           <h1 className={styles.pageTitle}>Book a Grooming Appointment</h1>
         </div>
-
         <BookingStepper steps={progressSteps} currentStep={step} />
       </div>
 
@@ -186,7 +237,6 @@ const Grooming = () => {
                     />
                   ))}
                 </div>
-
                 <section className={styles.sectionBlock}>
                   <p className={styles.sectionLabel}>Optional Add-ons</p>
                   <div className={styles.addonGrid}>
@@ -211,7 +261,6 @@ const Grooming = () => {
                   onPrevMonth={() => setCalendarMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
                   onNextMonth={() => setCalendarMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
                 />
-
                 <TimeSlotList
                   slots={timeSlots}
                   selectedTime={selectedTime}
@@ -220,6 +269,71 @@ const Grooming = () => {
               </div>
             ) : step === 3 ? (
               <PetDetailsForm values={petDetails} onChange={handlePetDetailChange} />
+            ) : step === 4 ? (
+              <div className={styles.paymentMethodSection}>
+                <h3>Select Payment Method</h3>
+                <div className={styles.paymentOptions}>
+                  <div className={styles.paymentOption}>
+                    <input
+                      type="radio"
+                      id="pay_in_store"
+                      name="paymentMethod"
+                      value="pay_in_store"
+                      checked={paymentMethod === 'pay_in_store'}
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                    />
+                    <label htmlFor="pay_in_store" className={styles.paymentLabel}>
+                      <div className={styles.paymentInfo}>
+                        <span className={styles.paymentTitle}>Pay in Store</span>
+                        <span className={styles.paymentDescription}>Pay when you arrive for your appointment</span>
+                      </div>
+                    </label>
+                  </div>
+
+                  {loyaltyPoints >= Math.ceil(estimatedTotal / 10) * 2 && (
+                    <div className={styles.paymentOption}>
+                      <input
+                        type="radio"
+                        id="loyalty_points"
+                        name="paymentMethod"
+                        value="loyalty_points"
+                        checked={paymentMethod === 'loyalty_points'}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                      />
+                      <label htmlFor="loyalty_points" className={styles.paymentLabel}>
+                        <div className={styles.paymentInfo}>
+                          <span className={styles.paymentTitle}>Use Loyalty Points</span>
+                          <span className={styles.paymentDescription}>
+                            Use {Math.ceil(estimatedTotal / 10) * 2} points (₱{Math.floor((Math.ceil(estimatedTotal / 10) * 2) / 2) * 10} discount)
+                          </span>
+                        </div>
+                      </label>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.totalSummary}>
+                  <div className={styles.totalRow}>
+                    <span>Service Total:</span>
+                    <span>₱{estimatedTotal.toLocaleString()}</span>
+                  </div>
+                  {paymentMethod === 'loyalty_points' && (
+                    <div className={styles.totalRow}>
+                      <span>Loyalty Discount:</span>
+                      <span className={styles.discount}>-₱{Math.floor((Math.ceil(estimatedTotal / 10) * 2) / 2) * 10}</span>
+                    </div>
+                  )}
+                  <div className={`${styles.totalRow} ${styles.finalTotal}`}>
+                    <span>Total to Pay:</span>
+                    <span>
+                      {paymentMethod === 'loyalty_points'
+                        ? `₱${(estimatedTotal - Math.floor((Math.ceil(estimatedTotal / 10) * 2) / 2) * 10).toLocaleString()}`
+                        : `₱${estimatedTotal.toLocaleString()}`
+                      }
+                    </span>
+                  </div>
+                </div>
+              </div>
             ) : (
               <BookingSummary
                 service={selectedService}
@@ -228,6 +342,7 @@ const Grooming = () => {
                 time={selectedTime}
                 petDetails={petDetails}
                 total={estimatedTotal}
+                paymentMethod={paymentMethod}
               />
             )}
           </section>
@@ -253,7 +368,6 @@ const Grooming = () => {
         </button>
       </div>
 
-      {/* Before & After Gallery */}
       <GroomingGallery />
     </div>
   );

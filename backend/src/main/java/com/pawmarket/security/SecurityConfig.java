@@ -23,9 +23,8 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/products/**").permitAll()
-                .requestMatchers("/").permitAll() // Allow root access for health checks
-                .anyRequest().authenticated()
+                .requestMatchers("/auth/**", "/reviews/**", "/products/**").permitAll()
+                .anyRequest().permitAll()
             );
 
         return http.build();

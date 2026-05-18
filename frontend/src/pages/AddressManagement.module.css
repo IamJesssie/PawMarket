@@ -304,6 +304,109 @@
   box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
 }
 
+.formCard {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+  padding: 2rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.formGroup:last-of-type {
+  margin-bottom: 2rem;
+}
+
+.formLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #006a63;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.formInput {
+  width: 100%;
+  border: 1px solid #e4e3db;
+  border-radius: 9999px;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  color: #1b1c17;
+  font-size: 1rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #fa782d;
+  background-color: #f9f8f5;
+}
+
+.formInput:disabled {
+  background-color: #f6f4ec;
+  color: #8d99a6;
+  cursor: not-allowed;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.outlineButton {
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  padding: 0.95rem 1.5rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.primaryButton {
+  background: #fa782d;
+  color: #ffffff;
+  box-shadow: 0px 10px 40px rgba(27, 28, 23, 0.06);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #f56011;
+  box-shadow: 0px 12px 48px rgba(250, 120, 45, 0.15);
+}
+
+.primaryButton:disabled {
+  background: #d4d2cc;
+  color: #8d99a6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.outlineButton {
+  background: #ffffff;
+  color: #585894;
+  border: 1px solid #e4e3db;
+}
+
+.outlineButton:hover:not(:disabled) {
+  background: #f6f4ec;
+  border-color: #585894;
+}
+
+.outlineButton:disabled {
+  color: #8d99a6;
+  border-color: #d4d2cc;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1280px) {
   .accountShell {
     grid-template-columns: 1fr;
