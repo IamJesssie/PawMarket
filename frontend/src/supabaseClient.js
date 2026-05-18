@@ -10,9 +10,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     // Bypass the buggy browser lock manager that causes infinite hangs and "stolen lock" errors.
-    // This guarantees the UI will never get stuck on "Logging In..." or "Loading profile..."
-    lock: async (name, acquireTimeout, fn) => {
-      return await fn();
+    lock: async (...args) => {
+      console.log('Supabase lock arguments:', args);
+      // Supabase passes (name, acquire) or (name, acquireTimeout, fn)? We can just find the function
+      const fn = args.find(arg => typeof arg === 'function');
+      if (fn) {
+        return await fn();
+      }
+      return null;
     }
   }
 });
