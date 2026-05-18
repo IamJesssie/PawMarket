@@ -38,7 +38,7 @@ public class AddressController {
             address.setAddressLine2(addressDetails.getAddressLine2());
             address.setCity(addressDetails.getCity());
             address.setStateProvince(addressDetails.getStateProvince());
-            address.setPostalCode(addressDetails.postalCode());
+            address.setPostalCode(addressDetails.getPostalCode());
             address.setCountry(addressDetails.getCountry());
             address.setIsDefault(addressDetails.getIsDefault());
             address.setLabel(addressDetails.getLabel());
