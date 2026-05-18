@@ -10,7 +10,7 @@ import CalendarPicker from '../components/Grooming/CalendarPicker';
 import TimeSlotList from '../components/Grooming/TimeSlotList';
 import PetDetailsForm from '../components/Grooming/PetDetailsForm';
 import BookingSummary from '../components/Grooming/BookingSummary';
-import OrderStatus from '../components/ShoppingCart/OrderStatus';
+import NotificationModal from '../components/common/NotificationModal';
 import GroomingGallery from '../components/Grooming/GroomingGallery';
 import styles from '../components/Grooming/GroomingComponents.module.css';
 
@@ -230,21 +230,6 @@ const Grooming = () => {
       : 'Confirm & Pay';
   const stepLabel = `Step ${step}`;
 
-  if (showOrderStatus && appointmentId) {
-    return (
-      <div className={styles.groomingPage}>
-        <OrderStatus
-          orderId={appointmentId}
-          onClose={() => {
-            setShowOrderStatus(false);
-            setAppointmentId(null);
-            setStep(1);
-          }}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className={styles.groomingPage}>
       <div className={styles.headerRow}>
@@ -405,6 +390,16 @@ const Grooming = () => {
       </div>
 
       <GroomingGallery />
+      
+      <NotificationModal 
+        isOpen={showOrderStatus} 
+        message={`Booking confirmed! Your appointment ID is ${appointmentId}`}
+        onClose={() => {
+          setShowOrderStatus(false);
+          setAppointmentId(null);
+          setStep(1); // Reset to step 1
+        }}
+      />
     </div>
   );
 };

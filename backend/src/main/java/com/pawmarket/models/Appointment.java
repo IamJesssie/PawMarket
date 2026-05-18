@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -53,9 +52,6 @@ public class Appointment {
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
-
-    @Column(name = "created_at")
-    private OffsetDateTime createdAt;
 
     @ManyToMany
     @JoinTable(
