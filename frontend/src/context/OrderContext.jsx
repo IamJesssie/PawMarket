@@ -95,6 +95,10 @@ export const OrderProvider = ({ children }) => {
     return orders.find(order => order.id === rawId || `#PM-${order.id}` === orderId);
   }, [orders]);
 
+  const getVoucherDiscount = useCallback(() => {
+    return Math.floor(loyaltyPoints / 2) * 10;
+  }, [loyaltyPoints]);
+
   return (
     <OrderContext.Provider value={{
       orders,
@@ -103,6 +107,7 @@ export const OrderProvider = ({ children }) => {
       updateOrderStatus,
       useLoyaltyPoints,
       getOrderById,
+      getVoucherDiscount,
     }}>
       {children}
     </OrderContext.Provider>
