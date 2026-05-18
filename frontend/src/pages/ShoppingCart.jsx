@@ -16,18 +16,19 @@ const ShoppingCart = () => {
   const [orderId, setOrderId] = useState(null);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setIsCheckingOut(true);
-    setTimeout(() => {
-      const order = createOrder({
-        items,
-        subtotal: total,
-        shipping,
-        discount: appliedPromo ? total * 0.1 : 0,
-        loyaltyDiscount: useLoyaltyVoucher ? Math.floor(loyaltyPoints / 2) * 10 : 0,
-        total: finalTotal
-      });
+    
+    const order = await createOrder({
+      items,
+      subtotal: total,
+      shipping,
+      discount: appliedPromo ? total * 0.1 : 0,
+      loyaltyDiscount: useLoyaltyVoucher ? Math.floor(loyaltyPoints / 2) * 10 : 0,
+      total: finalTotal
+    });
 
+    if (order) {
       // Use loyalty points if voucher was redeemed
       if (useLoyaltyVoucher && loyaltyPoints >= 2) {
         const pointsUsed = Math.floor(loyaltyPoints / 2) * 2;
@@ -37,8 +38,11 @@ const ShoppingCart = () => {
       setOrderId(order);
       setShowOrderStatus(true);
       clearCart();
-      setIsCheckingOut(false);
-    }, 2000);
+    } else {
+      alert("Checkout failed. Please ensure the backend is running and try again.");
+    }
+    
+    setIsCheckingOut(false);
   };
 
   const applyPromoCode = () => {

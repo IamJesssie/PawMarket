@@ -1,122 +1,108 @@
-import { createContext, useContext, useReducer, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const OrderContext = createContext();
 
-const orderReducer = (state, action) => {
-  switch (action.type) {
-    case 'CREATE_ORDER':
-      return {
-        ...state,
-        orders: [...state.orders, action.payload]
-      };
-
-    case 'UPDATE_ORDER_STATUS':
-      return {
-        ...state,
-        orders: state.orders.map(order =>
-          order.id === action.payload.orderId
-            ? { ...order, status: action.payload.status }
-            : order
-        )
-      };
-
-    case 'ADD_LOYALTY_POINTS':
-      return {
-        ...state,
-        loyaltyPoints: state.loyaltyPoints + action.payload
-      };
-
-    case 'USE_LOYALTY_POINTS':
-      if (state.loyaltyPoints >= action.payload) {
-        return {
-          ...state,
-          loyaltyPoints: state.loyaltyPoints - action.payload
-        };
-      }
-      return state;
-
-    case 'SET_LOYALTY_POINTS':
-      return {
-        ...state,
-        loyaltyPoints: action.payload
-      };
-
-    default:
-      return state;
-  }
-};
-
 export const OrderProvider = ({ children }) => {
-  const [orderState, dispatch] = useReducer(orderReducer, {
-    orders: [],
-    loyaltyPoints: 480 // Initial loyalty points
-  });
+  const [orders, setOrders] = useState([]);
+  const [loyaltyPoints, setLoyaltyPoints] = useState(480);
+  const { user, isAuthenticated } = useAuth();
 
-  const createOrder = useCallback((orderData) => {
-    const orderId = `#PM-${Date.now()}`;
-    const isGrooming = orderData.type === 'grooming';
-    const newOrder = {
-      id: orderId,
-      ...orderData,
-      status: isGrooming ? 'Appointment Created' : 'To be shipped',
-      createdAt: new Date().toISOString()
-    };
-    dispatch({ type: 'CREATE_ORDER', payload: newOrder });
-    return orderId;
-  }, []);
+  const fetchOrders = useCallback(async () => {
+    if (isAuthenticated && user?.id) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/orders/user/${user.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setOrders(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch orders from backend", err);
+      }
+    } else {
+      setOrders([]);
+    }
+  }, [user?.id, isAuthenticated]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  const createOrder = useCallback(async (orderData) => {
+    if (!isAuthenticated || !user?.id) {
+      alert("Please login to place an order.");
+      return null;
+    }
+
+    try {
+      // Map frontend cart data to backend Order format
+      const payload = {
+        userId: user.id,
+        subtotal: orderData.subtotal,
+        shipping: orderData.shipping,
+        discount: orderData.discount + (orderData.loyaltyDiscount || 0),
+        total: orderData.total,
+        status: orderData.type === 'grooming' ? 'Appointment Created' : 'To be shipped',
+        items: orderData.items ? orderData.items.map(item => ({
+          product: { id: item.id },
+          quantity: item.quantity,
+          unitPrice: item.price
+        })) : []
+      };
+
+      const response = await fetch('http://localhost:8080/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        const newOrder = await response.json();
+        setOrders(prev => [newOrder, ...prev]);
+        return `#PM-${newOrder.id}`;
+      } else {
+        console.error("Order creation failed on backend");
+        return null;
+      }
+    } catch (err) {
+      console.error("Network error during order creation", err);
+      return null;
+    }
+  }, [user?.id, isAuthenticated]);
 
   const updateOrderStatus = useCallback((orderId, status) => {
-    dispatch({ type: 'UPDATE_ORDER_STATUS', payload: { orderId, status } });
+    setOrders(prev => prev.map(order => 
+      order.id === orderId ? { ...order, status } : order
+    ));
     
-    // Add loyalty points when order is received or service is completed
     if (status === 'Order Received' || status === 'Service Completed') {
-      dispatch({ type: 'ADD_LOYALTY_POINTS', payload: 2 });
+      setLoyaltyPoints(prev => prev + 2);
     }
-  }, []);
-
-  const addLoyaltyPoints = useCallback((points) => {
-    dispatch({ type: 'ADD_LOYALTY_POINTS', payload: points });
   }, []);
 
   const useLoyaltyPoints = useCallback((points) => {
-    dispatch({ type: 'USE_LOYALTY_POINTS', payload: points });
-    return orderState.loyaltyPoints >= points;
-  }, [orderState.loyaltyPoints]);
-
-  const getVoucherDiscount = useCallback(() => {
-    // 2 points = 10 pesos off
-    // So for every 2 points, user gets 10 pesos discount
-    return Math.floor(orderState.loyaltyPoints / 2) * 10;
-  }, [orderState.loyaltyPoints]);
-
-  const redeemPoints = useCallback((points) => {
-    const success = useLoyaltyPoints(points);
-    if (success) {
-      return (points / 2) * 10; // Return discount amount
+    if (loyaltyPoints >= points) {
+      setLoyaltyPoints(prev => prev - points);
+      return true;
     }
-    return 0;
-  }, [useLoyaltyPoints]);
+    return false;
+  }, [loyaltyPoints]);
 
   const getOrderById = useCallback((orderId) => {
-    return orderState.orders.find(order => order.id === orderId);
-  }, [orderState.orders]);
-
-  const getOrders = useCallback(() => {
-    return orderState.orders;
-  }, [orderState.orders]);
+    const rawId = parseInt(orderId.replace('#PM-', ''), 10);
+    return orders.find(order => order.id === rawId || `#PM-${order.id}` === orderId);
+  }, [orders]);
 
   return (
     <OrderContext.Provider value={{
-      orders: orderState.orders,
-      loyaltyPoints: orderState.loyaltyPoints,
+      orders,
+      loyaltyPoints,
       createOrder,
       updateOrderStatus,
-      addLoyaltyPoints,
       useLoyaltyPoints,
-      getVoucherDiscount,
-      redeemPoints,
       getOrderById,
-      getOrders
     }}>
       {children}
     </OrderContext.Provider>
