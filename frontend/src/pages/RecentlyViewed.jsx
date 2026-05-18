@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import styles from './RecentlyViewed.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
 import { products } from '../data/products';
@@ -43,22 +44,47 @@ const sidebarRoutes = {
 };
 
 const RecentlyViewed = () => {
-  const { profile, loading: authLoading } = useAuth();
+  const { user, profile, isAuthenticated, loading: authLoading } = useAuth();
   const [recentProducts, setRecentProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get IDs from localStorage
-    const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    
-    // Map the IDs/Stale items to the fresh data in products.js
-    const freshRecentProducts = viewedData.map(staleItem => {
-      return products.find(p => p.id === staleItem.id) || staleItem;
-    }).filter(p => p !== undefined);
+    const fetchRecentlyViewed = async () => {
+      if (isAuthenticated && user?.id) {
+        try {
+          const { data, error } = await supabase
+            .from('recently_viewed')
+            .select('product_id')
+            .eq('user_id', user.id)
+            .order('viewed_at', { ascending: false })
+            .limit(10);
 
-    setRecentProducts(freshRecentProducts);
-  }, []);
+          if (!error && data) {
+            // Map the IDs to the fresh data in products.js
+            const freshRecentProducts = data.map(item => {
+              return products.find(p => p.id === item.product_id);
+            }).filter(p => p !== undefined);
 
-  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
+            setRecentProducts(freshRecentProducts);
+          }
+        } catch (err) {
+          console.error("Error fetching recently viewed:", err);
+        }
+      } else {
+        // Fallback to local storage if not logged in
+        const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        const freshRecentProducts = viewedData.map(staleItem => {
+          return products.find(p => p.id === staleItem.id) || staleItem;
+        }).filter(p => p !== undefined);
+        setRecentProducts(freshRecentProducts);
+      }
+      setIsLoading(false);
+    };
+
+    fetchRecentlyViewed();
+  }, [user?.id, isAuthenticated]);
+
+  if (authLoading || isLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
   if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
 
   return (

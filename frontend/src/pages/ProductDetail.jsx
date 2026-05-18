@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import ProductGallery from '../components/ProductDetail/ProductGallery';
 import ProductInfo from '../components/ProductDetail/ProductInfo';
 import ProductOptions from '../components/ProductDetail/ProductOptions';
@@ -12,6 +14,7 @@ import styles from './ProductDetail.module.css';
 const ProductDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
   const [showCartModal, setShowCartModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
@@ -19,16 +22,35 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (product) {
-      // Recently Viewed Logic
+      // 1. Local Storage Logic (For immediate UI rendering)
       const viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
       const isAlreadyViewed = viewed.find(p => p.id === product.id);
       if (!isAlreadyViewed) {
         const updatedViewed = [product, ...viewed].slice(0, 10);
         localStorage.setItem('recentlyViewed', JSON.stringify(updatedViewed));
       }
+
+      // 2. Database Sync (Push to Supabase recently_viewed table)
+      const logHistoryToDatabase = async () => {
+        if (isAuthenticated && user?.id) {
+          try {
+            await supabase
+              .from('recently_viewed')
+              .upsert({ 
+                user_id: user.id, 
+                product_id: product.id,
+                viewed_at: new Date().toISOString()
+              }, { onConflict: 'user_id,product_id' });
+          } catch (err) {
+            console.error('Failed to log history', err);
+          }
+        }
+      };
+      
+      logHistoryToDatabase();
       window.scrollTo(0, 0);
     }
-  }, [product]);
+  }, [product?.id, isAuthenticated, user?.id]);
 
   if (!product) {
     return (
