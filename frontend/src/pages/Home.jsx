@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { products as allProducts } from '../data/products';
 import ProductCard from '../components/ProductGrid/ProductCard';
 import { useCart } from '../context/CartContext';
 import styles from './Home.module.css';
 
 const Home = () => {
   const { addToCart } = useCart();
-  const featuredProducts = allProducts.slice(0, 4);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/products');
+        if (response.ok) {
+          const data = await response.json();
+          // Map backend data to frontend format
+          const mappedData = data.slice(0, 4).map(p => ({
+            ...p,
+            image: p.imageUrl,
+            sizes: ['1 kg', '2 kg', '5 kg', '10 kg', '15 kg'],
+            flavors: ['Chicken', 'Beef', 'Salmon', 'Lamb'],
+            images: [p.imageUrl, p.imageUrl, p.imageUrl, p.imageUrl]
+          }));
+          setFeaturedProducts(mappedData);
+        }
+      } catch (err) {
+        console.error("Failed to fetch featured products", err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div className={styles.homeContainer}>

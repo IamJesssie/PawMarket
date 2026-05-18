@@ -8,7 +8,6 @@ import ProductInfo from '../components/ProductDetail/ProductInfo';
 import ProductOptions from '../components/ProductDetail/ProductOptions';
 import ProductTabs from '../components/ProductDetail/ProductTabs';
 import NotificationModal from '../components/common/NotificationModal';
-import { products } from '../data/products';
 import styles from './ProductDetail.module.css';
 
 const ProductDetail = () => {
@@ -17,8 +16,33 @@ const ProductDetail = () => {
   const { user, isAuthenticated } = useAuth();
   const [showCartModal, setShowCartModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const product = products.find(p => p.id === parseInt(id));
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/products/${id}`);
+        if (response.ok) {
+          const p = await response.json();
+          setProduct({
+            ...p,
+            image: p.imageUrl,
+            sizes: ['1 kg', '2 kg', '5 kg', '10 kg', '15 kg'],
+            flavors: ['Chicken', 'Beef', 'Salmon', 'Lamb'],
+            images: [p.imageUrl, p.imageUrl, p.imageUrl, p.imageUrl],
+            rating: p.rating || 0,
+            reviewsCount: p.reviewsCount || 0
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch product", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
   useEffect(() => {
     if (product) {
@@ -51,6 +75,10 @@ const ProductDetail = () => {
       window.scrollTo(0, 0);
     }
   }, [product?.id, isAuthenticated, user?.id]);
+
+  if (loading) {
+    return <div style={{ padding: '100px', textAlign: 'center' }}>Loading product details...</div>;
+  }
 
   if (!product) {
     return (

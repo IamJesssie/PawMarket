@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabaseClient';
 import styles from './RecentlyViewed.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
-import { products } from '../data/products';
 
 const sidebarItems = [
   'Overview',
@@ -50,6 +49,8 @@ const RecentlyViewed = () => {
 
   useEffect(() => {
     const fetchRecentlyViewed = async () => {
+      let productIds = [];
+
       if (isAuthenticated && user?.id) {
         try {
           const { data, error } = await supabase
@@ -60,12 +61,7 @@ const RecentlyViewed = () => {
             .limit(10);
 
           if (!error && data) {
-            // Map the IDs to the fresh data in products.js
-            const freshRecentProducts = data.map(item => {
-              return products.find(p => p.id === item.product_id);
-            }).filter(p => p !== undefined);
-
-            setRecentProducts(freshRecentProducts);
+            productIds = data.map(item => item.product_id);
           }
         } catch (err) {
           console.error("Error fetching recently viewed:", err);
@@ -73,10 +69,34 @@ const RecentlyViewed = () => {
       } else {
         // Fallback to local storage if not logged in
         const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        const freshRecentProducts = viewedData.map(staleItem => {
-          return products.find(p => p.id === staleItem.id) || staleItem;
-        }).filter(p => p !== undefined);
-        setRecentProducts(freshRecentProducts);
+        productIds = viewedData.map(item => item.id);
+      }
+
+      if (productIds.length > 0) {
+        try {
+          const response = await fetch('http://localhost:8080/api/products');
+          if (response.ok) {
+            const allProducts = await response.json();
+            // Map backend data to frontend format and filter by recently viewed
+            const freshRecentProducts = productIds.map(id => {
+              const p = allProducts.find(prod => prod.id === id);
+              if (p) {
+                return {
+                  ...p,
+                  image: p.imageUrl,
+                  sizes: ['1 kg', '2 kg', '5 kg', '10 kg', '15 kg'],
+                  flavors: ['Chicken', 'Beef', 'Salmon', 'Lamb'],
+                  images: [p.imageUrl, p.imageUrl, p.imageUrl, p.imageUrl]
+                };
+              }
+              return undefined;
+            }).filter(p => p !== undefined);
+
+            setRecentProducts(freshRecentProducts);
+          }
+        } catch (err) {
+          console.error("Failed to fetch products from backend", err);
+        }
       }
       setIsLoading(false);
     };
