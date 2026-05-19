@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
           email: user.email,
           phone: profileData?.phone || 'Not set',
           avatarUrl: profileData?.avatar_url || user.user_metadata?.avatar_url || 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0',
-          memberSince: profileData?.member_since || '2024',
+          memberSince: (profileData?.member_since && profileData.member_since !== 2024) ? profileData.member_since : '2026',
           loyaltyPoints: profileData?.loyalty_points || 0,
           role: profileData?.role || 'USER'
         };
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {
         dispatch({ 
             type: 'AUTH_SUCCESS', 
-            payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email, loyaltyPoints: 0, role: 'USER' } } 
+            payload: { user, profile: { fullName: user.email.split('@')[0], email: user.email, loyaltyPoints: 0, role: 'USER', memberSince: '2026' } } 
         });
     }
   };

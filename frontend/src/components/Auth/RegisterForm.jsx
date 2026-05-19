@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import InputField from './InputField';
+import NotificationModal from '../common/NotificationModal';
 
 const UserIcon = () => (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>);
 const MailIcon = () => (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>);
@@ -16,7 +17,7 @@ const RegisterForm = () => {
   });
 
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { signup, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -40,13 +41,17 @@ const RegisterForm = () => {
     const result = await signup(formData.email, formData.password, formData.fullName);
     
     if (result.success) {
-      // If the parent passed a way to toggle to login, use it
-      if (window.location.reload) {
-        window.location.reload(); // Quickest way to reset the AuthPage state to Login
-      }
+      setShowSuccessModal(true);
     } else {
       setError(result.error);
     }
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    // Force a reload to the login view if needed, or better yet, the AuthPage will handle it if we had a toggle
+    // For now, navigating to /login is the standard behavior
+    window.location.href = '/login'; 
   };
 
   const buttonStyle = {
@@ -63,84 +68,72 @@ const RegisterForm = () => {
     fontFamily: 'Plus Jakarta Sans, sans-serif'
   };
 
-  if (success) {
-    return (
-      <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-        <div style={{ fontSize: '48px', marginBottom: '20px' }}>📧</div>
-        <h2 style={{ color: '#585894', fontFamily: 'Plus Jakarta Sans', marginBottom: '10px' }}>Verify your email</h2>
-        <p style={{ color: '#006a63', fontFamily: 'Be Vietnam Pro', lineHeight: '1.6' }}>
-          We've sent a verification link to <br/><strong>{formData.email}</strong>.<br/>
-          Please check your inbox to complete registration.
-        </p>
-        <button 
-          onClick={() => navigate('/login')}
-          style={{ ...buttonStyle, marginTop: '30px' }}
-        >
-          Go to Login
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px', margin: '0 auto' }}>
-      <InputField
-        label="Full Name"
-        placeholder="Alex Walker"
-        name="fullName"
-        value={formData.fullName}
-        onChange={(e) => handleChange({ target: { name: 'fullName', value: e.target.value } })}
-        icon={<UserIcon />}
-        required
-      />
-      
-      <InputField
-        label="Email Address"
-        type="email"
-        placeholder="alex@example.com"
-        name="email"
-        value={formData.email}
-        onChange={(e) => handleChange({ target: { name: 'email', value: e.target.value } })}
-        icon={<MailIcon />}
-        required
-      />
+    <>
+      <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px', margin: '0 auto' }}>
+        <InputField
+          label="Full Name"
+          placeholder="Alex Walker"
+          name="fullName"
+          value={formData.fullName}
+          onChange={(e) => handleChange({ target: { name: 'fullName', value: e.target.value } })}
+          icon={<UserIcon />}
+          required
+        />
+        
+        <InputField
+          label="Email Address"
+          type="email"
+          placeholder="alex@example.com"
+          name="email"
+          value={formData.email}
+          onChange={(e) => handleChange({ target: { name: 'email', value: e.target.value } })}
+          icon={<MailIcon />}
+          required
+        />
 
-      <InputField
-        label="Password"
-        type="password"
-        placeholder="••••••••"
-        name="password"
-        value={formData.password}
-        onChange={(e) => handleChange({ target: { name: 'password', value: e.target.value } })}
-        icon={<LockIcon />}
-        required
+        <InputField
+          label="Password"
+          type="password"
+          placeholder="••••••••"
+          name="password"
+          value={formData.password}
+          onChange={(e) => handleChange({ target: { name: 'password', value: e.target.value } })}
+          icon={<LockIcon />}
+          required
+        />
+
+        <InputField
+          label="Confirm Password"
+          type="password"
+          placeholder="••••••••"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={(e) => handleChange({ target: { name: 'confirmPassword', value: e.target.value } })}
+          icon={<LockIcon />}
+          required
+        />
+
+        {error && <p style={{ color: '#e74c3c', fontSize: '12px', marginBottom: '10px', textAlign: 'center' }}>{error}</p>}
+
+        <button type="submit" style={buttonStyle} disabled={loading}>
+          {loading ? 'Creating Account...' : 'Create Account'}
+        </button>
+        
+        <div style={{ marginTop: '40px', textAlign: 'center', position: 'relative' }}>
+          <div style={{ borderBottom: '1px solid var(--auth-input-bg)', position: 'absolute', width: '100%', top: '50%' }}></div>
+          <span style={{ backgroundColor: 'var(--auth-bg)', padding: '0 15px', position: 'relative', fontSize: '9px', color: 'var(--auth-label)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            OR SIGN UP WITH
+          </span>
+        </div>
+      </form>
+
+      <NotificationModal 
+        isOpen={showSuccessModal} 
+        message="Account created successfully! You can now log in."
+        onClose={handleModalClose}
       />
-
-      <InputField
-        label="Confirm Password"
-        type="password"
-        placeholder="••••••••"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={(e) => handleChange({ target: { name: 'confirmPassword', value: e.target.value } })}
-        icon={<LockIcon />}
-        required
-      />
-
-      {error && <p style={{ color: '#e74c3c', fontSize: '12px', marginBottom: '10px', textAlign: 'center' }}>{error}</p>}
-      {success && <p style={{ color: '#2ecc71', fontSize: '12px', marginBottom: '10px', textAlign: 'center' }}>{success}</p>}
-
-      <button type="submit" style={buttonStyle} disabled={loading}>
-        {loading ? 'Creating Account...' : 'Create Account'}
-      </button>
-      
-      <div style={{ marginTop: '40px', textAlign: 'center', position: 'relative' }}>
-        <div style={{ borderBottom: '1px solid var(--auth-input-bg)', position: 'absolute', width: '100%', top: '50%' }}></div>
-        <span style={{ backgroundColor: 'var(--auth-bg)', padding: '0 15px', position: 'relative', fontSize: '9px', color: 'var(--auth-label)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          OR SIGN UP WITH
-        </span>
-      </div>
-    </form>
+    </>
   );
 };
 

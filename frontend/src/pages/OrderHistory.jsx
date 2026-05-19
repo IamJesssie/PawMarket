@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useOrder } from '../context/OrderContext';
 import styles from './RecentlyViewed.module.css'; // Reusing layout styles
@@ -43,6 +44,10 @@ const sidebarRoutes = {
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
   'Profile': '/dashboard/profile',
+  'Password & Security': '/dashboard/security',
+  'Notifications': '/dashboard/notifications',
+  'Payment Methods': '/dashboard/payments',
+  'My Pets': '/dashboard/pets',
 };
 
 const OrderHistory = () => {

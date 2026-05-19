@@ -2,27 +2,30 @@ package com.pawmarket.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "profiles")
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", nullable = true)
     private String email;
-
-    @Column(nullable = false)
-    private String password;
 
     @Column(name = "full_name")
     private String fullName;
 
-    private String role = "USER";
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 
-    @Column(name = "created_at")
-    private OffsetDateTime createdAt = OffsetDateTime.now();
+    @Column(name = "member_since")
+    private Integer memberSince;
+
+    @Column(name = "loyalty_points")
+    private Integer loyaltyPoints;
+
+    @Column(name = "role")
+    private String role = "USER";
 }

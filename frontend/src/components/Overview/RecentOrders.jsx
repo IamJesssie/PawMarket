@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from '../../pages/AccountOverview.module.css';
 
-const RecentOrders = ({ orders }) => {
+const RecentOrders = ({ orders, onViewAll, onView }) => {
   return (
     <section className={styles.panelCard}>
       <div className={styles.panelHeader}>
         <h2>Recent Orders</h2>
-        <button className={styles.outlineButton}>View All</button>
+        <button className={styles.outlineButton} onClick={onViewAll}>View All</button>
       </div>
 
       <div className={styles.tableWrapper}>
@@ -32,7 +32,7 @@ const RecentOrders = ({ orders }) => {
                   <span className={styles.statusBadge}>{order.status}</span>
                 </td>
                 <td>
-                  <button className={styles.viewAction}>View</button>
+                  <button className={styles.viewAction} onClick={() => onView(order.id)}>View</button>
                 </td>
               </tr>
             ))}

@@ -36,10 +36,16 @@ const sidebarIcons = {
 
 const sidebarRoutes = {
   'Overview': '/dashboard',
+  'Order History': '/dashboard/orders',
+  'Appointments': '/dashboard/appointments',
   'Wishlist & Saved': '/wishlist',
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
-  'Profile': '/profile',
+  'Profile': '/dashboard/profile',
+  'Password & Security': '/dashboard/security',
+  'Notifications': '/dashboard/notifications',
+  'Payment Methods': '/dashboard/payments',
+  'My Pets': '/dashboard/pets',
 };
 
 const ProfileEdit = () => {

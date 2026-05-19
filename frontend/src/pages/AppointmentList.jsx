@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './RecentlyViewed.module.css'; // Reusing layout styles
 import AccountSidebar from '../components/Overview/AccountSidebar';
@@ -42,6 +43,10 @@ const sidebarRoutes = {
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
   'Profile': '/dashboard/profile',
+  'Password & Security': '/dashboard/security',
+  'Notifications': '/dashboard/notifications',
+  'Payment Methods': '/dashboard/payments',
+  'My Pets': '/dashboard/pets',
 };
 
 const AppointmentList = () => {
@@ -143,12 +148,12 @@ const AppointmentList = () => {
           ) : (
             <div className={styles.emptyState}>
               <p>No upcoming appointments found.</p>
-              <button 
-                  onClick={() => window.location.href='/grooming'} 
+              <Link 
+                  to="/grooming" 
                   className={styles.shopNowButton}
               >
                   Book New Session
-              </button>
+              </Link>
             </div>
           )}
         </main>
