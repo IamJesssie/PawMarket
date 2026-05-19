@@ -7,6 +7,7 @@ const AdminDashboard = () => {
     const [loadingUsers, setLoadingUsers] = useState(true);
     const [loadingReviews, setLoadingReviews] = useState(true);
     const [activeTab, setActiveTab] = useState('users');
+    const [error, setError] = useState(null);
 
     // Edit states for profiles (users)
     const [editingUserId, setEditingUserId] = useState(null);
@@ -29,13 +30,18 @@ const AdminDashboard = () => {
     // READ - Fetch all profiles from backend (pointing to profiles table)
     const fetchUsers = async () => {
         try {
+            setError(null);
             const response = await fetch('http://localhost:8080/api/auth/users');
             if (response.ok) {
                 const data = await response.json();
-                setUsers(data);
+                setUsers(Array.isArray(data) ? data : []);
+            } else {
+                const errText = await response.text();
+                setError(`Server Error: ${errText || 'Failed to fetch users'}`);
             }
         } catch (error) {
             console.error('Error fetching users:', error);
+            setError(`Network Error: ${error.message}`);
         } finally {
             setLoadingUsers(false);
         }
@@ -85,14 +91,14 @@ const AdminDashboard = () => {
     // READ - Fetch all reviews
     const fetchReviews = async () => {
         try {
-            // Fetch reviews for multiple product IDs (simulating a "get all" for now)
             const allReviews = [];
-            for (let i = 1; i <= 30; i++) {
+            // Optimization: Fetch first 10 products
+            for (let i = 1; i <= 10; i++) {
                 try {
                     const response = await fetch(`http://localhost:8080/api/reviews/product/${i}`);
                     if (response.ok) {
                         const data = await response.json();
-                        allReviews.push(...data);
+                        if (Array.isArray(data)) allReviews.push(...data);
                     }
                 } catch (e) { /* skip */ }
             }
@@ -144,6 +150,13 @@ const AdminDashboard = () => {
                 <h1>🛡️ Admin Dashboard</h1>
                 <p>Manage your user profiles, loyalty points, and platform reviews.</p>
             </div>
+
+            {error && (
+                <div style={{ backgroundColor: '#fff3e0', color: '#fa782d', padding: '16px', borderRadius: '12px', marginBottom: '24px', border: '1px solid #fa782d' }}>
+                    <strong>⚠️ Error:</strong> {error}
+                    <p style={{ fontSize: '12px', marginTop: '8px' }}>Tip: Make sure you ran the email sync SQL script in Supabase!</p>
+                </div>
+            )}
 
             {/* Stats */}
             <div className={styles.statsGrid}>
@@ -231,7 +244,7 @@ const AdminDashboard = () => {
                                                 user.loyaltyPoints || 0
                                             )}
                                         </td>
-                                        <td>{user.memberSince || '2026'}</td>
+                                        <td>{(user.memberSince && user.memberSince !== 2024) ? user.memberSince : '2026'}</td>
                                         <td className={styles.actionCell}>
                                             {editingUserId === user.id ? (
                                                 <>
