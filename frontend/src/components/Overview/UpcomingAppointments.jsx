@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from '../../pages/AccountOverview.module.css';
 
-const UpcomingAppointments = ({ appointments }) => {
+const UpcomingAppointments = ({ appointments, onBookNew, onView }) => {
   return (
     <section className={styles.panelCard}>
       <div className={styles.panelHeader}>
         <h2>Upcoming Appointments</h2>
-        <button className={styles.outlineButton}>Book New</button>
+        <button className={styles.outlineButton} onClick={onBookNew}>Book New</button>
       </div>
 
       {appointments.map((appointment) => (
-        <div key={appointment.date} className={styles.appointmentRow}>
+        <div key={appointment.id || appointment.date} className={styles.appointmentRow}>
           <div className={styles.appointmentBadge}>
             <span className={styles.appointmentMonth}>{appointment.month}</span>
             <span className={styles.appointmentDate}>{appointment.date}</span>
@@ -22,7 +22,7 @@ const UpcomingAppointments = ({ appointments }) => {
           </div>
           <div className={styles.appointmentActions}>
             <span className={styles.appointmentStatus}>{appointment.status}</span>
-            <button className={styles.linkButton}>Reschedule</button>
+            <button className={styles.linkButton} onClick={() => onView(appointment.id)}>View Details</button>
           </div>
         </div>
       ))}

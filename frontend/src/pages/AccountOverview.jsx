@@ -7,7 +7,7 @@ import AccountSidebar from '../components/Overview/AccountSidebar';
 import UserInfoSummary from '../components/Overview/UserInfoSummary';
 import MetricsRow from '../components/Overview/MetricsRow';
 import RecentOrders from '../components/Overview/RecentOrders';
-import UpcomingAppointments from '../components/Overview/UpcomingAppointments';
+import OrderStatus from '../components/ShoppingCart/OrderStatus';
 
 const sidebarItems = [
   'Overview',
@@ -47,6 +47,10 @@ const sidebarRoutes = {
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
   'Profile': '/dashboard/profile',
+  'Password & Security': '/dashboard/security',
+  'Notifications': '/dashboard/notifications',
+  'Payment Methods': '/dashboard/payments',
+  'My Pets': '/dashboard/pets',
 };
 
 // Helper function to prevent Supabase from hanging forever
@@ -64,6 +68,7 @@ const AccountOverview = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -134,6 +139,7 @@ const AccountOverview = () => {
 
         if (isMounted) {
           setUpcomingAppointments(appointmentsResult?.data?.map(a => ({
+              id: `#APT-${a.id}`,
               month: new Date(a.appointment_date).toLocaleString('default', { month: 'short' }),
               date: new Date(a.appointment_date).getDate().toString(),
               service: a.grooming_services?.name || 'Grooming',
@@ -182,15 +188,30 @@ const AccountOverview = () => {
             <h2 className={styles.sectionTitle}>Recent Orders</h2>
             <button className={styles.viewAllBtn} onClick={() => navigate('/dashboard/orders')}>View All</button>
           </div>
-          <RecentOrders orders={recentOrders} />
+          <RecentOrders 
+            orders={recentOrders} 
+            onViewAll={() => navigate('/dashboard/orders')}
+            onView={(id) => setSelectedOrderId(id)}
+          />
 
           <div className={styles.sectionHeaderRow} style={{ marginTop: '40px' }}>
             <h2 className={styles.sectionTitle}>Upcoming Appointments</h2>
             <button className={styles.viewAllBtn} onClick={() => navigate('/grooming')}>Book New</button>
           </div>
-          <UpcomingAppointments appointments={upcomingAppointments} />
+          <UpcomingAppointments 
+            appointments={upcomingAppointments} 
+            onBookNew={() => navigate('/grooming')}
+            onView={(id) => setSelectedOrderId(id)}
+          />
         </main>
       </div>
+
+      {selectedOrderId && (
+        <OrderStatus 
+          orderId={selectedOrderId} 
+          onClose={() => setSelectedOrderId(null)} 
+        />
+      )}
     </div>
   );
 };

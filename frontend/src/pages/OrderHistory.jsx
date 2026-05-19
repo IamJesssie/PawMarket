@@ -43,6 +43,10 @@ const sidebarRoutes = {
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
   'Profile': '/dashboard/profile',
+  'Password & Security': '/dashboard/security',
+  'Notifications': '/dashboard/notifications',
+  'Payment Methods': '/dashboard/payments',
+  'My Pets': '/dashboard/pets',
 };
 
 const OrderHistory = () => {
