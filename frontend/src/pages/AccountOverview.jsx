@@ -55,7 +55,7 @@ const sidebarRoutes = {
 };
 
 // Helper function to prevent Supabase from hanging forever
-const withTimeout = (promise, ms = 5000) => {
+const withTimeout = (promise, ms = 10000) => {
   return Promise.race([
     promise,
     new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase request timed out')), ms))
@@ -65,10 +65,16 @@ const withTimeout = (promise, ms = 5000) => {
 const AccountOverview = () => {
   const { user: authUser, profile, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const [metrics, setMetrics] = useState([]);
+  const [metrics, setMetrics] = useState([
+    { label: 'Total Orders', value: '0' },
+    { label: 'Pending Orders', value: '0' },
+    { label: 'Appointments', value: '0' },
+    { label: 'Loyalty Points', value: profile?.loyaltyPoints?.toString() || '0', highlight: true },
+  ]);
   const [recentOrders, setRecentOrders] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
@@ -81,7 +87,10 @@ const AccountOverview = () => {
       }
 
       try {
-        if (isMounted) setLoadingData(true);
+        if (isMounted) {
+          setLoadingData(true);
+          setError(null);
+        }
 
         // Fetch Metrics with Timeout
         const orderCountPromise = supabase
@@ -94,12 +103,15 @@ const AccountOverview = () => {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', authUser.id);
 
-        const [orderResult, appointmentResult] = await Promise.all([
+        const results = await Promise.allSettled([
           withTimeout(orderCountPromise),
           withTimeout(appointmentCountPromise)
         ]);
 
         if (isMounted) {
+          const orderResult = results[0].status === 'fulfilled' ? results[0].value : null;
+          const appointmentResult = results[1].status === 'fulfilled' ? results[1].value : null;
+
           setMetrics([
             { label: 'Total Orders', value: orderResult?.count?.toString() || '0' },
             { label: 'Pending Orders', value: '0' },
@@ -116,7 +128,10 @@ const AccountOverview = () => {
           .order('created_at', { ascending: false })
           .limit(3);
 
-        const ordersResult = await withTimeout(ordersPromise);
+        const ordersResult = await withTimeout(ordersPromise).catch(err => {
+          console.warn("Orders fetch timed out", err);
+          return { data: [] };
+        });
 
         if (isMounted) {
           setRecentOrders(ordersResult?.data?.map(o => ({
@@ -136,7 +151,10 @@ const AccountOverview = () => {
           .order('appointment_date', { ascending: true })
           .limit(1);
 
-        const appointmentsResult = await withTimeout(appointmentsPromise);
+        const appointmentsResult = await withTimeout(appointmentsPromise).catch(err => {
+          console.warn("Appointments fetch timed out", err);
+          return { data: [] };
+        });
 
         if (isMounted) {
           setUpcomingAppointments(appointmentsResult?.data?.map(a => ({
@@ -152,6 +170,7 @@ const AccountOverview = () => {
 
       } catch (error) {
         console.error('Error fetching account data:', error);
+        if (isMounted) setError("Some data failed to load. Please try refreshing.");
       } finally {
         if (isMounted) setLoadingData(false);
       }
@@ -164,7 +183,7 @@ const AccountOverview = () => {
     };
   }, [authUser?.id, profile?.loyaltyPoints]); // Only re-run if ID or points change
 
-  if (authLoading || loadingData) return <div className={styles.pageContainer}>Loading profile...</div>;
+  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
   if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
 
   return (
@@ -181,6 +200,8 @@ const AccountOverview = () => {
           <div className={styles.pageHeadingRow}>
             <h1 className={styles.pageTitle}>Overview</h1>
           </div>
+
+          {error && <div style={{ color: '#fa782d', fontSize: '14px', marginBottom: '1rem' }}>⚠️ {error}</div>}
 
           <UserInfoSummary user={profile} />
           <MetricsRow metrics={metrics} />
