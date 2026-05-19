@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabaseClient';
 import styles from './AccountOverview.module.css';
@@ -40,9 +41,12 @@ const sidebarIcons = {
 
 const sidebarRoutes = {
   'Overview': '/dashboard',
+  'Order History': '/dashboard/orders',
+  'Appointments': '/dashboard/appointments',
   'Wishlist & Saved': '/wishlist',
   'Recently Viewed': '/recently-viewed',
   'Addresses': '/dashboard/addresses',
+  'Profile': '/dashboard/profile',
 };
 
 // Helper function to prevent Supabase from hanging forever
@@ -55,6 +59,7 @@ const withTimeout = (promise, ms = 5000) => {
 
 const AccountOverview = () => {
   const { user: authUser, profile, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [metrics, setMetrics] = useState([]);
   const [recentOrders, setRecentOrders] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
@@ -93,7 +98,7 @@ const AccountOverview = () => {
             { label: 'Total Orders', value: orderResult?.count?.toString() || '0' },
             { label: 'Pending Orders', value: '0' },
             { label: 'Appointments', value: appointmentResult?.count?.toString() || '0' },
-            { label: 'Loyalty Points', value: '0', highlight: true },
+            { label: 'Loyalty Points', value: profile?.loyaltyPoints?.toString() || '0', highlight: true },
           ]);
         }
 
@@ -150,7 +155,7 @@ const AccountOverview = () => {
     return () => {
       isMounted = false;
     };
-  }, [authUser?.id]); // Only re-run if ID changes
+  }, [authUser?.id, profile?.loyaltyPoints]); // Only re-run if ID or points change
 
   if (authLoading || loadingData) return <div className={styles.pageContainer}>Loading profile...</div>;
   if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
@@ -172,7 +177,17 @@ const AccountOverview = () => {
 
           <UserInfoSummary user={profile} />
           <MetricsRow metrics={metrics} />
+          
+          <div className={styles.sectionHeaderRow}>
+            <h2 className={styles.sectionTitle}>Recent Orders</h2>
+            <button className={styles.viewAllBtn} onClick={() => navigate('/dashboard/orders')}>View All</button>
+          </div>
           <RecentOrders orders={recentOrders} />
+
+          <div className={styles.sectionHeaderRow} style={{ marginTop: '40px' }}>
+            <h2 className={styles.sectionTitle}>Upcoming Appointments</h2>
+            <button className={styles.viewAllBtn} onClick={() => navigate('/grooming')}>Book New</button>
+          </div>
           <UpcomingAppointments appointments={upcomingAppointments} />
         </main>
       </div>

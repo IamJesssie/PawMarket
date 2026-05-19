@@ -19,11 +19,13 @@ export const WishlistProvider = ({ children }) => {
             .eq('user_id', user.id);
             
           if (!error && data) {
-            // Extract the joined product object from the wishlist rows
-            const products = data.map(item => item.products);
+            // Extract the joined product object from the wishlist rows and map imageUrl to image
+            const products = data.map(item => ({
+              ...item.products,
+              image: item.products.image_url
+            }));
             setWishlistItems(products);
-          }
-        } catch (err) {
+          }        } catch (err) {
           console.error('Fetch wishlist error:', err);
         }
       } else {
