@@ -20,6 +20,7 @@ import Wishlist from './pages/Wishlist';
 import OrderHistory from './pages/OrderHistory';
 import AppointmentList from './pages/AppointmentList';
 import PlaceholderPage from './pages/PlaceholderPage';
+import AdminDashboard from './pages/AdminDashboard';
 import './App.css';
 
 function App() {
