@@ -7,6 +7,7 @@ import AccountSidebar from '../components/Overview/AccountSidebar';
 import UserInfoSummary from '../components/Overview/UserInfoSummary';
 import MetricsRow from '../components/Overview/MetricsRow';
 import RecentOrders from '../components/Overview/RecentOrders';
+import UpcomingAppointments from '../components/Overview/UpcomingAppointments';
 import OrderStatus from '../components/ShoppingCart/OrderStatus';
 
 const sidebarItems = [
