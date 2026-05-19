@@ -97,7 +97,7 @@ const OrderHistory = () => {
                         {order.status}
                     </span>
                     <button 
-                        onClick={() => setSelectedOrderId(order.id)}
+                        onClick={() => setSelectedOrderId(`#PM-${order.id}`)}
                         style={{ 
                             border: 'none', 
                             background: 'none', 

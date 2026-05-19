@@ -111,8 +111,10 @@ export const OrderProvider = ({ children }) => {
   }, [loyaltyPoints]);
 
   const getOrderById = useCallback((orderId) => {
-    const rawId = parseInt(orderId.replace('#PM-', ''), 10);
-    return orders.find(order => order.id === rawId || `#PM-${order.id}` === orderId);
+    if (!orderId) return null;
+    const strId = orderId.toString();
+    const rawId = parseInt(strId.replace('#PM-', '').replace('#APT-', ''), 10);
+    return orders.find(order => order.id === rawId || `#PM-${order.id}` === strId || `#APT-${order.id}` === strId);
   }, [orders]);
 
   const getVoucherDiscount = useCallback(() => {
