@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabaseClient';
@@ -81,7 +82,7 @@ const RecentlyViewed = () => {
 
       if (productIds.length > 0) {
         try {
-          const response = await fetch('http://localhost:8080/api/products');
+          const response = await fetch(`${API_BASE_URL}/products`);
           if (response.ok) {
             const allProducts = await response.json();
             // Map backend data to frontend format and filter by recently viewed

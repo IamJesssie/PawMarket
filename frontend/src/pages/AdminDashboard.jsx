@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import styles from './AdminDashboard.module.css';
 
 const AdminDashboard = () => {
@@ -31,7 +32,7 @@ const AdminDashboard = () => {
     const fetchUsers = async () => {
         try {
             setError(null);
-            const response = await fetch('http://localhost:8080/api/auth/users');
+            const response = await fetch(`${API_BASE_URL}/auth/users`);
             if (response.ok) {
                 const data = await response.json();
                 setUsers(Array.isArray(data) ? data : []);
@@ -57,7 +58,7 @@ const AdminDashboard = () => {
 
     const handleUpdateUser = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/auth/users/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -79,7 +80,7 @@ const AdminDashboard = () => {
     const handleDeleteUser = async (id) => {
         if (!window.confirm('Are you sure you want to delete this user profile?')) return;
         try {
-            const response = await fetch(`http://localhost:8080/api/auth/users/${id}`, { method: 'DELETE' });
+            const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, { method: 'DELETE' });
             if (response.ok) fetchUsers();
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -95,7 +96,7 @@ const AdminDashboard = () => {
             // Optimization: Fetch first 10 products
             for (let i = 1; i <= 10; i++) {
                 try {
-                    const response = await fetch(`http://localhost:8080/api/reviews/product/${i}`);
+                    const response = await fetch(`${API_BASE_URL}/reviews/product/${i}`);
                     if (response.ok) {
                         const data = await response.json();
                         if (Array.isArray(data)) allReviews.push(...data);
@@ -119,7 +120,7 @@ const AdminDashboard = () => {
 
     const handleUpdateReview = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/reviews/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/reviews/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ rating: editReviewRating, comment: editReviewComment })
@@ -137,7 +138,7 @@ const AdminDashboard = () => {
     const handleDeleteReview = async (id) => {
         if (!window.confirm('Are you sure you want to delete this review?')) return;
         try {
-            const response = await fetch(`http://localhost:8080/api/reviews/${id}`, { method: 'DELETE' });
+            const response = await fetch(`${API_BASE_URL}/reviews/${id}`, { method: 'DELETE' });
             if (response.ok) fetchReviews();
         } catch (error) {
             console.error('Error deleting review:', error);

@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: pawmarket-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: SUPABASE_DB_URL
+        fromConfig: true
+      - key: SUPABASE_DB_USER
+        fromConfig: true
+      - key: SUPABASE_DB_PASSWORD
+        fromConfig: true
+      - key: SUPABASE_URL
+        fromConfig: true
+      - key: SUPABASE_ANON_KEY
+        fromConfig: true
+      - key: SUPABASE_SERVICE_KEY
+        fromConfig: true
+      - key: JWT_SECRET
+        fromConfig: true
+      - key: ALLOWED_ORIGINS
+        value: "https://pawmarket-frontend.vercel.app,http://localhost:5173"

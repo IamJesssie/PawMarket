@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../../apiConfig';
 import { useAuth } from '../../context/AuthContext';
 import styles from './ReviewSection.module.css';
 
@@ -21,7 +22,7 @@ const ReviewSection = ({ productId }) => {
   // READ - Fetch all reviews for this product
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/reviews/product/${productId}`);
+      const response = await fetch(`${API_BASE_URL}/reviews/product/${productId}`);
       const data = await response.json();
       setReviews(data);
     } catch (error) {
@@ -46,7 +47,7 @@ const ReviewSection = ({ productId }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/reviews', {
+      const response = await fetch(`${API_BASE_URL}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newReview)
@@ -77,7 +78,7 @@ const ReviewSection = ({ productId }) => {
 
   const handleUpdate = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/reviews/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/reviews/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rating: editRating, comment: editComment })
@@ -97,7 +98,7 @@ const ReviewSection = ({ productId }) => {
     if (!window.confirm('Are you sure you want to delete this review?')) return;
 
     try {
-      const response = await fetch(`http://localhost:8080/api/reviews/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/reviews/${id}`, {
         method: 'DELETE'
       });
 

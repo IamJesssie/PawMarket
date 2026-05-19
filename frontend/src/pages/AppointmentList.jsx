@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './RecentlyViewed.module.css'; // Reusing layout styles
@@ -59,7 +60,7 @@ const AppointmentList = () => {
     const fetchAppointments = async () => {
       if (isAuthenticated && user?.id) {
         try {
-          const response = await fetch(`http://localhost:8080/api/appointments/user/${user.id}`);
+          const response = await fetch(`${API_BASE_URL}/appointments/user/${user.id}`);
           if (response.ok) {
             const data = await response.json();
             setAppointments(data);

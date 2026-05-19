@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useOrder } from '../context/OrderContext';
@@ -26,7 +27,7 @@ const ShoppingCart = () => {
     const fetchAddresses = async () => {
       if (isAuthenticated && user?.id) {
         try {
-          const response = await fetch(`http://localhost:8080/api/addresses/user/${user.id}`);
+          const response = await fetch(`${API_BASE_URL}/addresses/user/${user.id}`);
           if (response.ok) {
             const data = await response.json();
             setAddresses(data);

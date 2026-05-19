@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { useAuth } from '../context/AuthContext';
 import { useOrder } from '../context/OrderContext';
 import { useNavigate } from 'react-router-dom';
@@ -102,8 +103,8 @@ const Grooming = () => {
     const fetchServices = async () => {
       try {
         const [servicesRes, addonsRes] = await Promise.all([
-          fetch('http://localhost:8080/api/grooming/services'),
-          fetch('http://localhost:8080/api/grooming/addons')
+          fetch(`${API_BASE_URL}/grooming/services`),
+          fetch(`${API_BASE_URL}/grooming/addons`)
         ]);
         
         if (servicesRes.ok && addonsRes.ok) {
@@ -191,7 +192,7 @@ const Grooming = () => {
         addons: selectedAddons.map(id => ({ id }))
       };
 
-      const response = await fetch('http://localhost:8080/api/appointments', {
+      const response = await fetch(`${API_BASE_URL}/appointments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

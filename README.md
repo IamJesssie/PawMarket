@@ -165,6 +165,30 @@ The React frontend uses Vite for fast development and includes:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## 🚀 Deployment
+
+### Backend (Render)
+1. Create a new **Web Service** on [Render](https://render.com).
+2. Connect your GitHub repository.
+3. Render will detect the `render.yaml` file and automatically configure the service using Docker.
+4. Set the following environment variables in Render:
+   - `SUPABASE_DB_URL`
+   - `SUPABASE_DB_USER`
+   - `SUPABASE_DB_PASSWORD`
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_KEY`
+   - `JWT_SECRET`
+   - `ALLOWED_ORIGINS` (Set this to your Vercel frontend URL, e.g., `https://pawmarket.vercel.app`)
+
+### Frontend (Vercel)
+1. Create a new project on [Vercel](https://vercel.com).
+2. Connect your GitHub repository.
+3. Select the `frontend` directory as the root.
+4. Set the following environment variable in Vercel:
+   - `VITE_API_URL` (Set this to your Render backend URL + `/api`, e.g., `https://pawmarket-backend.onrender.com/api`)
+5. Deploy!
+
 ## Support
 
 For support, email support@pawmarket.com or join our Slack channel.

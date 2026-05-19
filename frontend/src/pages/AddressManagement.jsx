@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { useAuth } from '../context/AuthContext';
 import styles from './AddressManagement.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
@@ -68,7 +69,7 @@ const AddressManagement = () => {
   const fetchAddresses = async () => {
     if (isAuthenticated && user?.id) {
       try {
-        const response = await fetch(`http://localhost:8080/api/addresses/user/${user.id}`);
+        const response = await fetch(`${API_BASE_URL}/addresses/user/${user.id}`);
         if (response.ok) {
           const data = await response.json();
           setAddresses(data);
@@ -96,7 +97,7 @@ const AddressManagement = () => {
     if (!isAuthenticated || !user) return;
 
     try {
-      const response = await fetch('http://localhost:8080/api/addresses', {
+      const response = await fetch(`${API_BASE_URL}/addresses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -131,7 +132,7 @@ const AddressManagement = () => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     
     try {
-      const response = await fetch(`http://localhost:8080/api/addresses/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/addresses/${id}`, {
         method: 'DELETE'
       });
       if (response.ok) {

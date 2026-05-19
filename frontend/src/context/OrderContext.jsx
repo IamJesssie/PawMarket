@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabaseClient';
 
@@ -14,7 +15,7 @@ export const OrderProvider = ({ children }) => {
   const fetchOrders = useCallback(async () => {
     if (isAuthenticated && user?.id) {
       try {
-        const response = await fetch(`http://localhost:8080/api/orders/user/${user.id}`);
+        const response = await fetch(`${API_BASE_URL}/orders/user/${user.id}`);
         if (response.ok) {
           const data = await response.json();
           setOrders(data);
@@ -70,7 +71,7 @@ export const OrderProvider = ({ children }) => {
         })) : []
       };
 
-      const response = await fetch('http://localhost:8080/api/orders', {
+      const response = await fetch(`${API_BASE_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

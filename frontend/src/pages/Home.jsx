@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../apiConfig';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductGrid/ProductCard';
 import { useCart } from '../context/CartContext';
@@ -11,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/products');
+        const response = await fetch(`${API_BASE_URL}/products`);
         if (response.ok) {
           const data = await response.json();
           // Map backend data to frontend format
