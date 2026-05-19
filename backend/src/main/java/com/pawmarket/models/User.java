@@ -5,12 +5,13 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "profiles", schema = "public")
+@Table(name = "profiles")
 @Data
 public class User {
     @Id
     private UUID id;
 
+    @Column(name = "email", nullable = true)
     private String email;
 
     @Column(name = "full_name")
@@ -25,5 +26,6 @@ public class User {
     @Column(name = "loyalty_points")
     private Integer loyaltyPoints;
 
+    @Column(name = "role")
     private String role = "USER";
 }

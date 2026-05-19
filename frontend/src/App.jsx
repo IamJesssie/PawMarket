@@ -21,6 +21,7 @@ import OrderHistory from './pages/OrderHistory';
 import AppointmentList from './pages/AppointmentList';
 import PlaceholderPage from './pages/PlaceholderPage';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminRoute from './components/common/AdminRoute';
 import './App.css';
 
 function App() {
@@ -55,7 +56,14 @@ function App() {
                       <Route path="/help" element={<Help />} />
                       <Route path="/cart" element={<ShoppingCart />} />
                       <Route path="/login" element={<AuthPage />} />
-                      <Route path="/admin" element={<AdminDashboard />} />
+                      <Route 
+                        path="/admin" 
+                        element={
+                          <AdminRoute>
+                            <AdminDashboard />
+                          </AdminRoute>
+                        } 
+                      />
                     </Routes>
                   </main>
 
