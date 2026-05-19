@@ -1,5 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useOrder } from '../context/OrderContext';
+import { useNavigate } from 'react-router-dom';
 import BookingStepper from '../components/Grooming/BookingStepper';
 import ServiceCard from '../components/Grooming/ServiceCard';
 import AddonCard from '../components/Grooming/AddonCard';
@@ -8,30 +10,9 @@ import CalendarPicker from '../components/Grooming/CalendarPicker';
 import TimeSlotList from '../components/Grooming/TimeSlotList';
 import PetDetailsForm from '../components/Grooming/PetDetailsForm';
 import BookingSummary from '../components/Grooming/BookingSummary';
-import OrderStatus from '../components/ShoppingCart/OrderStatus';
+import NotificationModal from '../components/common/NotificationModal';
 import GroomingGallery from '../components/Grooming/GroomingGallery';
 import styles from '../components/Grooming/GroomingComponents.module.css';
-
-
-const serviceOptions = [
-  { id: 1, name: 'Full Grooming', duration: '2 - 3 hrs', price: 3500 },
-  { id: 2, name: 'Bath & Dry', duration: '1 - 1.5 hrs', price: 1900 },
-  { id: 3, name: 'Hair Trim & Styling', duration: '1 - 2 hrs', price: 2200 },
-  { id: 4, name: 'Nail Clipping', duration: '15 min', price: 800 },
-  { id: 5, name: 'Ear Cleaning', duration: '10 min', price: 650 },
-  { id: 6, name: 'Teeth Brushing', duration: '15 min', price: 950 }
-];
-
-
-const addonOptions = [
-  { id: 1, name: 'Flea Treatment', price: 1100 },
-  { id: 2, name: 'Perfume Spritz', price: 250 },
-  { id: 3, name: 'Paw Wax', price: 550 },
-  { id: 4, name: 'Blueberry Facial', price: 800 },
-  { id: 5, name: 'Tooth Brushing', price: 650 },
-  { id: 6, name: 'De-shedding', price: 1350 }
-];
-
 
 const progressSteps = [
   { label: 'Select Service' },
@@ -41,9 +22,7 @@ const progressSteps = [
   { label: 'Confirm & Pay' }
 ];
 
-
 const imageSalon = 'https://www.figma.com/api/mcp/asset/22f058fe-c165-4690-9e07-df2d42f18c10';
-
 
 const timeSlots = [
   { label: '9:00 AM', value: '9:00 AM' },
@@ -62,9 +41,7 @@ const timeSlots = [
   { label: '4:30 PM', value: '4:30 PM' }
 ];
 
-
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 
 const buildCalendarDays = (month, selectedDate) => {
   const year = month.getFullYear();
@@ -93,18 +70,25 @@ const buildCalendarDays = (month, selectedDate) => {
   return grid;
 };
 
-
 const Grooming = () => {
-  const { createOrder, loyaltyPoints, useLoyaltyPoints } = useOrder();
-  const [selectedServiceId, setSelectedServiceId] = useState(1);
+  const { user, isAuthenticated } = useAuth();
+  const { loyaltyPoints, useLoyaltyPoints } = useOrder();
+  const navigate = useNavigate();
+
+  const [serviceOptions, setServiceOptions] = useState([]);
+  const [addonOptions, setAddonOptions] = useState([]);
+  
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [step, setStep] = useState(1);
   const [calendarMonth, setCalendarMonth] = useState(new Date(2026, 2, 1));
   const [selectedDate, setSelectedDate] = useState(new Date(2026, 2, 15));
   const [selectedTime, setSelectedTime] = useState('9:00 AM');
   const [paymentMethod, setPaymentMethod] = useState('pay_in_store');
-  const [orderId, setOrderId] = useState(null);
+  const [appointmentId, setAppointmentId] = useState(null);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [petDetails, setPetDetails] = useState({
     selectedPet: '',
     petName: '',
@@ -114,6 +98,30 @@ const Grooming = () => {
     specialInstructions: ''
   });
 
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const [servicesRes, addonsRes] = await Promise.all([
+          fetch('http://localhost:8080/api/grooming/services'),
+          fetch('http://localhost:8080/api/grooming/addons')
+        ]);
+        
+        if (servicesRes.ok && addonsRes.ok) {
+          const servicesData = await servicesRes.json();
+          const addonsData = await addonsRes.json();
+          setServiceOptions(servicesData);
+          setAddonOptions(addonsData);
+          if (servicesData.length > 0) {
+            setSelectedServiceId(servicesData[0].id);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load grooming services", err);
+      }
+    };
+    fetchServices();
+  }, []);
+
   const selectedService = serviceOptions.find((option) => option.id === selectedServiceId);
 
   const estimatedTotal = useMemo(() => {
@@ -122,7 +130,7 @@ const Grooming = () => {
       return sum + (addon ? addon.price : 0);
     }, 0);
     return (selectedService?.price || 0) + addonsTotal;
-  }, [selectedService, selectedAddons]);
+  }, [selectedService, selectedAddons, addonOptions]);
 
   const calendarDays = useMemo(
     () => buildCalendarDays(calendarMonth, selectedDate),
@@ -143,11 +151,18 @@ const Grooming = () => {
     }));
   };
 
-  const goToNextStep = () => {
+  const goToNextStep = async () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
     if (step < 5) {
       setStep((current) => current + 1);
       return;
     }
+
+    setIsSubmitting(true);
 
     let finalTotal = estimatedTotal;
     let loyaltyDiscount = 0;
@@ -161,21 +176,42 @@ const Grooming = () => {
       }
     }
 
-    const order = createOrder({
-      type: 'grooming',
-      service: selectedService,
-      date: selectedDate,
-      time: selectedTime,
-      addons: selectedAddons.map((id) => addonOptions.find((option) => option.id === id)?.name).filter(Boolean),
-      petDetails,
-      paymentMethod,
-      originalTotal: estimatedTotal,
-      loyaltyDiscount,
-      total: finalTotal
-    });
+    try {
+      const payload = {
+        userId: user.id,
+        service: { id: selectedServiceId },
+        appointmentDate: selectedDate.toISOString().split('T')[0],
+        appointmentTime: selectedTime,
+        petName: petDetails.petName || 'My Pet',
+        petType: petDetails.petType,
+        breed: petDetails.breed,
+        petAge: petDetails.petAge,
+        specialInstructions: petDetails.specialInstructions,
+        totalPrice: finalTotal,
+        addons: selectedAddons.map(id => ({ id }))
+      };
 
-    setOrderId(order);
-    setShowOrderStatus(true);
+      const response = await fetch('http://localhost:8080/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        const newAppt = await response.json();
+        setAppointmentId(`#APT-${newAppt.id}`);
+        setShowOrderStatus(true);
+      } else {
+        alert("Failed to book appointment. Please try again.");
+      }
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert("Network error during booking.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const goToPreviousStep = () => {
@@ -193,21 +229,6 @@ const Grooming = () => {
       ? 'Payment Method'
       : 'Confirm & Pay';
   const stepLabel = `Step ${step}`;
-
-  if (showOrderStatus && orderId) {
-    return (
-      <div className={styles.groomingPage}>
-        <OrderStatus
-          orderId={orderId}
-          onClose={() => {
-            setShowOrderStatus(false);
-            setOrderId(null);
-            setStep(1);
-          }}
-        />
-      </div>
-    );
-  }
 
   return (
     <div className={styles.groomingPage}>
@@ -353,22 +374,32 @@ const Grooming = () => {
 
       <div className={styles.buttonRow}>
         {step > 1 && (
-          <button type="button" className={styles.secondaryButton} onClick={goToPreviousStep}>
+          <button type="button" className={styles.secondaryButton} onClick={goToPreviousStep} disabled={isSubmitting}>
             ← Back
           </button>
         )}
-        <button type="button" className={styles.ctaButton} onClick={goToNextStep}>
-          {step === 1
+        <button type="button" className={styles.ctaButton} onClick={goToNextStep} disabled={isSubmitting || serviceOptions.length === 0}>
+          {isSubmitting ? 'Processing...' : (step === 1
             ? 'Continue to Date & Time →'
             : step === 2
             ? 'Continue to Pet Details →'
             : step === 3
             ? 'Review & Confirm →'
-            : 'Confirm Appointment & Pay'}
+            : 'Confirm Appointment & Pay')}
         </button>
       </div>
 
       <GroomingGallery />
+      
+      <NotificationModal 
+        isOpen={showOrderStatus} 
+        message={`Booking confirmed! Your appointment ID is ${appointmentId}`}
+        onClose={() => {
+          setShowOrderStatus(false);
+          setAppointmentId(null);
+          setStep(1); // Reset to step 1
+        }}
+      />
     </div>
   );
 };

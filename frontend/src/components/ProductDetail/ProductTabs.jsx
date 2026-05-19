@@ -39,7 +39,7 @@ const ProductTabs = ({ product }) => {
           <div className={styles.descriptionContent}>
             <p className={styles.longDesc}>{product.longDescription}</p>
             <ul className={styles.featureList}>
-              {product.features.map((feature, i) => (
+              {product.features?.map((feature, i) => (
                 <li key={i} className={styles.featureItem}>{feature}</li>
               ))}
             </ul>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOrder } from '../../context/OrderContext';
+import NotificationModal from '../common/NotificationModal';
 import styles from '../../pages/AccountOverview.module.css';
 
 const OrderStatus = ({ orderId, onClose }) => {
   const { getOrderById, updateOrderStatus } = useOrder();
   const navigate = useNavigate();
   const [isMarking, setIsMarking] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const order = getOrderById(orderId);
 
@@ -26,14 +28,17 @@ const OrderStatus = ({ orderId, onClose }) => {
       const newStatus = order.type === 'grooming' ? 'Service Completed' : 'Order Received';
       updateOrderStatus(orderId, newStatus);
       setIsMarking(false);
-      alert(`🎉 ${order.type === 'grooming' ? 'Service marked as completed' : 'Order marked as received'}! You earned 2 loyalty points!`);
-      
-      if (onClose) {
-        onClose();
-      } else {
-        navigate('/dashboard');
-      }
+      setShowSuccessModal(true);
     }, 800);
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    if (onClose) {
+      onClose();
+    } else {
+      navigate('/dashboard');
+    }
   };
 
   const statusColor = 
@@ -42,6 +47,9 @@ const OrderStatus = ({ orderId, onClose }) => {
     order.status === 'Order Received' ? '#006a63' :
     order.status === 'Service Completed' ? '#006a63' :
     '#006a63';
+
+  // Safely parse date
+  const orderDate = order.createdAt ? new Date(order.createdAt).toLocaleDateString() : new Date().toLocaleDateString();
 
   return (
     <div className={styles.orderStatusOverlay}>
@@ -58,8 +66,8 @@ const OrderStatus = ({ orderId, onClose }) => {
 
         <div className={styles.orderStatusContent}>
           <div className={styles.orderIdSection}>
-            <p className={styles.label}>Order ID</p>
-            <p className={styles.orderId}>{order.id}</p>
+            <p className={styles.label}>{order.type === 'grooming' ? 'Appointment ID' : 'Order ID'}</p>
+            <p className={styles.orderId}>{orderId}</p>
           </div>
 
           <div className={styles.statusBadgeSection}>
@@ -73,7 +81,7 @@ const OrderStatus = ({ orderId, onClose }) => {
           </div>
 
           <div className={styles.orderDetailsSection}>
-            <p className={styles.label}>Order Details</p>
+            <p className={styles.label}>Details</p>
             <div className={styles.detailsGrid}>
               <div className={styles.detailItem}>
                 <span className={styles.detailLabel}>Amount</span>
@@ -82,25 +90,13 @@ const OrderStatus = ({ orderId, onClose }) => {
                 </span>
               </div>
               <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>Order Date</span>
+                <span className={styles.detailLabel}>Date</span>
                 <span className={styles.detailValue}>
-                  {new Date(order.createdAt).toLocaleDateString()}
+                  {orderDate}
                 </span>
               </div>
             </div>
           </div>
-
-          {order.type === 'grooming' && order.status === 'Appointment Created' && (
-            <div className={styles.paymentInfoSection}>
-              <p className={styles.label}>Payment Information</p>
-              <div className={styles.paymentNotice}>
-                <span className={styles.paymentIcon}>💳</span>
-                <p className={styles.paymentText}>
-                  This is the total to pay once in the store: <strong>₱{order.total?.toLocaleString(undefined, { minimumFractionDigits: 2 }) || '0.00'}</strong>
-                </p>
-              </div>
-            </div>
-          )}
 
           {(order.status === 'To be shipped' || order.status === 'Appointment Created') && (
             <div className={styles.actionSection}>
@@ -127,6 +123,12 @@ const OrderStatus = ({ orderId, onClose }) => {
           )}
         </div>
       </div>
+
+      <NotificationModal 
+        isOpen={showSuccessModal} 
+        message={`🎉 Success! You earned 2 loyalty points!`}
+        onClose={handleModalClose}
+      />
     </div>
   );
 };

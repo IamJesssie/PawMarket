@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import styles from './RecentlyViewed.module.css';
 import AccountSidebar from '../components/Overview/AccountSidebar';
-import { products } from '../data/products';
 
 const sidebarItems = [
   'Overview',
@@ -43,22 +43,68 @@ const sidebarRoutes = {
 };
 
 const RecentlyViewed = () => {
-  const { profile, loading: authLoading } = useAuth();
+  const { user, profile, isAuthenticated, loading: authLoading } = useAuth();
   const [recentProducts, setRecentProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get IDs from localStorage
-    const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    
-    // Map the IDs/Stale items to the fresh data in products.js
-    const freshRecentProducts = viewedData.map(staleItem => {
-      return products.find(p => p.id === staleItem.id) || staleItem;
-    }).filter(p => p !== undefined);
+    const fetchRecentlyViewed = async () => {
+      let productIds = [];
 
-    setRecentProducts(freshRecentProducts);
-  }, []);
+      if (isAuthenticated && user?.id) {
+        try {
+          const { data, error } = await supabase
+            .from('recently_viewed')
+            .select('product_id')
+            .eq('user_id', user.id)
+            .order('viewed_at', { ascending: false })
+            .limit(10);
 
-  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
+          if (!error && data) {
+            productIds = data.map(item => item.product_id);
+          }
+        } catch (err) {
+          console.error("Error fetching recently viewed:", err);
+        }
+      } else {
+        // Fallback to local storage if not logged in
+        const viewedData = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        productIds = viewedData.map(item => item.id);
+      }
+
+      if (productIds.length > 0) {
+        try {
+          const response = await fetch('http://localhost:8080/api/products');
+          if (response.ok) {
+            const allProducts = await response.json();
+            // Map backend data to frontend format and filter by recently viewed
+            const freshRecentProducts = productIds.map(id => {
+              const p = allProducts.find(prod => prod.id === id);
+              if (p) {
+                return {
+                  ...p,
+                  image: p.imageUrl,
+                  sizes: ['1 kg', '2 kg', '5 kg', '10 kg', '15 kg'],
+                  flavors: ['Chicken', 'Beef', 'Salmon', 'Lamb'],
+                  images: [p.imageUrl, p.imageUrl, p.imageUrl, p.imageUrl]
+                };
+              }
+              return undefined;
+            }).filter(p => p !== undefined);
+
+            setRecentProducts(freshRecentProducts);
+          }
+        } catch (err) {
+          console.error("Failed to fetch products from backend", err);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    fetchRecentlyViewed();
+  }, [user?.id, isAuthenticated]);
+
+  if (authLoading || isLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
   if (!profile) return <div className={styles.pageContainer}>Please log in to view your profile.</div>;
 
   return (

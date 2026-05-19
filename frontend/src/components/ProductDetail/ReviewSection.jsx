@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import styles from './ReviewSection.module.css';
 
 const ReviewSection = ({ productId }) => {
+  const { profile, isAuthenticated } = useAuth();
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
@@ -9,6 +11,8 @@ const ReviewSection = ({ productId }) => {
   const [editingId, setEditingId] = useState(null);
   const [editRating, setEditRating] = useState(5);
   const [editComment, setEditComment] = useState('');
+
+  const isAdmin = profile?.role === 'ADMIN';
 
   useEffect(() => {
     fetchReviews();
@@ -30,11 +34,15 @@ const ReviewSection = ({ productId }) => {
   // CREATE - Post a new review
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      alert("Please login to post a review.");
+      return;
+    }
+
     const newReview = {
       productId,
       rating,
-      comment,
-      createdAt: new Date().toISOString()
+      comment: `${profile.fullName}: ${comment}` // Prefix with user name for now
     };
 
     try {
@@ -142,13 +150,16 @@ const ReviewSection = ({ productId }) => {
                     <div className={styles.stars}>
                       {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                     </div>
-                    <span className={styles.date}>{new Date(review.createdAt).toLocaleDateString()}</span>
+                    <span className={styles.date}>{review.createdAt ? new Date(review.createdAt).toLocaleDateString() : 'Just now'}</span>
                   </div>
                   <p className={styles.comment}>{review.comment}</p>
-                  <div className={styles.reviewActions}>
-                    <button onClick={() => startEdit(review)} className={styles.editBtn}>✏️ Edit</button>
-                    <button onClick={() => handleDelete(review.id)} className={styles.deleteBtn}>🗑️ Delete</button>
-                  </div>
+                  
+                  {isAdmin && (
+                    <div className={styles.reviewActions}>
+                      <button onClick={() => startEdit(review)} className={styles.editBtn}>✏️ Edit</button>
+                      <button onClick={() => handleDelete(review.id)} className={styles.deleteBtn}>🗑️ Delete</button>
+                    </div>
+                  )}
                 </>
               )}
             </div>
@@ -160,6 +171,7 @@ const ReviewSection = ({ productId }) => {
 
       <form onSubmit={handleSubmit} className={styles.reviewForm}>
         <h4>Leave a Review</h4>
+        {!isAuthenticated && <p style={{ color: '#fa782d', fontSize: '12px' }}>Please login to leave a review.</p>}
         <div className={styles.formGroup}>
           <label>Rating</label>
           <div className={styles.starInput}>
@@ -181,9 +193,10 @@ const ReviewSection = ({ productId }) => {
             onChange={(e) => setComment(e.target.value)}
             placeholder="Share your thoughts about this product..."
             required
+            disabled={!isAuthenticated}
           />
         </div>
-        <button type="submit" className={styles.submitBtn}>Post Review</button>
+        <button type="submit" className={styles.submitBtn} disabled={!isAuthenticated}>Post Review</button>
       </form>
     </div>
   );

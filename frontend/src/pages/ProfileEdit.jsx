@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import styles from './AddressManagement.module.css';
-
-const avatarUrl = 'https://www.figma.com/api/mcp/asset/4f7cd715-1f04-4a73-89f7-5c766ee5c8d0';
+import AccountSidebar from '../components/Overview/AccountSidebar';
 
 const sidebarItems = [
   'Overview',
@@ -19,25 +19,51 @@ const sidebarItems = [
   'Logout',
 ];
 
-const navRoutes = {
-  Overview: '/dashboard',
-  Addresses: '/dashboard/addresses',
-  Profile: '/dashboard/profile',
+const sidebarIcons = {
+  'Overview': '/images/account/overview.svg',
+  'Order History': '/images/account/orders.svg',
+  'Appointments': '/images/account/appointments.svg',
+  'Wishlist & Saved': '/images/account/wishlist.svg',
+  'Recently Viewed': '/images/account/recent.svg',
+  'Profile': '/images/account/profile.svg',
+  'Addresses': '/images/account/addresses.svg',
+  'Password & Security': '/images/account/security.svg',
+  'Notifications': '/images/account/notifications.svg',
+  'Payment Methods': '/images/account/payments.svg',
+  'My Pets': '/images/account/pets.svg',
+  'Logout': '/images/account/logout.svg',
+};
+
+const sidebarRoutes = {
+  'Overview': '/dashboard',
+  'Wishlist & Saved': '/wishlist',
+  'Recently Viewed': '/recently-viewed',
+  'Addresses': '/dashboard/addresses',
+  'Profile': '/profile',
 };
 
 const ProfileEdit = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { user, profile, isAuthenticated, loading: authLoading, updateLocalProfile } = useAuth();
 
-  // Initial user data - in a real app, this would come from an API or context
   const [formData, setFormData] = useState({
-    fullName: 'Jane Doe',
-    email: 'jane.doe@example.com',
-    phone: '+63 912 345 6789',
+    fullName: '',
+    email: '',
+    phone: '',
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Sync local form with the global profile data
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        fullName: profile.fullName || '',
+        email: profile.email || '',
+        phone: profile.phone === 'Not set' ? '' : profile.phone,
+      });
+    }
+  }, [profile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,67 +78,65 @@ const ProfileEdit = () => {
   };
 
   const handleCancel = () => {
-    // Reset form to original values
-    setFormData({
-      fullName: 'Jane Doe',
-      email: 'jane.doe@example.com',
-      phone: '+63 912 345 6789',
-    });
+    // Reset form to original profile values
+    if (profile) {
+      setFormData({
+        fullName: profile.fullName || '',
+        email: profile.email || '',
+        phone: profile.phone === 'Not set' ? '' : profile.phone,
+      });
+    }
     setIsEditing(false);
   };
 
   const handleSave = async () => {
+    if (!isAuthenticated || !user) return;
+    
     setIsSaving(true);
     try {
-      // TODO: Make API call to update profile
-      // const response = await fetch('/api/user/profile', {
-      //   method: 'PUT',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
-      
-      // For now, just simulate saving
-      setTimeout(() => {
-        setIsEditing(false);
-        setIsSaving(false);
-        alert('Profile updated successfully!');
-      }, 500);
+      // 1. Update Supabase Database
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          full_name: formData.fullName,
+          phone: formData.phone
+        })
+        .eq('id', user.id);
+
+      if (error) throw error;
+
+      // 2. Update Local Context so changes reflect everywhere instantly
+      updateLocalProfile({
+        fullName: formData.fullName,
+        phone: formData.phone
+      });
+
+      setIsEditing(false);
+      alert('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
+      alert('Failed to update profile: ' + error.message);
+    } finally {
       setIsSaving(false);
     }
   };
 
+  if (authLoading) return <div className={styles.pageContainer}>Loading profile...</div>;
+  if (!profile) return <div className={styles.pageContainer}>Please log in to edit your profile.</div>;
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.accountShell}>
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarProfile}>
-            <img className={styles.avatar} src={avatarUrl} alt={formData.fullName} />
-            <div className={styles.profileName}>{formData.fullName}</div>
-            <div className={styles.profileSubtitle}>Pet owner since 2024</div>
-          </div>
-
-          <nav className={styles.sidebarNav}>
-            {sidebarItems.map((item) => {
-              const isActive = navRoutes[item] ? location.pathname === navRoutes[item] : false;
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  className={`${styles.sidebarNavItem} ${isActive ? styles.activeNavItem : ''}`}
-                  onClick={() => navRoutes[item] && navigate(navRoutes[item])}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
+        <AccountSidebar 
+          user={profile} 
+          sidebarItems={sidebarItems} 
+          sidebarIcons={sidebarIcons}
+          sidebarRoutes={sidebarRoutes} 
+        />
 
         <main className={styles.contentArea}>
           <div className={styles.pageHeader}>
-            <h1 className={styles.pageTitle}>Edit Profile</h1>
+            <h1 className={styles.pageTitle}>Profile Settings</h1>
           </div>
 
           <div className={styles.sectionStack}>
@@ -139,10 +163,11 @@ const ProfileEdit = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  disabled={!isEditing}
+                  disabled={true} // Email is usually managed via Auth provider
                   className={styles.formInput}
-                  placeholder="Enter your email"
+                  style={{ opacity: 0.6, cursor: 'not-allowed' }}
                 />
+                <small style={{ color: '#888', marginTop: '4px', display: 'block' }}>Email cannot be changed here.</small>
               </div>
 
               <div className={styles.formGroup}>

@@ -1,33 +1,67 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useOrder } from '../context/OrderContext';
+import { useAuth } from '../context/AuthContext';
 import CartItem from '../components/ShoppingCart/CartItem';
 import OrderStatus from '../components/ShoppingCart/OrderStatus';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import styles from './ShoppingCart.module.css';
 
 const ShoppingCart = () => {
   const { items, getCartTotal, clearCart, removeFromCart, updateQuantity } = useCart();
   const { createOrder, loyaltyPoints, useLoyaltyPoints, redeemPoints } = useOrder();
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [promoCode, setPromoCode] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(false);
   const [useLoyaltyVoucher, setUseLoyaltyVoucher] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
-  const handleCheckout = () => {
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (isAuthenticated && user?.id) {
+        try {
+          const response = await fetch(`http://localhost:8080/api/addresses/user/${user.id}`);
+          if (response.ok) {
+            const data = await response.json();
+            setAddresses(data);
+          }
+        } catch (err) {
+          console.error("Failed to load addresses", err);
+        }
+      }
+    };
+    fetchAddresses();
+  }, [user?.id, isAuthenticated]);
+
+  const handleCheckout = async () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
+    if (addresses.length === 0) {
+      setShowAddressModal(true);
+      return;
+    }
+
     setIsCheckingOut(true);
-    setTimeout(() => {
-      const order = createOrder({
-        items,
-        subtotal: total,
-        shipping,
-        discount: appliedPromo ? total * 0.1 : 0,
-        loyaltyDiscount: useLoyaltyVoucher ? Math.floor(loyaltyPoints / 2) * 10 : 0,
-        total: finalTotal
-      });
+    
+    const order = await createOrder({
+      items,
+      subtotal: total,
+      shipping,
+      discount: appliedPromo ? total * 0.1 : 0,
+      loyaltyDiscount: useLoyaltyVoucher ? Math.floor(loyaltyPoints / 2) * 10 : 0,
+      total: finalTotal
+    });
 
+    if (order) {
       // Use loyalty points if voucher was redeemed
       if (useLoyaltyVoucher && loyaltyPoints >= 2) {
         const pointsUsed = Math.floor(loyaltyPoints / 2) * 2;
@@ -37,8 +71,11 @@ const ShoppingCart = () => {
       setOrderId(order);
       setShowOrderStatus(true);
       clearCart();
-      setIsCheckingOut(false);
-    }, 2000);
+    } else {
+      alert("Checkout failed. Please ensure the backend is running and try again.");
+    }
+    
+    setIsCheckingOut(false);
   };
 
   const applyPromoCode = () => {
@@ -289,6 +326,16 @@ const ShoppingCart = () => {
           <div className={styles.recommendedItem}></div>
         </div>
       </section>
+
+      <ConfirmationModal
+        isOpen={showAddressModal}
+        title="Shipping Address Required"
+        message="You need to add a shipping address before checking out. Would you like to go to address management now?"
+        confirmText="Go to Addresses →"
+        cancelText="Maybe Later"
+        onConfirm={() => navigate('/dashboard/addresses')}
+        onCancel={() => setShowAddressModal(false)}
+      />
     </div>
   );
 };

@@ -17,8 +17,11 @@ import Help from './pages/Help';
 import Home from './pages/Home';
 import RecentlyViewed from './pages/RecentlyViewed';
 import Wishlist from './pages/Wishlist';
-import './App.css';
+import OrderHistory from './pages/OrderHistory';
+import AppointmentList from './pages/AppointmentList';
+import PlaceholderPage from './pages/PlaceholderPage';
 import AdminDashboard from './pages/AdminDashboard';
+import './App.css';
 
 function App() {
   return (
@@ -41,7 +44,13 @@ function App() {
                       <Route path="/profile" element={<AccountOverview />} />
                       <Route path="/dashboard" element={<AccountOverview />} />
                       <Route path="/dashboard/profile" element={<ProfileEdit />} />
+                      <Route path="/dashboard/orders" element={<OrderHistory />} />
+                      <Route path="/dashboard/appointments" element={<AppointmentList />} />
                       <Route path="/dashboard/addresses" element={<AddressManagement />} />
+                      <Route path="/dashboard/security" element={<PlaceholderPage title="Password & Security" />} />
+                      <Route path="/dashboard/notifications" element={<PlaceholderPage title="Notifications" />} />
+                      <Route path="/dashboard/payments" element={<PlaceholderPage title="Payment Methods" />} />
+                      <Route path="/dashboard/pets" element={<PlaceholderPage title="My Pets" />} />
                       <Route path="/grooming" element={<Grooming />} />
                       <Route path="/help" element={<Help />} />
                       <Route path="/cart" element={<ShoppingCart />} />
@@ -51,7 +60,7 @@ function App() {
                   </main>
 
                   <footer className="footer">
-                    <p>&copy; 2024 PawMarket. All rights reserved.</p>
+                    <p>&copy; 2026 PawMarket. All rights reserved.</p>
                   </footer>
                 </div>
               </Router>
