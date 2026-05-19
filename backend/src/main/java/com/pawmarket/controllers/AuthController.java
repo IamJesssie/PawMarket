@@ -4,53 +4,22 @@ import com.pawmarket.models.User;
 import com.pawmarket.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173, http://localhost:5174")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
 public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    // CREATE - Register a new user
-    @PostMapping("/signup")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return ResponseEntity.badRequest().body("Email already exists");
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return ResponseEntity.ok("User registered successfully");
-    }
-
-    // READ - Login (authenticate user)
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-        String password = credentials.get("password");
-
-        Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
-            return ResponseEntity.ok(Map.of(
-                "message", "Login successful",
-                "email", email,
-                "fullName", userOpt.get().getFullName(),
-                "id", userOpt.get().getId()
-            ));
-        }
-        return ResponseEntity.status(401).body("Invalid email or password");
-    }
-
-    // READ - Get all users
+    // READ - Get all users (Profiles)
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -58,7 +27,7 @@ public class AuthController {
 
     // READ - Get user by ID
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -68,27 +37,25 @@ public class AuthController {
 
     // UPDATE - Update user profile
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody User updatedUser) {
         Optional<User> existing = userRepository.findById(id);
         if (existing.isPresent()) {
             User user = existing.get();
             if (updatedUser.getFullName() != null) user.setFullName(updatedUser.getFullName());
-            if (updatedUser.getEmail() != null) user.setEmail(updatedUser.getEmail());
-            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-            }
+            if (updatedUser.getRole() != null) user.setRole(updatedUser.getRole());
+            if (updatedUser.getLoyaltyPoints() != null) user.setLoyaltyPoints(updatedUser.getLoyaltyPoints());
             userRepository.save(user);
-            return ResponseEntity.ok(Map.of("message", "User updated successfully"));
+            return ResponseEntity.ok(Map.of("message", "Profile updated successfully"));
         }
         return ResponseEntity.notFound().build();
     }
 
-    // DELETE - Delete a user
+    // DELETE - Delete a user profile
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-            return ResponseEntity.ok("User deleted successfully");
+            return ResponseEntity.ok("Profile deleted successfully");
         }
         return ResponseEntity.notFound().build();
     }

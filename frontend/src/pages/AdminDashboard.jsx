@@ -8,35 +8,32 @@ const AdminDashboard = () => {
     const [loadingReviews, setLoadingReviews] = useState(true);
     const [activeTab, setActiveTab] = useState('users');
 
-    // Edit states for users
+    // Edit states for profiles (users)
     const [editingUserId, setEditingUserId] = useState(null);
     const [editUserName, setEditUserName] = useState('');
-    const [editUserEmail, setEditUserEmail] = useState('');
+    const [editUserRole, setEditUserRole] = useState('USER');
+    const [editLoyaltyPoints, setEditLoyaltyPoints] = useState(0);
 
     // Edit states for reviews
     const [editingReviewId, setEditingReviewId] = useState(null);
     const [editReviewRating, setEditReviewRating] = useState(5);
     const [editReviewComment, setEditReviewComment] = useState('');
 
-    // Create new user states
-    const [showAddUser, setShowAddUser] = useState(false);
-    const [newUserName, setNewUserName] = useState('');
-    const [newUserEmail, setNewUserEmail] = useState('');
-    const [newUserPassword, setNewUserPassword] = useState('');
-
     useEffect(() => {
         fetchUsers();
         fetchReviews();
     }, []);
 
-    // ==================== USERS CRUD ====================
+    // ==================== USERS (PROFILES) CRUD ====================
 
-    // READ - Fetch all users
+    // READ - Fetch all profiles from backend (pointing to profiles table)
     const fetchUsers = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/auth/users');
-            const data = await response.json();
-            setUsers(data);
+            if (response.ok) {
+                const data = await response.json();
+                setUsers(data);
+            }
         } catch (error) {
             console.error('Error fetching users:', error);
         } finally {
@@ -44,33 +41,12 @@ const AdminDashboard = () => {
         }
     };
 
-    // CREATE - Add new user
-    const handleAddUser = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:8080/api/auth/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fullName: newUserName, email: newUserEmail, password: newUserPassword })
-            });
-            if (response.ok) {
-                setNewUserName(''); setNewUserEmail(''); setNewUserPassword('');
-                setShowAddUser(false);
-                fetchUsers();
-            } else {
-                const error = await response.text();
-                alert(error);
-            }
-        } catch (error) {
-            console.error('Error creating user:', error);
-        }
-    };
-
-    // UPDATE - Edit user
+    // UPDATE - Edit profile
     const startEditUser = (user) => {
         setEditingUserId(user.id);
         setEditUserName(user.fullName || '');
-        setEditUserEmail(user.email);
+        setEditUserRole(user.role || 'USER');
+        setEditLoyaltyPoints(user.loyaltyPoints || 0);
     };
 
     const handleUpdateUser = async (id) => {
@@ -78,7 +54,11 @@ const AdminDashboard = () => {
             const response = await fetch(`http://localhost:8080/api/auth/users/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fullName: editUserName, email: editUserEmail })
+                body: JSON.stringify({ 
+                    fullName: editUserName, 
+                    role: editUserRole,
+                    loyaltyPoints: parseInt(editLoyaltyPoints, 10)
+                })
             });
             if (response.ok) {
                 setEditingUserId(null);
@@ -89,9 +69,9 @@ const AdminDashboard = () => {
         }
     };
 
-    // DELETE - Remove user
+    // DELETE - Remove profile
     const handleDeleteUser = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this user?')) return;
+        if (!window.confirm('Are you sure you want to delete this user profile?')) return;
         try {
             const response = await fetch(`http://localhost:8080/api/auth/users/${id}`, { method: 'DELETE' });
             if (response.ok) fetchUsers();
@@ -102,12 +82,12 @@ const AdminDashboard = () => {
 
     // ==================== REVIEWS CRUD ====================
 
-    // READ - Fetch all reviews (we'll get product 1 for now, or all)
+    // READ - Fetch all reviews
     const fetchReviews = async () => {
         try {
-            // Fetch reviews for multiple product IDs
+            // Fetch reviews for multiple product IDs (simulating a "get all" for now)
             const allReviews = [];
-            for (let i = 1; i <= 20; i++) {
+            for (let i = 1; i <= 30; i++) {
                 try {
                     const response = await fetch(`http://localhost:8080/api/reviews/product/${i}`);
                     if (response.ok) {
@@ -162,7 +142,7 @@ const AdminDashboard = () => {
         <div className={styles.adminPage}>
             <div className={styles.header}>
                 <h1>🛡️ Admin Dashboard</h1>
-                <p>Manage your registered users, reviews, and platform data.</p>
+                <p>Manage your user profiles, loyalty points, and platform reviews.</p>
             </div>
 
             {/* Stats */}
@@ -191,7 +171,7 @@ const AdminDashboard = () => {
                     className={`${styles.tab} ${activeTab === 'users' ? styles.tabActive : ''}`}
                     onClick={() => setActiveTab('users')}
                 >
-                    👤 Users
+                    👤 Profiles
                 </button>
                 <button 
                     className={`${styles.tab} ${activeTab === 'reviews' ? styles.tabActive : ''}`}
@@ -205,39 +185,18 @@ const AdminDashboard = () => {
             {activeTab === 'users' && (
                 <div className={styles.tableContainer}>
                     <div className={styles.tableHeader}>
-                        <h2>User Management</h2>
-                        <button className={styles.addBtn} onClick={() => setShowAddUser(!showAddUser)}>
-                            {showAddUser ? '✕ Cancel' : '+ Add User'}
-                        </button>
+                        <h2>User Profiles (Sync with Supabase)</h2>
+                        <span style={{ fontSize: '12px', color: '#666' }}>Users are managed via Supabase Auth</span>
                     </div>
-
-                    {/* CREATE FORM */}
-                    {showAddUser && (
-                        <form onSubmit={handleAddUser} className={styles.addForm}>
-                            <input 
-                                type="text" placeholder="Full Name" value={newUserName}
-                                onChange={(e) => setNewUserName(e.target.value)} required
-                            />
-                            <input 
-                                type="email" placeholder="Email" value={newUserEmail}
-                                onChange={(e) => setNewUserEmail(e.target.value)} required
-                            />
-                            <input 
-                                type="password" placeholder="Password" value={newUserPassword}
-                                onChange={(e) => setNewUserPassword(e.target.value)} required
-                            />
-                            <button type="submit" className={styles.saveBtn}>Create User</button>
-                        </form>
-                    )}
 
                     <table className={styles.userTable}>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Full Name</th>
+                                <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Created At</th>
+                                <th>Points</th>
+                                <th>Since</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -247,7 +206,6 @@ const AdminDashboard = () => {
                             ) : users.length > 0 ? (
                                 users.map(user => (
                                     <tr key={user.id}>
-                                        <td>{user.id}</td>
                                         <td>
                                             {editingUserId === user.id ? (
                                                 <input value={editUserName} onChange={(e) => setEditUserName(e.target.value)} className={styles.editInput} />
@@ -255,32 +213,42 @@ const AdminDashboard = () => {
                                                 <span className={styles.nameCell}>{user.fullName}</span>
                                             )}
                                         </td>
+                                        <td>{user.email || 'N/A'}</td>
                                         <td>
                                             {editingUserId === user.id ? (
-                                                <input value={editUserEmail} onChange={(e) => setEditUserEmail(e.target.value)} className={styles.editInput} />
+                                                <select value={editUserRole} onChange={(e) => setEditUserRole(e.target.value)} className={styles.editInput}>
+                                                    <option value="USER">USER</option>
+                                                    <option value="ADMIN">ADMIN</option>
+                                                </select>
                                             ) : (
-                                                user.email
+                                                <span className={styles.roleTag}>{user.role}</span>
                                             )}
                                         </td>
-                                        <td><span className={styles.roleTag}>{user.role}</span></td>
-                                        <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                                        <td>
+                                            {editingUserId === user.id ? (
+                                                <input type="number" value={editLoyaltyPoints} onChange={(e) => setEditLoyaltyPoints(e.target.value)} className={styles.editInput} style={{ width: '60px' }} />
+                                            ) : (
+                                                user.loyaltyPoints || 0
+                                            )}
+                                        </td>
+                                        <td>{user.memberSince || '2026'}</td>
                                         <td className={styles.actionCell}>
                                             {editingUserId === user.id ? (
                                                 <>
                                                     <button className={styles.saveBtn} onClick={() => handleUpdateUser(user.id)}>💾 Save</button>
-                                                    <button className={styles.cancelBtn} onClick={() => setEditingUserId(null)}>Cancel</button>
+                                                    <button className={styles.cancelBtn} onClick={() => setEditingUserId(null)}>✕</button>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <button className={styles.editBtn} onClick={() => startEditUser(user)}>✏️ Edit</button>
-                                                    <button className={styles.deleteBtn} onClick={() => handleDeleteUser(user.id)}>🗑️ Delete</button>
+                                                    <button className={styles.editBtn} onClick={() => startEditUser(user)}>✏️</button>
+                                                    <button className={styles.deleteBtn} onClick={() => handleDeleteUser(user.id)}>🗑️</button>
                                                 </>
                                             )}
                                         </td>
                                     </tr>
                                 ))
                             ) : (
-                                <tr><td colSpan="6" className={styles.centerText}>No users found.</td></tr>
+                                <tr><td colSpan="6" className={styles.centerText}>No profiles found.</td></tr>
                             )}
                         </tbody>
                     </table>
@@ -301,7 +269,6 @@ const AdminDashboard = () => {
                                 <th>Product ID</th>
                                 <th>Rating</th>
                                 <th>Comment</th>
-                                <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -332,7 +299,6 @@ const AdminDashboard = () => {
                                                 review.comment
                                             )}
                                         </td>
-                                        <td>{new Date(review.createdAt).toLocaleDateString()}</td>
                                         <td className={styles.actionCell}>
                                             {editingReviewId === review.id ? (
                                                 <>
