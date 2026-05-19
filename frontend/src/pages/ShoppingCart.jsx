@@ -5,6 +5,7 @@ import { useOrder } from '../context/OrderContext';
 import { useAuth } from '../context/AuthContext';
 import CartItem from '../components/ShoppingCart/CartItem';
 import OrderStatus from '../components/ShoppingCart/OrderStatus';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import styles from './ShoppingCart.module.css';
 
 const ShoppingCart = () => {
@@ -19,6 +20,7 @@ const ShoppingCart = () => {
   const [orderId, setOrderId] = useState(null);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
   const [addresses, setAddresses] = useState([]);
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -44,9 +46,7 @@ const ShoppingCart = () => {
     }
 
     if (addresses.length === 0) {
-      if (window.confirm("You need to add a shipping address before checking out. Go to address management?")) {
-        navigate('/dashboard/addresses');
-      }
+      setShowAddressModal(true);
       return;
     }
 
@@ -326,6 +326,16 @@ const ShoppingCart = () => {
           <div className={styles.recommendedItem}></div>
         </div>
       </section>
+
+      <ConfirmationModal
+        isOpen={showAddressModal}
+        title="Shipping Address Required"
+        message="You need to add a shipping address before checking out. Would you like to go to address management now?"
+        confirmText="Go to Addresses →"
+        cancelText="Maybe Later"
+        onConfirm={() => navigate('/dashboard/addresses')}
+        onCancel={() => setShowAddressModal(false)}
+      />
     </div>
   );
 };
